@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/oce/!svn/ver/24384/main_project/trunk/AdHot/feedadmin/controllers
+END
+error.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/controllers/error.py
+END
+FeedAdmin.py
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/oce/!svn/ver/24384/main_project/trunk/AdHot/feedadmin/controllers/FeedAdmin.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/controllers/__init__.py
+END

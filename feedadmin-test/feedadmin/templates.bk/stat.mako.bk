@@ -1,0 +1,789 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html id="designdetector-com" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>feed quato system </title>
+
+<!--tangr highchart-->
+
+<script src="/jquery.js"></script>
+<script src="/jquery.scrollto.js"></script>
+<!--script src="/jquery.min.js"></script-->
+<script src="/Highcharts-2.2.5/js/highcharts.js"></script>
+<!-- Additional files for the Highslide popup effect -->
+<script type="text/javascript" src="/highslide-full.min.js"></script>
+<script type="text/javascript" src="/highslide.config.js" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="/highslide.css"/> 
+<!--script type="text/javascript" src="http://www.highcharts.com/highslide/highslide-full.min.js"></script>
+<script type="text/javascript" src="http://www.highcharts.com/highslide/highslide.config.js" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="http://www.highcharts.com/highslide/highslide.css" /-->
+
+<script type="text/javascript">
+
+		  
+	var qushi = 0;
+	var stypeDesc = new Array();
+	function clone(myObj){
+	  if(typeof(myObj) != 'object') return myObj;
+	  if(myObj == null) return myObj;
+	  
+	  var myNewObj = new Object();
+	  
+	  for(var i in myObj)
+	     myNewObj[i] = clone(myObj[i]);
+	  
+	  return myNewObj;
+	}	
+
+	function getStypeDesc() {
+	  $.ajax({
+	    type: 'POST',
+	    url: '/get-stype-list',
+	    async: false,
+	    success : function(text){
+	      var data = eval('(' + text + ')');
+	      for(var i=0; i< data.length; ++i) {
+	        stypeDesc[data[i]["stype"].toString()] = data[i]["description"];
+	      }
+	    },
+	    error : function(){
+	      alert('Get Stype Desc 加载出错,请重新刷新页面');
+	    }
+	  });
+	}	
+	
+    	function goto(id, k) {
+        	$("#" + id).ScrollTo(1000 + 500*k);
+   	}
+
+
+	function getYesterday(time){    
+	    var date = new Date(time)  
+	    var yesterday_milliseconds=date.getTime()-1000*60*60*24;       
+	    var yesterday = new Date();       
+	        yesterday.setTime(yesterday_milliseconds);       
+	        
+	    var strYear = yesterday.getFullYear();    
+	    var strDay = yesterday.getDate();    
+	    var strMonth = yesterday.getMonth()+1;  
+	    if(strMonth<10)    
+	    {    
+	        strMonth="0"+strMonth;    
+	    }    
+	    if(strDay<10)    
+	    {    
+	        strDay="0"+strDay;    
+	    }    
+	    datastr = strYear+"-"+strMonth+"-"+strDay;  
+	    return datastr;  
+	  } 
+	
+	  
+	        function lookPro(obj){
+  
+        	ob=eval(obj);
+        	var Property="";
+        	for(var i in ob){
+        		Property+= i +"  |  </br>";
+        		document.getElementById("myp").innerHTML=Property;
+        	}
+ 	    	alert(Property)
+          }
+
+  	function Abs(x) {
+		return x>0?x:-x;
+	}
+
+	function mysort(A, B) {
+		return Abs(B.data0 - B.data1) - Abs(A.data0 - A.data1);
+	}// smaller ....
+	
+	
+	//  chart style   dis, click, reply, total
+	var chart_dispatch = {
+            chart: {
+                renderTo: 'container_checkout_dispatch',
+                type: 'column',
+	    	events: {
+                            click: function() {
+				goto("container_total" ,0)	;
+			    }	    
+		}
+	    },
+            title: {
+                text: '分发量dispatch 可能的变化原因 (<font color="red">变化大于1万的类型)</font>',
+			style: {
+				color: 'red',
+				fontSize: '20px'
+			}
+            },
+            xAxis: {
+		title: {
+			text: '类型'
+		},
+        //        labels: {
+	//	    rotation: -45,
+        //            formatter: function() {
+        //                return this.value; // clean, unformatted number for year
+        //            }
+        //        }
+            },
+            yAxis: {
+                title: {
+                    text: '数量'
+                },
+                labels: {
+                    formatter: function() {
+                        return this.value / 10000 + 'w';
+                   }
+                }
+            },
+            tooltip: {                
+		shared: true,
+                crosshairs: true,
+            },
+	    plotOptions: {
+                series: {
+                    cursor: 'pointer',
+                    point: {
+//                        events: {
+//                            click: function() {
+//		                hs.htmlExpand(null, {
+//                                    pageOrigin: {
+//                                        x: this.pageX,
+//                                        y: this.pageY
+//                                    },
+//                                    headingText: this.series.name,
+//                                    maincontentText: ' 数量: '+ this.y
+//                         				+'<br/> 类型:  '+ (stypeDesc[this.category] ? stypeDesc[this.category]: this.category)
+//							+ " <br/>日期："+ this.series.name
+//                            	});
+//                           }
+//                        },
+                    	marker: {
+                        	lineWidth: 1
+                    	}
+                   }//point
+	        }//series
+            },
+            series: []
+        };// var char_taotal
+
+	//!!!!!!!!!!!!!!!!!!
+	var chart_click = {
+            chart: {
+                renderTo: 'container_checkout_click',
+                type: 'column',
+	    	events: {
+                            click: function() {
+				goto("container_total", 1)	;
+			    }	    
+		}
+	    },
+            title: {
+                text: '点击量click 可能的变化原因 (变化大于10万的类型)',
+			style: {
+				color: 'red',
+				fontSize: '20px'
+			}
+
+            },
+            xAxis: {
+		title: {
+			text: '类型'
+		},
+                labels: {
+		    //rotation: -45,
+                    formatter: function() {
+                        return this.value; // clean, unformatted number for year
+                    }
+                }
+            },
+            yAxis: {
+                title: {
+                    text: '数量'
+                },
+                labels: {
+                    formatter: function() {
+                        return this.value / 10000 + 'w';
+                   }
+                }
+            },
+            tooltip: {                
+		shared: true,
+                crosshairs: true,
+            },
+	    plotOptions: {
+                series: {
+                    cursor: 'pointer',
+                    point: {
+//                        events: {
+//                            click: function() {
+//		                hs.htmlExpand(null, {
+//                                    pageOrigin: {
+//                                        x: this.pageX,
+//                                        y: this.pageY
+//                                    },
+//                                    headingText: this.series.name,
+//                                    maincontentText: ' 数量: '+ this.y
+//                         				+'<br/> 类型:  '+ (stypeDesc[this.category] ? stypeDesc[this.category]: this.category)
+//							+ " <br/>日期："+ this.series.name
+//                            	});
+//                           }
+//                        },
+                    	marker: {
+                        	lineWidth: 1
+                    	}
+                   }//point
+	        }//series
+            },
+            series: []
+        };// var char_taotal
+
+	
+	//!!!!!!!!!!!!!!!
+	var chart_reply = {
+            chart: {
+                renderTo: 'container_checkout_reply',
+                type: 'column',
+	    	events: {
+                            click: function() {
+				goto("container_total", 2)	;
+			    }	    
+		}
+	    },
+            title: {
+                text: '回复量reply 可能的变化原因 (变化大于1万的类型)',
+			style: {
+				color: 'red',
+				fontSize: '20px'
+			}
+            },
+            xAxis: {
+		title: {
+			text: '类型'
+		},
+                labels: {
+                    formatter: function() {
+                        return this.value; // clean, unformatted number for year
+                    }
+                }
+            },
+            yAxis: {
+                title: {
+                    text: '数量'
+                },
+                labels: {
+                    formatter: function() {
+                        return this.value / 10000 + 'w';
+                   }
+                }
+            },
+            tooltip: {                
+		shared: true,
+                crosshairs: true,
+//                formatter: function() {
+//                    return ' 数量: '+ this.y//.data[this.point.x]
+//                         	+'<br/> 类型:  '//+ stypeDesc[this.x] //+ "   index:" + series.data[this.point.x - 1];
+//               			+ (stypeDesc[this.x] ? stypeDesc[this.x]: this.x)
+//				+ " <br/>日期："+ this.series.name
+//                }
+             },
+	    plotOptions: {
+                series: {
+                    cursor: 'pointer',
+                    point: {
+//                        events: {
+//                            click: function() {
+//		                hs.htmlExpand(null, {
+//                                    pageOrigin: {
+//                                        x: this.pageX,
+//                                        y: this.pageY
+//                                    },
+//                                    headingText: this.series.name,
+//                                    maincontentText: ' 数量: '+ this.y
+//                         				+'<br/> 类型:  '+ (stypeDesc[this.category] ? stypeDesc[this.category]: this.category)
+//							+ " <br/>日期："+ this.series.name
+//                            	});
+//                           }
+//                        },
+                    	marker: {
+                        	lineWidth: 1
+                    	}
+                   }//point
+	        }//series
+            },
+            series: []
+        };// var char_taotal
+	//-----------------------------
+
+       var chart_total = {
+            chart: {
+                renderTo: 'container_total',
+                type: 'line',
+	    },
+            title: {
+                text: '新鲜事变化趋势(点击该点查看详细信息)',
+			style: {
+				color: 'blue',
+				fontSize: '20px'
+			}
+            },
+            xAxis: {
+		title: {
+			text: '日期'
+		},
+                labels: {
+		    rotation: -45,
+                    formatter: function() {
+                        //return this.value // clean, unformatted number for year
+                        return this.value.slice(5,10); // clean, unformatted number for year
+                    }
+                }
+            },
+            yAxis: {
+                title: {
+                    text: '数量'
+                },
+                labels: {
+                    formatter: function() {
+                        return this.value / 10000 + 'w';
+                   }
+                }
+            },
+            tooltip: {                
+		//shared: true,
+                crosshairs: true,
+                formatter: function() {
+                    return this.series.name +'  <b>'+
+                        this.y +'</b><br/> date:  '+ this.x //+ "   index:" + series.data[this.point.x - 1];
+                }
+            },
+	    plotOptions: {
+                series: {
+                    cursor: 'pointer',
+		    point: {
+                        events: {
+                            click: function() {
+								
+				checkout(this.category, this.series.name);	
+//				alert(this.category)
+//				lookPro(this.category);			
+//                                hs.htmlExpand(null, {
+//                                    pageOrigin: {
+//                                        x: this.pageX,
+//                                        y: this.pageY
+//                                    },
+//                                    headingText: this.series.name,
+//                                    maincontentText:  this.category +':<br/> '+
+//                                        this.y +' hits',
+//                                   
+//                                });
+                            }
+                        }
+                    },
+                    marker: {
+                        lineWidth: 1
+                    }
+                }
+            },
+            series: []
+        };// var char_taotal
+//==============================================================
+
+</script>
+
+
+
+<script type="text/javascript">
+	flag = 0;
+	var Date2Data = new Object();
+	
+        var series = [
+  		{name : 'name', data : []}, 
+  		{name : 'name', data : []}, 
+  		{name : 'name', data : []}, 
+  		{name : 'name', data : []}, 
+  	]	
+  
+
+	function get_checkout_data(datetime) {//change the series data
+		$.ajax({
+		    type: 'POST',
+		    url: '/get-quota-data',
+		    async: false,
+		    data: "date="+datetime,
+		    success : function(text){
+			      if(!text || text.length <= 0) return;
+			      var currentData = eval('(' + text + ')');
+
+			      series[0].name = "发送量" 
+			      series[1].name = "点击数"
+			      series[2].name = "回复数" 
+
+			      series[0].data[10000] = 0
+			      series[1].data[10000] = 0
+			      series[2].data[10000] = 0
+				
+			      //alert("currentData:"+ currentData.length);
+			      for(var i = currentData.length - 1, j = 0; i >= 0;  --i, ++j) {
+	        		  //date[j] = currentData[i]["date"]
+	         		  stype = currentData[i]["stype"]
+				 // alert(stype + typeof(stype))
+				  if (stype >= 10000) continue;
+				  series[0].data[stype] = currentData[i]["dispatch"]
+	         		  series[1].data[stype] = currentData[i]["click"]
+	         		  series[2].data[stype] = currentData[i]["reply"]
+			      }
+			//	alert("series:"+series[0].data.length)
+		    },// sucess
+		    error : function(){
+        	      alert('get_checkout_data : 加载出错, 请重新刷新页面 date:' + time);
+        	    }
+        
+    	  });//ajax
+	}//get_checkout_data
+
+	function checkout(time, idname) {
+//	        year = Date().getYear();	
+//		time =  "2012-"+time
+		chart_dispatch.chart.renderTo = 'container_checkout_dispatch',
+		chart_click.chart.renderTo = 'container_checkout_click',
+		chart_reply.chart.renderTo = 'container_checkout_reply'
+		//$("#container_detail").ScrollTo(800);
+		//$.ScrollTo("#container_detail",800);
+  		//goto("container_checkout_click");  
+		time2 = getYesterday(time)	
+		alert(time2)
+		//Date2Data  ::  date  dispatch,click,reply
+		if (idname == "发送量") {
+			//alert(  Date2Data[time][0] + "  " + Date2Data[time2][0])
+			qushi = Date2Data[time][0] > Date2Data[time2][0] ? 1 : -1
+
+			document.getElementById("container_checkout_dispatch").style.display="block";
+			document.getElementById("container_checkout_click").style.display="none";
+			document.getElementById("container_checkout_reply").style.display="none";
+  			idname = "container_checkout_dispatch"
+			goto(idname, 0); 
+		}
+		else if (idname == "点击数") {
+			qushi = Date2Data[time][1] > Date2Data[time2][1] ? 1 : -1
+
+			document.getElementById("container_checkout_dispatch").style.display="none";
+			document.getElementById("container_checkout_click").style.display="block";
+			document.getElementById("container_checkout_reply").style.display="none";
+  			idname = "container_checkout_click"
+			goto(idname, 1);  
+		}	
+		else if (idname == "回复数") {
+			qushi = Date2Data[time][2] > Date2Data[time2][2] ? 1 : -1
+
+			document.getElementById("container_checkout_dispatch").style.display="none";
+			document.getElementById("container_checkout_click").style.display="none";
+			document.getElementById("container_checkout_reply").style.display="block";
+  			idname = "container_checkout_reply"
+			goto(idname, 2);  
+		}	
+		//alert(idname)
+		
+		var dis = []
+		var click = []
+		var reply = []
+
+	      	get_checkout_data(time);		
+
+		dis[0] = series[0].data
+		click[0] = series[1].data
+		reply[0] = series[2].data
+		time1 = time
+		//alert("len1="+ dis[0].length)
+
+		series[0].data = []
+		series[1].data = []
+		series[2].data = []
+
+	      	get_checkout_data(time2);		
+		dis[1] = series[0].data
+		click[1] = series[1].data
+		reply[1] = series[2].data
+		//alert("len2="+ dis[1].length)
+
+		if(idname == "分发量") {
+			//dispatch
+			var Dis = {
+				 cate : 0,
+				 data0 : 0,
+				 data1 : 0,
+			}
+			var serdis = [
+	  				{name : time2, data : []}, 
+	  				{name : time1, data : []}, 
+					{name : "差值", data : []}
+				]		
+			var catedis = [];
+			var DisVec = []
+			for (var i = 0, cnt = 0; i < 10000; ++i) {
+				if ( typeof(dis[0][i]) == "undefined" ||  typeof(dis[1][i]) == "undefined"   )	
+					continue;
+				if (qushi * (dis[0][i] - dis[1][i]) < 0) continue;			
+	
+				Dis.data0 = dis[1][i]//yesterday
+				Dis.data1 = dis[0][i]
+				Dis.cate = i	
+				DisVec.push(clone(Dis));
+	//			cnt+=10000;
+	//			if ( Abs(dis[0][i] - dis[1][i]) > 10000 ) {
+	////				alert("i stype:" + i +" " + dis[0][i] + "  " + dis[1][i] + "::::" +typeof(dis[0][i]) + " " + typeof(dis[1][i]) )
+	//				catedis.push(i);
+	//				serdis[0].data.push(dis[1][i])	
+	//				serdis[1].data.push(dis[0][i])	
+	//				cnt++
+	//			}
+			}
+	
+			DisVec.sort(mysort);
+			//lookPro(DisVec)
+	
+			for (var i = 0 ; i < 10 && i < DisVec.length-1; ++i) {
+					catedis.push( stypeDesc[DisVec[i].cate] );
+					serdis[0].data.push( DisVec[i].data0 )	
+					serdis[1].data.push( DisVec[i].data1 )	
+					serdis[2].data.push( Abs(DisVec[i].data0-DisVec[i].data1) )	
+			}
+	
+			//alert(series.length)
+		}
+
+
+		if(idname == "点击数") {
+			var Dis = {
+				 cate : 0,
+				 data0 : 0,
+				 data1 : 0,
+			}
+			var serdis = [
+	  				{name : time2, data : []}, 
+	  				{name : time1, data : []}, 
+					{name : "差值", data : []}
+				]		
+			var catedis = [];
+			var DisVec = []
+			for (var i = 0, cnt = 0; i < 10000; ++i) {
+				if ( typeof(click[0][i]) == "undefined" ||  typeof(click[1][i]) == "undefined"   )	
+					continue;
+				if (qushi * (click[0][i] - click[1][i]) < 0) continue;			
+	
+				Dis.data0 = click[1][i]//yesterday
+				Dis.data1 = click[0][i]
+				Dis.cate = i	
+				DisVec.push(clone(Dis));
+			}
+	
+			DisVec.sort(mysort);
+			//lookPro(DisVec)
+	
+			for (var i = 0 ; i < 10 && i < DisVec.length-1; ++i) {
+					catedis.push( stypeDesc[DisVec[i].cate] );
+					serdis[0].data.push( DisVec[i].data0 )	
+					serdis[1].data.push( DisVec[i].data1 )	
+					serdis[2].data.push( Abs(DisVec[i].data0-DisVec[i].data1) )	
+			}
+	
+			//alert(series.length)
+		}
+
+
+		if(idname == "回复数") {
+			//dispatch
+			var Dis = {
+				 cate : 0,
+				 data0 : 0,
+				 data1 : 0,
+			}
+			var serdis = [
+	  				{name : time2, data : []}, 
+	  				{name : time1, data : []}, 
+					{name : "差值", data : []}
+				]		
+			var catedis = [];
+			var DisVec = []
+			for (var i = 0, cnt = 0; i < 10000; ++i) {
+				if ( typeof(reply[0][i]) == "undefined" ||  typeof(reply[1][i]) == "undefined"   )	
+					continue;
+				if (qushi * (reply[0][i] - reply[1][i]) < 0) continue;			
+	
+				Dis.data0 = reply[1][i]//yesterday
+				Dis.data1 = reply[0][i]
+				Dis.cate = i	
+				DisVec.push(clone(Dis));
+			}
+	
+			DisVec.sort(mysort);
+			//lookPro(DisVec)
+	
+			for (var i = 0 ; i < 10 && i < DisVec.length-1; ++i) {
+					catedis.push( stypeDesc[DisVec[i].cate] );
+					serdis[0].data.push( DisVec[i].data0 )	
+					serdis[1].data.push( DisVec[i].data1 )	
+					serdis[2].data.push( Abs(DisVec[i].data0-DisVec[i].data1) )	
+			}
+	
+			//alert(series.length)
+		}
+
+
+		if (flag++) {
+			chart_dispatch.xAxis.categories = catedis;
+			chart_dispatch.series = [] ;
+			chart_dispatch.series.push( serdis[0] ) ;
+			chart_dispatch.series.push( serdis[1] ) ;
+			chart_dispatch.series.push( serdis[2] ) ;
+
+			chart_click.xAxis.categories = cateclick;
+			chart_click.series = [];
+			chart_click.series.push(serclick[0]);
+			chart_click.series.push(serclick[1]);
+
+			chart_reply.xAxis.categories = catereply;
+			chart_reply.series = [];
+			chart_reply.series.push(serreply[0]);
+			chart_reply.series.push(serreply[1]);
+//				chart2.xAxis.categories = catedis;
+//			chart2.series[0].setData( serdis[0] ) ;
+//			chart2.series[1].setData( serdis[1] ) ;
+//			
+//			chart3.xAxis.categories = cateclick;
+//			chart3.series[0].setData(serclick[0]);
+//			chart3.series[1].setData(serclick[1]);
+//			
+//			chart4.xAxis.categories = catereply;
+//			chart4.series[0].setData(serreply[0]);
+//			chart4.series[1].setData(serreply[1]);
+
+		} else {
+			chart_dispatch.xAxis.categories = catedis;
+			chart_dispatch.series.push( serdis[0] ) ;
+			chart_dispatch.series.push( serdis[1] ) ;
+			chart_dispatch.series.push( serdis[2] ) ;
+
+			chart_click.xAxis.categories = cateclick;
+			chart_click.series.push(serclick[0]);
+			chart_click.series.push(serclick[1]);
+
+			chart_reply.xAxis.categories = catereply;
+			chart_reply.series.push(serreply[0]);
+			chart_reply.series.push(serreply[1]);
+		}
+
+		chart2 = new Highcharts.Chart(chart_dispatch)
+		chart3 = new Highcharts.Chart(chart_click)
+		chart4 = new Highcharts.Chart(chart_reply)
+
+	}
+
+$(function () {
+ 
+    $(document).ready(function() {
+
+	$.ajax({
+	    type: 'POST',
+	    url: '/get-quota-data',
+	    async: false,
+	    data: "date=0",
+	    success : function(text){
+		      if(!text || text.length <= 0) return;
+		      currentData = eval('(' + text + ')');
+			     // alert("currentData:"+ currentData.length);
+	
+		      var series = [
+				{name : 'name', data : []}, 
+				{name : 'name', data : []}, 
+				{name : 'name', data : []}, 
+		      ]	
+		      series[0].name = "发送量" 
+		      series[1].name = "回复数" 
+		      series[2].name = "点击数"
+			
+		      var date = new Array(currentData.length);
+		      for(var i = currentData.length - 1, j = 0; i >= 0;  --i, ++j) {
+			  date[j] = currentData[i]["date"]
+         		  series[0].data[j] = currentData[i]["dispatch"]
+         		  series[1].data[j] = currentData[i]["reply"]
+         		  series[2].data[j] = currentData[i]["click"]
+
+        		  Date2Data[ date[j] ] = [ series[0].data[j], series[1].data[j], series[2].data[j] ]
+		      }
+			//lookPro(Date2Data)
+
+		      chart_total.series.push(series[0]);
+		      chart_total.series.push(series[1]);
+		      chart_total.series.push(series[2]);
+		      chart_total.xAxis.categories = date;
+
+		      chart1 = new Highcharts.Chart(chart_total)
+//
+//		      chartArray = new Array(chart_checkout, chart_checkout, chart_checkout)
+//        	      chart2 = new Highcharts.Chart(chart_checkout)
+//        	      chart3 = new Highcharts.Chart(chartArray[0])
+//        	      chart4 = new Highcharts.Chart(chartArray[0])
+//
+	    },// sucess
+	    error : function(){
+	      alert('chart_total 加载出错, 请重新刷新页面');
+	    }
+
+	  });//ajax
+	  getStypeDesc();
+    });//ready
+    
+});
+</script>
+
+<!--tangr highchart-->
+
+</head>
+
+<body>
+<div>
+
+<table id="data1" width="1400" border="1" class="t1" style="text-align:center;" cellspacing="1%">
+  <tr>
+    <th><a id="title_stype_home" href="#nogo">类型</a></th>
+    <th><a id="title_click_pos_home" href="#nogo">成本比</a></th>
+    <th><a id="title_click_user_home" href="#nogo">产出比</a></th>
+    <th><a id="title_clicked_user_home" href="#nogo">调整系数</a></th>
+  </tr>
+</table>
+<script type="text/javascript">
+//var text="还没完成，敬请期待～"
+//document.URL="http://feed.d.xiaonei.com/stat"
+//document.write(text)
+</script>
+<!--table id="data2" width="1400" border="1" class="t1" total="text-align:center;" cellspacing="1%">
+  <tr>
+    <th><a id="title_stype_home" href="#nogo">类型</a></th>
+    <th><a id="title_date_home" href="#nogo" href="#nogo">日期↓</a></th>
+    <th><a id="title_dispatch_home" href="#nogo">发送量</a></th>
+    <th><a id="title_tosize_home" href="#nogo">分发量</a></th>
+    <th><a id="title_reply_home" href="#nogo">回复数</a></th>
+    <th><a id="title_click_home" href="#nogo">点击量</a></th>
+  </tr>
+</table-->
+
+</div>
+
+<div id="container_father" style="background-color:silver">
+<div id="container_total" style="min-width: 400px; height: 570px; margin: 15px 5px 5px 10px"></div>
+<div id="container_checkout_click" style="min-width: 400px; height: 570px; background-color:white ; margin: 10px 5px 10px 10px ; display:none"></div>
+<div id="container_checkout_reply" style="min-width: 400px; min-height: 570px;  background-color:white ; margin: 10px 5px 10px 5px; display:none"></div>
+<div id="container_checkout_dispatch" style="min-width: 400px; min-height: 570px; background-color:white ; margin: 10px 5px 10px 5px ; display:none"></div>
+</div>
+
+<div id="myp"> </div>
+</body>
+<div class="copyright">
+<center>数据平台小猪@feed.renren   &copy;2012</center>
+</div>
+</html>
+

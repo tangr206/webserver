@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html id="designdetector-com" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="/css/new-style.css" rel="stylesheet" type="text/css"></link>
+<script src="/jquery.js" type="text/javascript"></script>
+<script src="/feed-admin.js" type="text/javascript"></script>
+<title>申请新类型新鲜事 - 新鲜事管理</title>
+</head>
+<body>
+
+<table id="stype-list-table" width="1200" border="1" class="t1">
+  <tr>
+    <th colspan="2">新鲜事申请流程单</th>
+
+  </tr>
+  <tr>
+    <td width="30">产品：</td>
+    <td width="30"><input type="text"/>例：张三,李四,王五</td>
+  </tr>
+  <tr>
+    <td width="30">产品Email：</td>
+    <td width="30"><input type="text"/>例：xxx@renren-inc.com,ooo@renren-inc.com</td>
+  </tr>
+  <tr>
+    <td width="30">开发：</td>
+    <td width="30"><input type="text"/>例：张三,李四,王五</td>
+  </tr>
+  <tr>
+    <td width="30">开发Email：：</td>
+    <td width="30"><input type="text"/>例：xxx@renren-inc.com,ooo@renren-inc.com</td>
+  </tr>
+  <tr>
+    <td width="30">新鲜事描述：</td>
+    <td width="30"><input type="text"/> 例：用户发日志时产生的日志新鲜事</td>
+  </tr>
+  <tr>
+    <td width="30">产品文案：</td>
+    <td width="30"><textarea name=comment rows=5 cols=60>
+    </textarea></td>
+
+  </tr>
+  <tr>
+    <td width="30">是否发NewsFeed？</td>
+    <td width="30"><input type="text"/></td>
+  </tr>
+   <tr>
+    <td width="30">是否发MiniFeed？</td>
+    <td width="30"><input type="text"/></td>
+  </tr>
+   <tr>
+     <td width="30">NewsFeed如何合并或去重？</td>
+    <td width="30"><input type="text"/></td>
+  </tr>
+   <tr>
+     <td width="30">MiniFeed如何合并或去重？</td>
+    <td width="30"><input type="text"/></td>
+  </tr>
+   <tr>
+    <td width="30">该新鲜事在MiniFeed中保存多常时间，是否需要永久保存？</td>
+    <td width="30"><input type="text"/></td>
+  </tr>
+   <tr>
+    <td colspan="2" align="right"><input type="button" value="提交申请"/></td>
+  </tr>
+
+  
+</table>
+</body>
+
+</html>
+

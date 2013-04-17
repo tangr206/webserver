@@ -1,0 +1,77 @@
+Index: .feed-java-code.cs.swp
+===================================================================
+无法显示：文件标记为二进制类型。
+svn:mime-type = application/octet-stream
+Index: feed-admin.js
+===================================================================
+--- feed-admin.js	（修订版 23662）
++++ feed-admin.js	（工作拷贝）
+@@ -169,7 +169,7 @@
+          $("#SourceBy", T.dom_).val(o.source_by);
+          $("#PSourceBy", T.dom_).val(o.psource_by);
+          $("#ActorBy", T.dom_).val(o.actor_by);
+-         $("#DispatchExpr", T.dom_).val(o.dispatch_expr);
++         $("#DispatchExpr", T.dom_).val(decodeURIComponent(o.dispatch_expr));
+       },
+       'error' : function(){
+         alert('加载新鲜事类型 ' + T.stype_ + ' 配置信息失败');
+@@ -369,7 +369,7 @@
+       url += '&source_by=' + $('#SourceBy', T.dom_).val();
+       url += '&psource_by=' + $('#PSourceBy', T.dom_).val();
+       url += '&actor_by=' + $('#ActorBy', T.dom_).val();
+-      url += '&dispatch_expr=' + $('#DispatchExpr', T.dom_).val();
++      url += '&dispatch_expr=' + encodeURIComponent($('#DispatchExpr', T.dom_).val());
+ 
+       var keys_xml = T.GetKeysXml();
+       if(!T.ValidateXmlLoop(keys_xml)) {
+@@ -574,7 +574,7 @@
+     this.is_custom_expr_ = true;
+     $('#DispatchExpr', this.dom_).attr('disabled', true).val("");
+   } else {
+-    $('#DispatchExpr', this.dom_).val(o.dispatch_expr);
++    $('#DispatchExpr', this.dom_).val(decodeURIComponent(o.dispatch_expr));
+   }
+ }
+ 
+@@ -2000,29 +2000,22 @@
+     // console.log("looping = " + looping);
+ 
+     var current_looping = (node.attr("is_loop") == "1");
+-    if (childs.length > 0) {
+-      if (current_looping) {
+-        AddHdfMap("FeedStruct." + GetFullKey("name", "loop.") + "=" + GetPathValue());
+-        AddHdfMap("FeedStruct." + GetFullKey("type", "loop.") + "=node");
+-        AddHdfMap("FeedStruct." + GetFullKey("comment", "loop.") + "=" + node.attr("comment"));
++    var firstnode = null;
++    if (current_looping) {
++      firstnode = "loop.";
++    }
++    var path_value = GetPathValue();
++    if (path_value.length > 0) {
++      AddHdfMap("FeedStruct." + GetFullKey("name", firstnode) + "=" + path_value);
++      AddHdfMap("FeedStruct." + GetFullKey("type", firstnode)  + "=" + node.attr("type"));
++      AddHdfMap("FeedStruct." + GetFullKey("comment", firstnode) + "=" + node.attr("comment"));
++      console.log("FeedStruct." + GetFullKey("name", firstnode) + "=" + GetPathValue());
++    }
+ 
+-        console.log("FeedStruct." + GetFullKey("name", "loop.") + "=" + GetPathValue());
+-        console.log("FeedStruct." + GetFullKey("type", "loop.") + "=" + "node");
+-        console.log('');
+-      }
+-
++    if (childs.length > 0) {
+       for(var i = 0; i < childs.length; ++i) {
+         DoParse($(childs[i]), current_looping || looping);
+       }
+-    } else {
+-      AddHdfMap("FeedStruct." + GetFullKey("name") + "=" + GetPathValue());
+-      AddHdfMap("FeedStruct." + GetFullKey("type") + "=" + node.attr("type"));
+-      AddHdfMap("FeedStruct." + GetFullKey("comment") + '=' + node.attr("comment"));
+-
+-      console.log("FeedStruct." + GetFullKey("name") + "=" + GetPathValue());
+-      console.log("FeedStruct." + GetFullKey("type") + "=" + node.attr("type"));
+-      console.log("FeedStruct." + GetFullKey("comment") + '=' + decodeURIComponent(node.attr("comment")));
+-      console.log('');
+     }
+ 
+     if (looping) {

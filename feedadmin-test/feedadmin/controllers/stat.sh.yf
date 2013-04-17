@@ -1,0 +1,47 @@
+#echo $1" "$2
+#ssh -T fei.yuan@10.5.18.232 "cd /home/fei.yuan/HadoopStat/bin&&sh dispatch.sh $1 $2" > log 2>&1
+#ssh -T fei.yuan@10.5.18.232 "cat /home/fei.yuan/data/dispatch/res.$1"
+#ssh -T xce@f87.xce.d.xiaonei.com "ls"
+
+
+echo $sql
+#sql="select date, stype, sum(dispatch) as c from feed_stat_stype where date='2012-04-16' group by date, stype order by c desc"
+head="	<table border='1'>
+	<tr>
+		<td>日期</td>
+		<td>新鲜事条数</td>
+		<td>分发给</td>
+		<td>产生新鲜事的用户数</td>
+		<td>曝光条次</td>
+		<td>回复数</td>
+		<td>回复的用户数</td>
+		<td>点击数</td>
+		<td>点击的用户数</td>
+
+	</tr>
+"
+i=1
+trs=""
+while [ $i -le "10" ];do
+	time=`date +'%Y-%m-%d' -d "$i days ago"`
+	i=$(($i+1))
+	#echo $time
+	sql="select date,dispatch,tosize,dispatch_user,view,reply,reply_user,click,click_user from feed_stat_total where date='$time'"
+	res=`echo $sql|mysql -h10.22.202.217 -ufeed -pfeed -Dfeed_stat|sed '1d'`
+	c=`echo $res|wc -w`
+	if [ $c -le "5" ]
+	then
+		continue
+	fi
+	res=`echo $res | sed 's/ /<\/td><td>/g'`
+	tmp="<tr><td>$res</td></tr>"
+	trs="$trs$tmp"
+	#sed '1d' /tmp/totalreply > /tmp/totalreply1
+done
+html="$head$trs</table>"
+
+#"	</table>
+#"
+echo $html
+#date dispatch tosize dispatch_user view reply reply_user click click_user
+#echo $res

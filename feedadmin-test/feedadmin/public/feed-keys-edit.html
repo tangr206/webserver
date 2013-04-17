@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html id="designdetector-com" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="/css/new-style.css" rel="stylesheet" type="text/css"></link>
+<script src="/jquery.js" type="text/javascript"></script>
+<title>字段编辑 - 新鲜事配置管理</title>
+</head>
+<body>
+<table width="780" border="0" class="t1">
+  <tr>
+    <th colspan="4">Feed配置信息</th>
+  </tr>
+
+  <tr>
+    <td>类型（TYPE）：</td>
+    <td><input size="10" maxlength="3" readonly="readonly" /></td>
+    <td>小类型（STYPE）：</td>
+    <td><input size="10" maxlength="5" readonly="readonly" /></td>
+  </tr>
+  <tr>
+    <td>权重（Weight）：</td>
+
+    <td><select name="select">
+      <option>0</option>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+
+      <option>5</option>
+      <option>6</option>
+    </select></td>
+    <td>父小类型（PType）：</td>
+    <td><select name="select11">
+      <option>0</option>
+      <option>1</option>
+
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+      <option>6</option>
+    </select></td>
+
+  </tr>
+  <tr>
+    <td>持久化本体（Save Content）：</td>
+    <td>save:
+    <input name="SaveContent" type="radio" value="save" />&nbsp;&nbsp; not save:<input name="SaveContent" type="radio" value="not save" checked="checked" /></td>
+    <td>持久化FeedDB：</td>
+    <td>save:
+    <input name="SaveFeedDB" type="radio" value="save" />&nbsp;&nbsp; not save:<input name="SaveFeedDB" type="radio" value="not save" checked="checked" /></td>
+
+  </tr>
+  <tr>
+    <td>NewFeed合并策略：</td>
+    <td>append:
+      <input name="NewsMergeType" type="radio" value="append" />
+      &nbsp;&nbsp; replace:
+    <input name="NewsMergeType" type="radio" value="replace" checked="checked" /></td>
+    <td>MiniFeed合并策略：</td>
+
+    <td>append:
+      <input name="MiniMergeType" type="radio" value="append" />
+      &nbsp;&nbsp; replace:
+    <input name="MiniMergeType" type="radio" value="replace" checked="checked" /></td>
+  </tr>
+  <tr>
+    <td>推送策略：</td>
+    <td colspan="3">NewsFeed:<input type="checkbox" name="PushPolicy" value="NewsFeed"/>&nbsp;&nbsp; MiniFeed:<input name="PushPolicy" type="checkbox" value="MiniFeed" />&nbsp;&nbsp; IM:<input name="PushPolicy" type="checkbox" value="IM" />
+
+      &nbsp;&nbsp; Class:
+      <input name="PushPolicy" type="checkbox" value="Class" />&nbsp;&nbsp; MiniGroup:<input name="PushPolicy" type="checkbox" value="MiniGroup" /></td>
+  </tr>
+  <tr>
+    <td>分发表达式自定义：</td>
+    <td>自定义:
+      <input name="ExprConfig" type="radio" value="man made" />
+&nbsp;&nbsp;配置:
+
+<input name="ExprConfig" type="radio" value="auto config" checked="checked" /></td>
+    <td>合并后是否更新时间：</td>
+    <td>update:
+      <input name="UpdateTime" type="radio" value="update" />
+      &nbsp;&nbsp; not update:
+    <input name="UpdateTime" type="radio" value="not update" checked="checked" /></td>
+  </tr>
+  <tr>
+    <td>保存时长：</td>
+
+    <td><input value="－1" size="5" maxlength="5" readonly="readonly" />
+天，（－1表示永久保存）</td>
+    <td>发送配额（per day)：</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript">
+</script>
+</html>

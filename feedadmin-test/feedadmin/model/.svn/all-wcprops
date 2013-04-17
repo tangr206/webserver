@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/oce/!svn/ver/23809/main_project/trunk/AdHot/feedadmin/model
+END
+stypeconfig.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/model/stypeconfig.py
+END
+tplview.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/oce/!svn/ver/23793/main_project/trunk/AdHot/feedadmin/model/tplview.py
+END
+applyversion.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/model/applyversion.py
+END
+applypublish.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/model/applypublish.py
+END
+applyrollback.py
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/model/applyrollback.py
+END
+applynew.py
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/model/applynew.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/model/__init__.py
+END
+dataversion.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/oce/!svn/ver/24384/main_project/trunk/AdHot/feedadmin/model/dataversion.py
+END
+versiontplmapping.py
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/model/versiontplmapping.py
+END
+applytpl.py
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/model/applytpl.py
+END
+meta.py
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/model/meta.py
+END

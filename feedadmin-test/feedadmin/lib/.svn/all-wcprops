@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/oce/!svn/ver/23795/main_project/trunk/AdHot/feedadmin/lib
+END
+base.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/lib/base.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/lib/__init__.py
+END
+helpers.py
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/lib/helpers.py
+END
+app_globals.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/lib/app_globals.py
+END

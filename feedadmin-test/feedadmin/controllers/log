@@ -1,0 +1,80 @@
+/home/fei.yuan/data/dispatch/res.2012-03-06
+MANYDAYS: MANYDAYS
+MAPPER:  ../py/dispatch.mapper.py
+REDUCER:  ../py/dispatch.reducer.py
+TMPDIR: /home/fei.yuan/data/dispatch/dispatch.2012-03-06.tmp
+FINAL: /home/fei.yuan/data/dispatch/res.2012-03-06
+rm: 无法删除 “/home/fei.yuan/data/dispatch/dispatch.2012-03-06.tmp”: 没有那个文件或目录
+rm: 无法删除 “/home/fei.yuan/data/dispatch/res.2012-03-06”: 没有那个文件或目录
+DEPRECATED: Use of this script to execute hdfs command is deprecated.
+Instead use the hdfs command for it.
+
+12/03/07 14:53:17 INFO security.Groups: Group mapping impl=org.apache.hadoop.security.ShellBasedUnixGroupsMapping; cacheTimeout=300000
+12/03/07 14:53:18 WARN conf.Configuration: mapred.task.id is deprecated. Instead, use mapreduce.task.attempt.id
+Deleted hdfs://BJCER256-233.opi.com/user/fei.yuan/stat/task/dispatch/output/2012-03-06
+12/03/07 14:53:18 WARN streaming.StreamJob: -file option is deprecated, please use generic option -files instead.
+12/03/07 14:53:18 INFO security.Groups: Group mapping impl=org.apache.hadoop.security.ShellBasedUnixGroupsMapping; cacheTimeout=300000
+12/03/07 14:53:19 WARN conf.Configuration: mapred.task.id is deprecated. Instead, use mapreduce.task.attempt.id
+[GC 17024K->1051K(83008K), 0.0095940 secs]
+packageJobJar: [../py/dispatch.mapper.py, ../py/dispatch.reducer.py, /tmp/hadoop-fei.yuan/hadoop-unjar7091963209719881506/] [] /tmp/streamjob5244108446367526857.jar tmpDir=null
+12/03/07 14:53:19 WARN mapreduce.JobSubmitter: Use GenericOptionsParser for parsing the arguments. Applications should implement Tool for the same.
+12/03/07 14:53:19 INFO mapred.FileInputFormat: Total input paths to process : 1
+12/03/07 14:53:19 WARN conf.Configuration: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+12/03/07 14:53:19 INFO mapreduce.JobSubmitter: number of splits:285
+12/03/07 14:53:19 INFO mapreduce.JobSubmitter: adding the following namenodes' delegation tokens:null
+12/03/07 14:53:19 INFO streaming.StreamJob: getLocalDirs(): [/hadoop/01/mr.local, /hadoop/02/mr.local, /hadoop/03/mr.local, /hadoop/04/mr.local, /hadoop/05/mr.local, /hadoop/06/mr.local, /hadoop/07/mr.local, /hadoop/08/mr.local, /hadoop/09/mr.local, /hadoop/10/mr.local, /hadoop/11/mr.local, /hadoop/12/mr.local]
+12/03/07 14:53:19 INFO streaming.StreamJob: Running job: job_201112151254_188110
+12/03/07 14:53:19 INFO streaming.StreamJob: To kill this job, run:
+12/03/07 14:53:19 INFO streaming.StreamJob: /opt/hadoop/bin/../bin/hadoop job  -Dmapreduce.jobtracker.address=BJCER256-234.opi.com:8021 -kill job_201112151254_188110
+12/03/07 14:53:19 INFO streaming.StreamJob: Tracking URL: http://BJCER256-234.opi.com:50030/jobdetails.jsp?jobid=job_201112151254_188110
+12/03/07 14:53:21 INFO streaming.StreamJob:  map 0%  reduce 0%
+[GC 18075K->1689K(83008K), 0.0031330 secs]
+[GC 18713K->2112K(83008K), 0.0169600 secs]
+12/03/07 14:53:33 INFO streaming.StreamJob:  map 3%  reduce 0%
+12/03/07 14:53:34 INFO streaming.StreamJob:  map 10%  reduce 0%
+[GC 19136K->1423K(83008K), 0.0016720 secs]
+12/03/07 14:53:36 INFO streaming.StreamJob:  map 15%  reduce 0%
+12/03/07 14:53:37 INFO streaming.StreamJob:  map 21%  reduce 0%
+12/03/07 14:53:38 INFO streaming.StreamJob:  map 22%  reduce 0%
+12/03/07 14:53:39 INFO streaming.StreamJob:  map 25%  reduce 0%
+12/03/07 14:53:40 INFO streaming.StreamJob:  map 30%  reduce 0%
+12/03/07 14:53:41 INFO streaming.StreamJob:  map 31%  reduce 0%
+12/03/07 14:53:42 INFO streaming.StreamJob:  map 34%  reduce 0%
+[GC 18447K->1359K(83008K), 0.0025440 secs]
+12/03/07 14:53:43 INFO streaming.StreamJob:  map 39%  reduce 0%
+12/03/07 14:53:44 INFO streaming.StreamJob:  map 40%  reduce 0%
+12/03/07 14:53:45 INFO streaming.StreamJob:  map 44%  reduce 0%
+12/03/07 14:53:46 INFO streaming.StreamJob:  map 48%  reduce 0%
+12/03/07 14:53:47 INFO streaming.StreamJob:  map 49%  reduce 0%
+12/03/07 14:53:48 INFO streaming.StreamJob:  map 61%  reduce 0%
+12/03/07 14:53:49 INFO streaming.StreamJob:  map 72%  reduce 0%
+[GC 18383K->1400K(83008K), 0.0015810 secs]
+12/03/07 14:53:50 INFO streaming.StreamJob:  map 76%  reduce 0%
+12/03/07 14:53:51 INFO streaming.StreamJob:  map 85%  reduce 0%
+12/03/07 14:53:52 INFO streaming.StreamJob:  map 89%  reduce 0%
+12/03/07 14:53:53 INFO streaming.StreamJob:  map 92%  reduce 0%
+12/03/07 14:53:54 INFO streaming.StreamJob:  map 94%  reduce 0%
+12/03/07 14:53:56 INFO streaming.StreamJob:  map 95%  reduce 0%
+[GC 18424K->1351K(83008K), 0.0015880 secs]
+12/03/07 14:53:58 INFO streaming.StreamJob:  map 96%  reduce 0%
+12/03/07 14:53:59 INFO streaming.StreamJob:  map 97%  reduce 0%
+12/03/07 14:54:02 INFO streaming.StreamJob:  map 97%  reduce 31%
+[GC 18375K->1354K(83008K), 0.0024860 secs]
+12/03/07 14:54:04 INFO streaming.StreamJob:  map 98%  reduce 31%
+12/03/07 14:54:05 INFO streaming.StreamJob:  map 100%  reduce 31%
+[GC 18378K->1378K(83008K), 0.0032340 secs]
+12/03/07 14:54:11 INFO streaming.StreamJob:  map 100%  reduce 100%
+12/03/07 14:54:14 INFO streaming.StreamJob: Job complete: job_201112151254_188110
+12/03/07 14:54:14 INFO streaming.StreamJob: Output: /user/fei.yuan/stat/task/dispatch/output/2012-03-06/
+hadoop job OK!
+Get the output into the TMPDIR /home/fei.yuan/data/dispatch/dispatch.2012-03-06.tmp ok!
+DEPRECATED: Use of this script to execute hdfs command is deprecated.
+Instead use the hdfs command for it.
+
+12/03/07 14:54:15 INFO security.Groups: Group mapping impl=org.apache.hadoop.security.ShellBasedUnixGroupsMapping; cacheTimeout=300000
+12/03/07 14:54:15 WARN conf.Configuration: mapred.task.id is deprecated. Instead, use mapreduce.task.attempt.id
+/home/fei.yuan/data/dispatch/res.2012-03-06
+the begintime: 2012年 03月 07日 星期三 14:53:17 CST
+the endtime: 2012年 03月 07日 星期三 14:54:15 CST
+Take 58 seconds
+===================END============2012-03-06=============

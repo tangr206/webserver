@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>jquery jstree demo</title>
+    <link rel="stylesheet" type="text/css" href="jstree-style.css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="jquery.cookie.js"></script>
+    <script type="text/javascript" src="jquery.hotkeys.js"></script>
+    <script type="text/javascript" src="jquery.jstree.js"></script>
+  </head>
+  <body>
+    <input type="button" style="clear:both;" id="toggle_node" value="toggle_node" class="button">
+    <div class="demo jstree jstree-0 jstree-default jstree-focused" id="demo1" style="height: 200px;">
+      <ul>
+        <li id="phtml_1" class="jstree-closed">
+          <ins class="jstree-icon">&nbsp;</ins><a href="#nogo"><ins class="jstree-icon">&nbsp;</ins>Root node 1</a>
+          <ul style="">
+             <li id="phtml_2" class="jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="#nogo"><ins class="jstree-icon">&nbsp;</ins>Child node 1</a></li>
+             <li id="phtml_3" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="#nogo"><ins class="jstree-icon">&nbsp;</ins>Child node 2</a></li>
+          </ul>
+        </li>
+        <li id="phtml_4" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="#nogo"><ins class="jstree-icon">&nbsp;</ins>Root node 2</a></li>
+      </ul>
+    </div>
+    <p style="clear:both;" id="log1" class="log">Last operation: open_node</p>
+    <script type="text/javascript">
+      $(function () {
+        $("#toggle_node").click(function () { 
+          $("#demo1").jstree("toggle_node","#phtml_1");
+        });
+        $("#demo1").bind("open_node.jstree close_node.jstree", function (e) {
+            $("#log1").html("Last operation: " + e.type);
+          }).jstree({ "plugins" : [ "themes", "html_data" ] });
+        }
+      );
+    </script>
+  </body>
+</html>

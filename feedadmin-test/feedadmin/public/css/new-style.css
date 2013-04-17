@@ -1,0 +1,276 @@
+@charset "UTF-8";
+
+body{  
+    /* margin-left: 100px;  */
+}
+body,table{  
+    font-size:12px;  
+}
+
+.hidden {
+  display:none;
+}
+
+.alignCenter {
+  position:absolute;
+  left:50%;
+  margin-left:-600px;
+  width:1200px;
+}
+
+table{  
+    empty-cells:show;   
+    border-collapse: collapse;  
+}  
+td{  
+    height:25px;  
+}  
+h1,h2,h3{  
+    font-size:12px;  
+    margin:0;  
+    padding:0;  
+}  
+  
+.title { background: #FFF; border: 1px solid #9DB3C5; padding: 1px; width:90%;margin:20px auto; }  
+    .title h1 { line-height: 31px; text-align:center;  background: #2F589C url(th_bg2.gif); background-repeat: repeat-x; background-position: 0 0; color: #FFF; }  
+        .title th, .title td { border: 1px solid #CAD9EA; padding: 5px; }  
+  
+
+input{
+	border:1px solid #CCC;
+
+}
+  
+/**//*这个是借鉴一个论坛的样式*/  
+table.t1{  
+    border:1px solid #cad9ea;  
+    color:#666;  
+}  
+table.t1 th {
+	height:30px;
+	background-color: #EEE;
+}  
+table.t1 td,table.t1 th{  
+    border:1px solid #cad9ea;  
+    padding:0 1em 0;  
+}  
+table.t1 tr.a1{
+    background-color:#f5fafe;  
+}  
+  
+  
+  
+table.t2{ 
+    border:1px solid #9db3c5;  
+    color:#666;  
+}  
+table.t2 th { 
+      
+    background-repeat::repeat-x;  
+    height:30px;  
+    color:#fff;  
+}  
+table.t2 td{  
+    border:1px dotted #cad9ea;  
+    padding:0 2px 0;  
+}  
+table.t2 th{  
+    border:1px solid #a7d1fd;  
+    padding:0 2px 0;  
+}  
+table.t2 tr.a1{  
+    background-color:#e8f3fd;  
+}  
+  
+  
+  
+table.t3{ 
+    border:1px solid #fc58a6;  
+    color:#720337;  
+}  
+table.t3 th {  
+     
+    background-repeat::repeat-x;  
+    height:30px;  
+    color:#35031b;  
+}  
+table.t3 td{  
+    border:1px dashed #feb8d9;  
+    padding:0 1.5em 0;  
+}  
+table.t3 th{  
+    border:1px solid #b9f9dc;  
+    padding:0 2px 0;  
+}  
+table.t3 tr.a1{  
+    background-color:#fbd8e8;  
+}  
+input.key {
+  width:80px;
+  margin:2px 0;
+}
+input.note {
+  margin-right:50px;
+  padding-left:2px;
+  width:260px;
+}
+
+div.seq-list-container {
+  margin:16px 0 0 0px;
+  border:1px solid #CAD9EA;
+  min-height:32px;
+  line-height:30px;
+  padding:4px;
+  width:992px;
+}
+div.key-list-container {
+  border:1px solid #CAD9EA;
+  width:998px;
+  border-top:0;
+}
+span.toggle-span {
+  margin:0;
+  padding:0 8px;
+  height:8px;
+}
+span.toggle-span.expanded {
+  background: url("/minus.png") no-repeat scroll left center #F9F9F9;
+}
+span.folded {
+  background: url("/plus.png") no-repeat scroll left center #F9F9F9;
+}
+
+.feed-key, .feed-key li  {
+  padding-left: 16px;
+}
+.minus {
+  background: url("/minus.png") no-repeat scroll 2px 2px;
+}
+select[name="DataType"] {
+  width:78px;
+}
+span.node-loop {
+  margin-left:56px;
+}
+span.node-optional {
+  margin-left:60px;
+}
+.plus {
+  background: url("/plus.png") no-repeat scroll 2px 2px;
+}
+input.add-child {
+  border:0;
+  width:0;
+  height:16px;
+  padding-left:13px;
+  margin-left:90px;
+  margin-right:6px;
+  background: url(/small-icons.png) -14px;
+  cursor:hand;
+  cursor:pointer;
+}
+
+input.remove-child {
+  border:0;
+  width:0;
+  height:16px;
+  padding-left:13px;
+  margin-right:6px;
+  background: url(/small-icons.png) 2px;
+  cursor:hand;
+  cursor:pointer;
+}
+
+input.add-child:disabled, input.remove-child:disabled {
+  display:none;
+}
+
+#tpl-list {
+  padding:4px;
+  border:1px solid #CAD9EA;
+  overflow-y:auto;
+}
+
+textarea {
+  float:left;
+  font-size: 14px;
+  font-family: "Courier New",Verdana,Tahoma,STHeiTi,simsun,sans-serif;
+  border:1px solid #bbb;
+  width:78%;
+}
+
+select.key-mapping {
+  width:200px;
+}
+
+span.flag {
+  border:1px solid transparent;
+  line-height:12px;
+  padding-left:16px;
+}
+span.flag.yes-mark {
+  background:url(/small-icons.png) -15px;
+}
+span.flag.no-mark {
+  background: url(/small-icons.png) 2px;
+}
+
+.back-to {
+    bottom: 35px;
+    position: fixed;
+    right: 10px;
+    width: 50px;
+    z-index: 999;
+}
+* html .back-to {
+}
+.back-to .back-home {
+    background: url("http://a.xnimg.cn/imgpro/button/back-home.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    float: right;
+    height: 50px;
+    outline: 0 none;
+    text-indent: -9999em;
+    width: 50px;
+}
+.back-to .back-home:hover {
+    background-position: -50px 0;
+}
+.back-to .back-top {
+    background: url("http://a.xnimg.cn/imgpro/button/back-top.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    float: right;
+    height: 50px;
+    margin-left: 10px;
+    outline: 0 none;
+    text-indent: -9999em;
+    width: 50px;
+}
+.back-to .backtotop {
+    background: url("http://a.xnimg.cn/imgpro/button/backtotop.gif") no-repeat scroll center center #666666;
+    border-radius: 4px 4px 4px 4px;
+    display: block;
+    float: left;
+    height: 50px;
+    margin-bottom: 15px;
+    outline: 0 none;
+    position: relative;
+    text-indent: -9999em;
+    width: 50px;
+}
+.back-to .backtotop:hover {
+    background-color: #333333;
+}
+.back-to .backtotop .back-tip {
+    left: -10px;
+    position: absolute;
+    top: -31px;
+    visibility: hidden;
+}
+.back-to .backtotop:hover .back-tip {
+    visibility: visible;
+}
+.back-to .back-top:hover {
+    background-position: -50px 0;
+}
+

@@ -1,0 +1,204 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { margin: 0pt; padding: 0pt; }
+.headerbox { height: 43px; background: url('../page-headerbg.png') repeat-x scroll left top transparent; margin-bottom: 10px; }
+.header { width: 980px; margin: 0pt auto; position: relative; }
+.logobox { position: absolute; height: 42px; top: 3px; left: 0pt; }
+.page-title { margin-left: 220px; color: white; font-weight: normal; font-size: 16px; line-height: 49px; }
+/* Some resets for compatibility with existing CSS */
+.date_selector, .date_selector * {
+  width: auto;
+  height: auto;
+  border: none;
+  background: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  text-decoration: none;
+}
+.date_selector {
+  background: #F2F2F2;
+  border: 1px solid #bbb;
+  padding: 5px;
+  margin: -1px 0 0 0;
+  position: absolute;
+  z-index: 100000;
+  display: none;
+}
+.date_selector_ieframe {
+  position: absolute;
+  z-index: 99999;
+  display: none;
+}
+  .date_selector .nav {
+    width: 17.5em; /* 7 * 2.5em */
+  }
+  .date_selector .month_nav, .date_selector .year_nav {
+    margin: 0 0 3px 0;
+    padding: 0;
+    display: block;
+    position: relative;
+    text-align: center;
+  }
+  .date_selector .month_nav {
+    float: left;
+    width: 55%;
+  }
+  .date_selector .year_nav {
+    float: right;
+    width: 35%;
+    margin-right: -8px; /* Compensates for cell borders */
+  }
+  .date_selector .month_name, .date_selector .year_name {
+    font-weight: bold;
+    line-height: 20px;
+  }
+  .date_selector .button {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    line-height: 17px;
+    font-weight: bold;
+    color: #003C78;
+    text-align: center;
+    font-size: 120%;
+    overflow: hidden;
+    border: 1px solid #F2F2F2;
+  }
+    .date_selector .button:hover, .date_selector .button.hover {
+      background: none;
+      color: #003C78;
+      cursor: pointer;
+      border-color: #ccc;
+    }
+  .date_selector .prev {
+    left: 0;
+  }
+  .date_selector .next {
+    right: 0;
+  }
+  .date_selector table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    clear: both;
+  }
+    .date_selector th, .date_selector td {
+      width: 2.5em;
+      height: 2em;
+      padding: 0;
+      text-align: center;
+      color: black;
+    }
+    .date_selector td {
+      border: 1px solid #ccc;
+      line-height: 2em;
+      text-align: center;
+      white-space: nowrap;
+      color: #003C78;
+      background: white;
+    }
+    .date_selector td.today {
+      background: #FFFEB3;
+    }
+    .date_selector td.unselected_month {
+      color: #ccc;
+    }
+    .date_selector td.selectable_day {
+      cursor: pointer;
+    }
+    .date_selector td.selected {
+      background: #D8DFE5;
+      font-weight: bold;
+    }
+    .date_selector td.selectable_day:hover, .date_selector td.selectable_day.hover {
+      background: #003C78;
+      color: white;
+    }
+
+
+
+
+
+
+@charset "utf-8";
+
+/* CSS Document */
+
+
+
+#wrapper {
+
+	width: 1300px;
+
+	position:relative;
+
+}
+
+h1 {
+
+	text-transform: uppercase;
+
+	text-align: center;
+
+	margin: 0;
+
+	padding: 0.3em 0;
+
+	text-indent:-99999px;
+
+}
+
+#nav {
+
+	list-style: none;
+
+	padding: 0;
+
+	margin: 10px 0 20px 0;
+
+	background: #2e2e2e url(images/nav_bar.jpg) repeat-x;
+
+	display: block;
+
+	overflow: hidden;
+
+	font-size: 0.9em;
+
+	height:33px;
+
+	text-transform:capitalize;
+
+}
+
+#nav li {
+
+	display: inline;
+
+}
+
+#nav li a {
+
+	display: block;
+
+	float: left;
+
+	padding: 10px 20px;
+
+	color: white;
+
+	text-decoration: none;
+
+}
+
+#nav li a:hover {
+
+	background: #1b1b1b url(images/nav_bar_o.jpg) repeat-x;
+
+}
+
+
+
+
+
+
+

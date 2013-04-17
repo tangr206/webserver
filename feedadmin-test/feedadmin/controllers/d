@@ -1,0 +1,157 @@
+Index: FeedAdmin.py
+===================================================================
+--- FeedAdmin.py	（修订版 23658）
++++ FeedAdmin.py	（工作拷贝）
+@@ -46,6 +46,18 @@
+     self.apply_rollbacks_ = Session.query(ApplyRollback)
+     self.apply_publishs_ = Session.query(ApplyPublish)
+ 
++  def IsAdmin(self, cookies):
++    admins = [240599893, 128487631]
++    uid = 0
++    if "id" in cookies:
++      uid = int(str(cookies['id']))
++    if uid in admins:
++      return 1
++    return 0
++
++  def FeedListView(self):
++    return render('/feed-list.mako', {"is_admin" : self.IsAdmin(request.cookies)})
++
+   def GetStypeList(self):
+     rsp = '['
+     count = 0
+@@ -85,6 +97,9 @@
+     return rsp
+ 
+   def UpdateStypeVersionUsingId(self):
++    if not self.IsAdmin(request.cookies):
++      return '"没有操作权限, 请确保管理员帐号登录"'
++
+     stype = int(request.params['stype'])
+     version = int(request.params['version'])
+     tpl_id = int(request.params['tpl_id'])
+@@ -116,7 +131,7 @@
+             ',"source_by":"' + str(ver.source_by) + '"' + \
+             ',"psource_by":"' + str(ver.psource_by) + '"' + \
+             ',"actor_by":"' + str(ver.actor_by) + '"' + \
+-            ',"dispatch_expr":"' + str(ver.dispatch_expr) + '"' + \
++            ',"dispatch_expr":"' + urllib2.quote(str(ver.dispatch_expr)) + '"' + \
+             ',"is_custom_expr":' + str(cfg.is_custom_expr) + \
+             ',"stype_comment":"' + str(cfg.description) + '"' + \
+             ',"keys_xml":"' + keys_escaped + '"' + \
+@@ -139,6 +154,9 @@
+     return '参数有错误'
+ 
+   def UpdateStypeVersionStatus(self):
++    if not self.IsAdmin(request.cookies):
++      return '"没有操作权限, 请确保管理员帐号登录"'
++
+     stype = int(request.params['stype'])
+     version = int(request.params['version'])
+     status = int(request.params['status'])
+@@ -189,19 +207,28 @@
+     ret += ']'
+     return ret
+   def Hello(self):
+-    return render('/hello.mako', {"hello" : ("你好").decode('utf-8')})
++    # return render('/hello.mako', {"hello" : ("你好").decode('utf-8')})
++    print '------------' + request.params['t'] + '---------'
++    return ''
+ 
+   def StypeConfigEdit(self):
+     stype = -1
+     from_version_id = 0
+     apply_id = 0
++    uid = 0
++    if "id" in request.cookies:
++      uid = int(request.cookies['id'])
++
+     if "stype" in request.params:
+       stype = int(request.params['stype'])
+       if "apply_id" in request.params and "from_version_id" in request.params:
+         apply_id = int(request.params['apply_id'])
+         from_version_id = int(request.params['from_version_id'])
+ 
+-    return render('/feed-config-edit.mako', {"stype" : stype, "apply_id" : apply_id, "from_version_id" : from_version_id})
++    return render('/feed-config-edit.mako', {"stype" : stype, 
++        "is_admin" : self.IsAdmin(request.cookies), 
++        "apply_id" : apply_id, 
++        "from_version_id" : from_version_id})
+ 
+   def StypeConfigCreate(self):
+     apply_id = 0
+@@ -245,6 +272,7 @@
+ 
+     return render('/feed-keys-edit.mako', 
+         {"stype" : stype, 
++         "is_admin" : self.IsAdmin(request.cookies),
+          "version" : version, 
+          "from_tpl_id" : from_tpl_id, 
+          "apply_id" : apply_id, 
+@@ -260,9 +288,18 @@
+       version = int(request.params['version'])
+     if "tpl_id" in request.params:
+       tpl_id = int(request.params['tpl_id'])
+-    return render('/feed-tpl-edit.mako', {"stype" : stype, "version" : version, "tpl_id" : tpl_id})
+-    return "xxx"
+ 
++    ver = self.data_version_.filter_by(stype = stype, version = version).first()
++    if not ver:
++      return "参数错误"
++    tpl_using = 0
++    if tpl_id > 0 and tpl_id == ver.using_tpl_id:
++      tpl_using = 1
++
++    return render('/feed-tpl-edit.mako', {"stype" : stype, 
++        "version" : version, "tpl_id" : tpl_id, "tpl_using" : tpl_using,
++        "is_admin" : self.IsAdmin(request.cookies)})
++
+   def GetStypeConfig(self):
+     cfg = self.stype_config_.filter_by(stype=int(request.params['stype'])).first()
+     if not cfg:
+@@ -307,6 +344,9 @@
+     )
+ 
+   def SaveStypeConfig(self):
++    if not self.IsAdmin(request.cookies):
++      return '{"status":1, "desc":"没有操作权限, 请确保管理员帐号登录"}'
++
+     cfg = self.stype_config_.filter_by(stype=int(request.params['stype'])).first()
+     if not cfg:
+       cfg = StypeConfig(stype = int(request.params['stype']), 
+@@ -383,7 +423,7 @@
+       o.source_by = request.params['source_by']
+       o.psource_by = request.params['psource_by']
+       o.actor_by = request.params['actor_by']
+-      o.dispatch_expr = request.params['dispatch_expr']
++      o.dispatch_expr = urllib2.unquote(str(request.params['dispatch_expr']))
+       Session.commit()
+       return '保存成功'
+     else:
+@@ -410,10 +450,10 @@
+   def SaveTemplate(self):
+     sk = TplView(request.params['tpl_id'], 
+         view = request.params['view'],
+-        template = urllib2.unquote(request.params['tpl']))
++        template = urllib2.unquote(str(request.params['tpl'])))
+     Session.merge(sk)
+     Session.commit()
+-    return '保存模板成功2'
++    return '保存模板成功'
+ 
+   def RemoveTemplate(self):
+     tpl_id = int(request.params['tpl_id'])
+@@ -438,7 +478,7 @@
+     count = 0
+     rsp = '{'
+     for o in tpls:
+-      print o.view, o.template
++      print '------------------', o.view, o.template
+       if count > 0:
+         rsp += ','
+       # rsp += '"' + str(o.view) + '":"' + o.template.replace('"', '\\"') + '"'
+Index: FeedAdmin.pyc
+===================================================================
+无法显示：文件标记为二进制类型。
+svn:mime-type = application/octet-stream

@@ -1,0 +1,290 @@
+Index: feed-config-edit.mako
+===================================================================
+--- feed-config-edit.mako	（修订版 23712）
++++ feed-config-edit.mako	（工作拷贝）
+@@ -7,13 +7,19 @@
+ <title>字段编辑 - 新鲜事配置管理</title>
+ <script type="text/javascript" src="/feed-admin.js"></script>
+ <script type="text/javascript">
++var g_user_right = ${user_right};
+ var g_stype = ${stype};
+ var g_from_version_id = ${from_version_id};
+ var g_apply_id = ${apply_id};
++
++if (g_user_right <= 0) {
++  var f = window.location.href;
++  window.location = 'https://passport.no.opi-corp.com/login.php?forward=' + escape(f);
++}
+ </script>
+ </head>
+ <body>
+-<div><a href="/feed-list.html">全部列表</a> &gt; <a href="/feed-config-edit?stype=${stype}">类型${stype}</a></div>
++<div><a href="/feed-list">全部类型列表</a> &gt; <a href="/feed-config-edit?stype=${stype}">类型${stype}</a></div>
+ <div id="config-placeholder"></div>
+ <br/>
+ <div id="versions-header">
+@@ -68,6 +74,8 @@
+ 
+ $(document).ready(
+   function() {
++    
++
+     if(g_stype <= 0) {
+       $('#versions-header').css('display', 'none');
+     } else {
+@@ -95,6 +103,10 @@
+     var cfg_view = new FeedConfigView(g_stype);
+     cfg_view.Load();
+     cfg_view.AppendToNode($('#config-placeholder'));
++    if (g_user_right > 1) {
++      cfg_view.Disable();
++      $('#create_version').hide();
++    }
+     // cfg_view.HideMapping();
+   }
+ );
+Index: feed-keys-edit.mako
+===================================================================
+--- feed-keys-edit.mako	（修订版 23712）
++++ feed-keys-edit.mako	（工作拷贝）
+@@ -7,26 +7,34 @@
+ <title>字段编辑 - 新鲜事配置管理</title>
+ <script type="text/javascript" src="/feed-admin.js"></script>
+ <script type="text/javascript">
++var g_user_right = ${user_right};
+ var g_stype = ${stype};
+ var g_version = ${version};
+ var g_from_tpl_id = ${from_tpl_id};
+ var g_apply_id = ${apply_id};
+ var g_is_user = ${is_user};
++if (g_user_right <= 0) {
++  var f = window.location.href;
++  window.location = 'https://passport.no.opi-corp.com/login.php?forward=' + escape(f);
++}
+ </script>
+ </head>
+ <body>
+-<div><a href="/feed-list.html">全部列表</a> &gt; <a href="/feed-config-edit?stype=${stype}">类型${stype}</a>
++<div><a href="/feed-list">全部类型列表</a> &gt; <a href="/feed-config-edit?stype=${stype}">类型${stype}</a>
+ &gt; <a href="/feed-keys-edit?stype=${stype}&version=${version}">数据版本${version}</a>
+ </div>
+ <table width="1000" border="0" class="t1">
+   <tbody><tr>
+       <th colspan="5">Feed数据字段定义(stype:<span>${stype}</span>, 版本号: ${version}) 
+-        &nbsp; 状态 <a id="version-status-edit" href="#nogo">修改</a> <select id="version-status" disabled="true"><option value="0">disabled</option><option value="1">test</option><option value="2">read only</option><option value="3">dispatching</option></select>
+-        | &nbsp;  线上模板序号 <a id="using-version-id-edit" href="#nogo">修改</a> <select id="using-version-id" value="" disabled="true"><option></option></select> | &nbsp;测试模板序号 <a id="test-version-id-edit" href="#nogo">修改</a> <select id="test-version-id" value=""  disabled="true"><option></option></select>&nbsp; </th>
++        <span class="admin-only hidden">&nbsp; 状态 <a id="version-status-edit" href="#nogo">修改</a> <select id="version-status" disabled="true"><option value="0">disabled</option><option value="1">test</option><option value="2">read only</option><option value="3">dispatching</option></select></span>
++        </th>
+   </tr>
+ </tbody></table>
+ <div id="feed-key-container"></div>
+-<div class="seq-list-container">模板序号列表(<a id="create_seq" href="#nogo">新建</a>)：</div>
++<div class="seq-list-container"><div class="admin-only hidden">模板序号管理：
++<a id="create_seq" href="#nogo">新建</a> | 线上模板序号 <a id="using-version-id-edit" href="#nogo">修改</a> <select id="using-version-id" value="" disabled="true"><option></option></select> | 测试模板序号 <a id="test-version-id-edit" href="#nogo">修改</a> <select id="test-version-id" value=""  disabled="true"><option></option></select>&nbsp; </div>
++全部序号列表：
++</div>
+ <br/>
+ </body>
+ <script type="text/javascript">
+@@ -36,7 +44,7 @@
+           success : function(text) {
+             alert('成功新建模板序号 : ' + text);
+             var seq_list = $('div.seq-list-container');
+-            seq_list.append($('<a style="margin-left:10px;" target="_blank" href="/feed-tpl-edit?stype=' + g_stype 
++            seq_list.append($('<a style="margin-left:10px;" href="/feed-tpl-edit?stype=' + g_stype 
+                 + '&version=' + g_version + '&tpl_id=' + text + '">模板序号' + text + '</a>'));
+           },
+           error : function(){
+@@ -64,11 +72,11 @@
+       return;
+     }
+     if ($(this).html() == '保存') {
+-      $(this).html('修改');
+-      $('#using-version-id').attr('disabled', true);
+       $.ajax('/update-stype-version-using-id?stype=' + g_stype + '&version=' + g_version + '&tpl_id=' + $('#using-version-id').val(), {
+         'success' : function(text){
+-          alert('保存成功');
++          alert(text);
++          $(this).html('修改');
++          $('#using-version-id').attr('disabled', true);
+         },
+         'error' : function() {
+           alert('保存失败');
+@@ -87,11 +95,11 @@
+       return;
+     }
+     if ($(this).html() == '保存') {
+-      $(this).html('修改');
+-      $('#version-status').attr('disabled', true);
+       $.ajax('/update-stype-version-status?stype=' + g_stype + '&version=' + g_version + '&status=' + $('#version-status').val(), {
+         'success' : function(text){
+-          alert('保存成功');
++          alert(text);
++          $(this).html('修改');
++          $('#version-status').attr('disabled', true);
+         },
+         'error' : function() {
+           alert('保存失败');
+@@ -107,11 +115,11 @@
+ $('#test-version-id-edit').click(
+   function() {
+     if ($(this).html() == '保存') {
+-      $(this).html('修改');
+-      $('#test-version-id').attr('disabled', true);
+       $.ajax('/update-stype-version-test-id?stype=' + g_stype + '&version=' + g_version + '&tpl_id=' + $('#test-version-id').val(), {
+         'success' : function(text){
+-          alert('保存成功');
++          alert(text);
++          $(this).html('修改');
++          $('#test-version-id').attr('disabled', true);
+         },
+         'error' : function() {
+           alert('保存失败');
+@@ -126,6 +134,10 @@
+ 
+ $(document).ready(
+   function() {
++    if (g_user_right > 1) {
++      $('.admin-only').removeClass('hidden');
++    }
++
+     if(g_stype <= 0) {
+       return;
+     }
+@@ -140,7 +152,7 @@
+             seq_list = $('<div class="seq-list-container"> 模板序号列表(点击编辑模板): </div>');
+             $(document.body).append(seq_list);
+           }
+-          seq_list.append($('<a style="margin-left:10px;" target="_blank" href="/feed-tpl-edit?stype=' + g_stype 
++          seq_list.append($('<a style="margin-left:10px;" href="/feed-tpl-edit?stype=' + g_stype 
+               + '&version=' + g_version + '&tpl_id=' + seqs[i] + '">模板序号' + seqs[i] + '</a>'));
+           
+           $('#test-version-id').append($('<option value=' + seqs[i] + '>' + seqs[i] + '</option>'));
+@@ -152,8 +164,9 @@
+              $('#using-version-id').val(o.using_id);
+              $('#test-version-id').val(o.test_id);
+              $('#version-status').val(o.status);
++             var readonly = (o.status > 1 && g_user_right > 1);
+ 
+-             var view = new FeedKeyView(g_stype, g_version, o.using_id, o.test_id, o.status, false);
++             var view = new FeedKeyView(g_stype, g_version, o.using_id, o.test_id, o.status, readonly);
+              view.AppendToNode($('#feed-key-container'));
+              view.HideVersion();
+              view.HideStatus();
+Index: feed-config-create.mako
+===================================================================
+--- feed-config-create.mako	（修订版 23613）
++++ feed-config-create.mako	（工作拷贝）
+@@ -8,6 +8,7 @@
+ <script type="text/javascript" src="/feed-admin.js"></script>
+ </head>
+ <body>
++<div><a href="/feed-list">全部类型列表</a> &gt; <a href="#nogo">新建类型</a></div>
+ <div id="stype-apply-placeholder"></div>
+ <br/>
+ <div id="config-placeholder"></div>
+@@ -22,7 +23,7 @@
+ $('#config-submit').click(
+   function() {
+     // cfg_view.Save(true, g_apply_id);
+-    cfg_view.Save(false, g_apply_id);
++    cfg_view.Save(true, g_apply_id);
+   }
+ );
+ 
+Index: feed-tpl-edit.mako
+===================================================================
+--- feed-tpl-edit.mako	（修订版 23712）
++++ feed-tpl-edit.mako	（工作拷贝）
+@@ -7,13 +7,20 @@
+ <script src="/jquery.js" type="text/javascript"></script>
+ <script type="text/javascript" src="/feed-admin.js"></script>
+ <script type="text/javascript">
++var g_user_right = ${user_right};
++var g_tpl_using = ${tpl_using};
+ var g_stype = ${stype};
+ var g_version = ${version};
+ var g_tpl_id = ${tpl_id};
++
++if (g_user_right <= 0) {
++  var f = window.location.href;
++  window.location = 'https://passport.no.opi-corp.com/login.php?forward=' + escape(f);
++}
+ </script>
+ </head>
+ <body>
+-<div><a href="/feed-list.html">全部列表</a> &gt; <a href="/feed-config-edit?stype=${stype}">类型${stype}</a>
++<div><a href="/feed-list">全部类型列表</a> &gt; <a href="/feed-config-edit?stype=${stype}">类型${stype}</a>
+ &gt; <a href="/feed-keys-edit?stype=${stype}&version=${version}">数据版本${version}</a>
+ &gt; <a href="/feed-tpl-edit?stype=${stype}&version=${version}&tpl_id=${tpl_id}">模板序号${tpl_id}</a>
+ </div>
+@@ -22,17 +29,19 @@
+       <th colspan="5">stype <span style="color:red;font-weight:bold;">${stype}</span> 
+         verion <span style="color:red;font-weight:bold;">${version}</span> 
+         序号 <span style="color:red;font-weight:bold;">${tpl_id}</span> 
+-        Feed 模板列表编辑. <span style="float:right;"><a href="#nogo" id="add-template">新建模板</a>(类型=<select id="add-template-view"><option></option>
++        Feed 模板列表编辑. </th>
++  </tr>
++</tbody></table>
++<div id="feed-key-view"></div>
++<br/>
++<span><a href="#nogo" id="add-template">新建模板</a>(类型=<select id="add-template-view"><option></option>
+         <option value="0">0 网站 Home&amp;Profile</option>
+         <option value="1">1 IM</option>
+         <option value="2">2 Wap</option>
+         <option value="3">3 实时化</option>
+         <option value="4">4 开放平台</option>
+-    </select>)</span></th>
+-  </tr>
+-</tbody></table>
+-<div style="margin: 0 15%;">
+-</div>
++</select>)</span>
++<table width="1000" id="tpl-list"></table>
+ </body>
+ 
+ <script type="text/javascript">
+@@ -45,22 +54,30 @@
+     }
+     var view_desc = $('option[value=' + view + ']', $('#add-template-view')).text();
+     var tpl = new TplListItem(view, view_desc, 'empty');
++    alert('新建成功，刷新页面前请注意保存');
+     tpl.AddToList();
+   }
+ );
+ $(document).ready(
+   function() {
+     var view = new FeedKeyView(g_stype, g_version, g_tpl_id, -1, 0, true);
+-    view.AppendToBody();
++    view.AppendToNode($('#feed-key-view'));
+     view.HideAllPanel();
+-
++ 
+     $.ajax('/get-tpls?tpl_id=' + g_tpl_id, {
+       success : function(text) {
+-        var tpl_map = eval('(' + text + ')');
+-        for(var view in tpl_map) {
++        var tpl_list = eval('(' + text + ')');
++        for(var i = 0; i < tpl_list.length; ++i) {
++          var view = tpl_list[i]['view'];
+           var view_desc = $('option[value=' + view + ']', $('#add-template-view')).text();
+-          var tpl = new TplListItem(view, view_desc, tpl_map[view]);
++          var tpl = new TplListItem(view, tpl_list[i]['status'], view_desc, tpl_list[i]['template']);
+           tpl.AddToList();
++          if (g_user_right > 1) {
++            tpl.HideEditStatus();
++            if(g_tpl_using && (tpl_list[i]['status'] > 0)) {
++              tpl.Readonly();
++            }
++          }
+         }
+       },
+       error : function() {
+@@ -69,6 +86,7 @@
+     });
+   }
+ );
++$('#add-template-view').attr('disabled', false);
+ </script>
+ </html>
+ 

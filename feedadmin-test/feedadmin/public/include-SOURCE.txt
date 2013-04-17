@@ -1,0 +1,8 @@
+<?cs if:f.origin.title ?>
+  <span class="from">
+    <a stats="NF_<?cs var:id ?>_<?cs var:stype ?>_<?cs var:f.from.id ?>" href="<?cs var:f.origin.url ?>" target="_blank">通过<?cs var:f.origin.title ?>发布</a>
+  </span>
+  <?cs if:f.origin.image ?>
+    <img src="<?cs var:f.origin.image ?>"></a>
+  <?cs /if ?>
+<?cs /if ?>

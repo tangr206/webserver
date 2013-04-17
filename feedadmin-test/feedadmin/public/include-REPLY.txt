@@ -1,0 +1,22 @@
+<div id="feedbody<?cs var:source ?>" style="display:none;" class="replies"></div>
+<script type="text/javascript" status='1'>
+(function()
+{
+<?cs set:reply_count = #0 ?>
+var reply = {"replyList":[
+<?cs each:item=f.reply ?>
+
+<?cs set:reply_count = reply_count + #1 ?>
+<?cs if:reply_count < #2 ?>
+<?cs if:reply_count > #0 ?>
+{{#f_reply_id_separator}},{{/f_reply_id_separator}}
+<?cs /if ?>
+{"id":"<?cs var:item.id ?>","replyer_tinyurl":"<?cs var:item.from.tinyimg ?>","replyContent":"<?cs var:item.from.body ?>","ubname":"<?cs var:item.from.name ?>","replyTime":"<?cs var:item.time ?>","type":'<?cs var:item.replyType ?>',"reply_layer":0,"ubid":<?cs var:item.from.id ?>}
+<?cs /if ?>
+<?cs /each ?>
+],"ownerid":<?cs var:f.from.id ?>,"userDigged":"<?cs var:selfzancount ?>","digged":"<?cs var:totalzancount ?>","type":"album","fin":"<?cs var:feedIndex ?>"};
+getReplyOfDoingFromJSON( reply, '<?cs var:source ?>' ,'<?cs userID ?>' , '{{reply_count}}','2','','',true )
+})();
+</script>
+</div>
+

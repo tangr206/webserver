@@ -1,0 +1,19 @@
+<aside>
+  <figure class="newsfeed-user" data-id="<?cs var:f.from.id ?>" data-name="<?cs var:f.from.name ?>">
+    <a stats="NF_<?cs var:id ?>_<?cs var:stype ?>_<?cs var:f.from.id ?>" href="
+        <?cs if:f.from.url ?>
+           <?cs var:f.from.url ?>
+        <?cs else ?>
+           http://www.renren.com/profile.do?id=<?cs var:f.from.id ?>&ref=<?cs var:vType ?>
+        <?cs /if ?>"
+       namecard="<?cs var:f.from.id ?>" title="<?cs var:f.from.name ?>" target="_blank">
+
+       <img src="<?cs if:f.from.fullimg ?>
+                   <?cs var:f.from.fullimg ?>
+                 <?cs else ?>
+                   <?cs var:f.from.tinyimg ?>
+                 <?cs /if ?>" width="50" alt="头像" title="<?cs var:f.from.name ?>" />
+    </a>
+  </figure>
+</aside>
+

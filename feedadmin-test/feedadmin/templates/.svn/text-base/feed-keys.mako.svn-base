@@ -1,0 +1,1 @@
+{"type": ${type}, "stype": ${stype}, "weight":${weight}, "ptype":${ptype}, "save_content":${save_content}, "save_feed_db":${save_feed_db}, "news_merge_type":${news_merge_type}, "mini_merge_type":${mini_merge_type}, "push_flags":${push_flags}, "custom_expr":${custom_expr}, "update_time_on_merge":${update_time_on_merge}, "lifetime":${lifetime}, "quota":${quota}}

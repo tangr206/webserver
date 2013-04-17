@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/oce/!svn/ver/23796/main_project/trunk/AdHot/feedadmin/config
+END
+middleware.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/config/middleware.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/config/__init__.py
+END
+deployment.ini_tmpl
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/config/deployment.ini_tmpl
+END
+environment.py
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/config/environment.py
+END
+routing.py
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/oce/!svn/ver/23847/main_project/trunk/AdHot/feedadmin/config/routing.py
+END

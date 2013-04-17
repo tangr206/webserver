@@ -1,0 +1,3 @@
+include feedadmin/config/deployment.ini_tmpl
+recursive-include feedadmin/public *
+recursive-include feedadmin/templates *

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>jquery jstree demo</title>
+    <link rel="stylesheet" type="text/css" href="layout.css" />
+    <link rel="stylesheet" type="text/css" href="jstree-style.css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="jquery.jstree.js"></script>
+    <script type="text/javascript" src="jquery.cookie.js"></script>
+    <script type="text/javascript" src="jquery.hotkeys.js"></script>
+    <script type="text/javascript" src="jquery.json-2.2.js"></script>
+  </head>
+  <body>
+<div id="mmenu" style="height:30px; overflow:auto;">
+<input type="button" id="add_folder" value="add folder" style="display:block; float:left;"/>
+
+<input type="button" id="add_default" value="add file" style="display:block; float:left;"/>
+<input type="button" id="rename" value="rename" style="display:block; float:left;"/>
+<input type="button" id="remove" value="remove" style="display:block; float:left;"/>
+<input type="button" id="get-data" value="get-data" style="display:block; float:left;"/>
+<input type="text" id="text" value="" style="display:block; float:right;" />
+</div>
+
+    <div id="demo1" class="demo jstree jstree-0 jstree-default jstree-focused" style="height: 500px;">
+    </div>
+<script type="text/javascript">
+$(function () {
+  $("#demo1").jstree({ 
+    "json_data" : {
+       data : [
+         {
+           "data": "feed", "state":"open", 
+           "children" : [
+             {"data": 'source'},
+             {"data": 'actor'},
+             {"data": 'newsMerge'},
+             {"data": 'miniMerge'},
+             {"data": 'props', "children" : ['photo', 'url', 'desc']}
+           ]
+         }
+       ]
+    },
+    "themes" : {
+      "theme" : "default",
+      "dots" : true,
+      "icons" : false
+    },
+    "core" : {
+      animation : 30
+    },
+    "plugins" : [ "themes", "json_data", "ui", "crrm", "contextmenu" ]
+  })
+  ;
+});
+
+$(function() {
+    $('#get-data').click(
+      function() {
+        var obj = $('#demo1').jstree('get_json', -1);
+        for(var i = 0; i < obj.length; ++i) {
+          console.log(obj[i]);
+          console.log($.toJSON(obj[i]));
+        }
+        console.log($.toJSON(obj));
+      }
+    );
+  }
+);
+</script>
+  </body>
+</html>
+

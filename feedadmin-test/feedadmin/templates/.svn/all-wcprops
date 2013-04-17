@@ -1,0 +1,161 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/oce/!svn/ver/23808/main_project/trunk/AdHot/feedadmin/templates
+END
+apply-publish.mako
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/templates/apply-publish.mako
+END
+feed-config-edit.mako
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/oce/!svn/ver/23813/main_project/trunk/AdHot/feedadmin/templates/feed-config-edit.mako
+END
+get-stype-keys.mako
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/templates/get-stype-keys.mako
+END
+footer.mako
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/templates/footer.mako
+END
+apply-new-version.mako
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/templates/apply-new-version.mako
+END
+feed-keys-edit.mako
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/oce/!svn/ver/24384/main_project/trunk/AdHot/feedadmin/templates/feed-keys-edit.mako
+END
+apply-new-seq.mako
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/templates/apply-new-seq.mako
+END
+apply-publish-list.mako
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/templates/apply-publish-list.mako
+END
+feed-config.mako.bak
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/templates/feed-config.mako.bak
+END
+hello.mako
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/templates/hello.mako
+END
+feed-config.mako
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/templates/feed-config.mako
+END
+feed-config-create.mako
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/oce/!svn/ver/23813/main_project/trunk/AdHot/feedadmin/templates/feed-config-create.mako
+END
+apply-new-version-list.mako
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/templates/apply-new-version-list.mako
+END
+apply-new-seq-list.mako
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/templates/apply-new-seq-list.mako
+END
+apply-rollback.mako
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/templates/apply-rollback.mako
+END
+feed-keys.mako
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/templates/feed-keys.mako
+END
+feed-list.mako
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/oce/!svn/ver/23887/main_project/trunk/AdHot/feedadmin/templates/feed-list.mako
+END
+apply-new-feed.mako
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/templates/apply-new-feed.mako
+END
+get-stype-tree.mako
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/templates/get-stype-tree.mako
+END
+feed-user.mako
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/templates/feed-user.mako
+END
+feed-tpl-edit.mako
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/oce/!svn/ver/23954/main_project/trunk/AdHot/feedadmin/templates/feed-tpl-edit.mako
+END
+feedtpl.mako
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/templates/feedtpl.mako
+END
+apply-rollback-list.mako
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/templates/apply-rollback-list.mako
+END
+apply-new-feed-list.mako
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/templates/apply-new-feed-list.mako
+END
+header.mako
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/templates/header.mako
+END
+m.bak.mako
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/oce/!svn/ver/23613/main_project/trunk/AdHot/feedadmin/templates/m.bak.mako
+END
