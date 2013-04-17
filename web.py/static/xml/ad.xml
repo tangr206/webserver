@@ -1,0 +1,234 @@
+<icegrid>
+	<application name="Ad">
+			    <include file="templates/ad_ufc.xml" />
+                <include file="templates/ad_match.xml" />
+                <include file="templates/ad_gate.xml" />
+                <include file="templates/ad_tw_s.xml" />
+                <include file="templates/ad_gate_n.xml" />
+                <include file="templates/ad_match_n.xml" />
+                <include file="templates/ad_log.xml" />
+                <include file="templates/ad_engine.xml" />
+                <include file="templates/ad_quality.xml" />
+                <include file="templates/ad_quality_n.xml" />
+                <include file="templates/ad_recommend.xml" />
+                <include file="templates/ad_recommends.xml" />
+                <include file="templates/ad_gate_m.xml" />
+                <include file="templates/ad_engine_b.xml" />
+                <include file="templates/ad_creativequality.xml" />
+		        <include file="templates/ad_demoloadercache.xml" />
+				<include file="templates/xiaonei_controller.xml" />
+				<include file="templates/ad_feed_edm.xml" />
+				<include file="templates/ad_experimentloadercache.xml" />
+	<!--	
+		<node name="node_ad1">
+			<server-instance template="AdGateX" ServerType="S" Index="1" LogLevel="INFO" FcgiSocket="10.3.19.182:9002"/>
+			<server-instance template="AdGateX" ServerType="S" Index="4" LogLevel="INFO" FcgiSocket="10.3.19.182:9003"/>
+		</node>
+		<node name="node_ad2">
+			<server-instance template="AdGateX" ServerType="S" Index="2" LogLevel="INFO" FcgiSocket="10.3.19.183:9002"/>
+			<server-instance template="AdGateX" ServerType="S" Index="5" LogLevel="INFO" FcgiSocket="10.3.19.183:9003"/>
+		</node>
+	-->
+		<node name="node_ad4">
+		</node>
+
+		<node name="node_ad5">
+		</node>
+		<node name="node_ad6">
+		</node>
+		<node name="node_ad7">
+			<server-instance template="AdEngineBHA" Index="5" LogLevel="INFO" Mod="5" />
+			<server-instance template="AdGateN" Index="13" LogLevel="INFO" FcgiSocket="10.3.24.79:8006"/>
+		</node>
+		<node name="node_ad8">
+			<server-instance template="AdGateN" Index="5" LogLevel="INFO" FcgiSocket="10.3.24.80:8006"/>
+		</node>
+		<node name="node_ad9">
+			<server-instance template="AdGateN" Index="12" LogLevel="INFO" FcgiSocket="10.3.24.81:8006"/>
+			<server-instance template="AdCreativeQuality"  Index="0" LogLevel="INFO" Mod="0" />
+		</node>
+		<node name="node_ad10">
+			<server-instance template="AdEngineBHA" Index="0" LogLevel="INFO" Mod="0" />
+			<server-instance template="AdGateN" Index="17" LogLevel="INFO" FcgiSocket="10.3.24.82:8006"/>
+		</node>
+		<node name="node_ad11">
+			<server-instance template="AdEngineHA" ServerType="U" Index="11" LogLevel="INFO" Mod="11" />
+			<server-instance template="AdGateN" Index="7" LogLevel="INFO" FcgiSocket="10.3.24.83:8006"/>
+		</node>
+		<node name="node_ad12">
+			<server-instance template="AdGateN" Index="16" LogLevel="INFO" FcgiSocket="10.3.24.84:8006"/>
+			<server-instance template="AdCreativeQuality"  Index="1" LogLevel="INFO" Mod="0" />
+		</node>
+		<node name="node_ad13">
+			<server-instance template="AdEngineBHA" Index="4" LogLevel="INFO"  Mod="4" />
+			<server-instance template="AdGateN" Index="6" LogLevel="INFO" FcgiSocket="10.3.24.85:8006"/>
+		</node>
+		<node name="node_ad14">
+			<server-instance template="AdGateN" Index="0" LogLevel="INFO" FcgiSocket="10.3.24.86:8006"/>
+			<server-instance template="AdEngineHA" ServerType="U" Index="22" LogLevel="INFO" Mod="22"/>
+		</node>
+		<node name="node_ad15">
+			<server-instance template="AdGateN" Index="1" LogLevel="INFO" FcgiSocket="10.3.24.87:8006"/>
+			<server-instance template="AdEngineHA" ServerType="U" Index="14" LogLevel="INFO" Mod="14" />
+		</node>
+		
+		<node name="node_ad22">
+		</node>
+		<node name="node_ad24">
+			<server-instance template="AdLogHA" Index="1" LogLevel="DEBUG" Mod="0" />
+		</node>
+		<node name="node_ad25">
+			<server-instance template="AdLogHA" Index="-1" LogLevel="DEBUG" Mod="0" />
+		</node>
+		<node name="node_ad26">
+			<server-instance template="AdLogHA" ServerType="S" Index="-1" LogLevel="INFO" Mod="0"/> 
+		</node>
+		<node name="node_ad27">
+			<server-instance template="AdLogHA" Index="2" LogLevel="DEBUG" Mod="0" />
+		</node>
+		<node name="node_ad28">
+		</node>
+		<node name="node_ad29">
+			<server-instance template="AdGateN" Index="10" LogLevel="INFO" FcgiSocket="10.3.23.63:8006"/>
+		    <!-- cpc-antifrauder -->
+		</node>
+		<node name="node_ad30">
+			<server-instance template="AdGateN" Index="8" LogLevel="INFO" FcgiSocket="10.3.23.64:8006"/>
+		</node>	
+		<node name="node_ad31">
+			<server-instance template="AdLogHA" ServerType="S" Index="0" LogLevel="INFO" Mod="0"/>
+		</node>
+
+		<node name="node_ad34">
+			<server-instance template="AdLogHA" ServerType="S" Index="1" LogLevel="INFO" Mod="0"/>
+		</node>
+		<node name="node_ad35">
+			<server-instance template="AdLogHA" ServerType="S" Index="2" LogLevel="INFO" Mod="0"/>
+		</node>
+		<node name="node_ad36">
+			<server-instance template="AdLogHA" ServerType="S" Index="3" LogLevel="INFO" Mod="0"/> 
+		</node>
+		<node name="node_ad37">
+			<server-instance template="AdLogHA" Index="3" LogLevel="DEBUG" Mod="0" />
+		</node>
+		<node name="node_ad38">
+		    <!--Memcached??-->
+			<server-instance template="AdUserFeatureCache" Index="1" LogLevel="INFO" Mod="0" />
+			<server-instance template="AdEngineHA" ServerType="U" Index="1" LogLevel="INFO" Mod="1" />
+			<server-instance template="AdEngineHA" ServerType="U" Index="5" LogLevel="INFO" Mod="5" />
+			<server-instance template="AdEngineHA" ServerType="U" Index="21" LogLevel="INFO" Mod="21"/>
+		</node>
+		<node name="node_ad39">
+			<server-instance template="AdLogHA" Index="0" LogLevel="DEBUG" Mod="0" />
+		</node>
+		<node name="node_ad40"> 
+			<server-instance template="AdEngineHA" ServerType="U" Index="16" LogLevel="INFO" Mod="16" />
+			<server-instance template="AdEngineHA" ServerType="U" Index="15" LogLevel="INFO" Mod="15" />
+			<server-instance template="AdDemoLoaderCache"  Index="0" LogLevel="INFO" />
+			<server-instance template="AdExperimentLoaderCache"  Index="0" LogLevel="INFO" />
+			<server-instance template="AdEngineHA" ServerType="U" Index="23" LogLevel="INFO" Mod="23"/>
+		</node>
+		<node name="node_ad41"> 
+			<server-instance template="AdEngineHA" ServerType="U" Index="9" LogLevel="INFO" Mod="9" />
+			<server-instance template="AdDemoLoaderCache"  Index="1" LogLevel="INFO" />
+			<server-instance template="AdExperimentLoaderCache"  Index="1" LogLevel="INFO" />
+			<server-instance template="AdEngineHA" ServerType="U" Index="12" LogLevel="INFO" Mod="12"/>
+		</node>
+		<node name="node_ad42"> 
+			<server-instance template="AdEngineHA" ServerType="U" Index="19" LogLevel="INFO" Mod="19" />
+			<server-instance template="AdEngineHA" ServerType="U" Index="18" LogLevel="INFO" Mod="18" />
+			<server-instance template="AdDemoLoaderCache"  Index="2" LogLevel="INFO" />
+			<server-instance template="AdExperimentLoaderCache"  Index="2" LogLevel="INFO" />
+			<server-instance template="AdEngineHA" ServerType="U" Index="13" LogLevel="INFO" Mod="13"/>
+		</node>
+
+		<node name="node_ad46">
+			<server-instance template="AdGateN" Index="9" LogLevel="INFO" FcgiSocket="10.3.25.104:8006"/>
+			<server-instance template="AdGateM" Index="1" LogLevel="INFO" FcgiSocket="10.3.25.104:8007"/>
+			<server-instance template="AdEngineHA" ServerType="U" Index="4" LogLevel="INFO" Mod="4"/>
+			<server-instance template="AdEngineHA" ServerType="U" Index="7" LogLevel="INFO" Mod="7" />
+		</node>
+		<node name="node_ad47">
+			<server-instance template="AdEngineHA" ServerType="U" Index="20" LogLevel="INFO" Mod="20" />
+			<server-instance template="AdGateN" Index="4" LogLevel="INFO" FcgiSocket="10.3.25.105:8006"/>
+			<server-instance template="AdGateM" Index="0" LogLevel="INFO" FcgiSocket="10.3.25.105:8007"/>
+			<server-instance template="AdEngineHA" ServerType="U" Index="0" LogLevel="INFO" Mod="0"/>
+		</node>
+		<node name="node_ad48">
+			<server-instance template="AdGateN" Index="2" LogLevel="INFO" FcgiSocket="10.3.25.106:8006"/>
+			<server-instance template="AdGateM" Index="5" LogLevel="INFO" FcgiSocket="10.3.25.106:8007"/>
+			<server-instance template="AdEngineHA" ServerType="U" Index="8" LogLevel="INFO" Mod="8" />
+		</node>
+		<node name="node_ad49">
+			<server-instance template="AdGateN" Index="3" LogLevel="INFO" FcgiSocket="10.3.25.107:8006"/>
+			<server-instance template="AdGateM" Index="2" LogLevel="INFO" FcgiSocket="10.3.25.107:8007"/>
+			<server-instance template="AdEngineHA" ServerType="U" Index="17" LogLevel="INFO" Mod="17" />
+		</node>
+		
+		<node name="node_ad53">
+			<server-instance template="AdGateN" Index="11" LogLevel="INFO" FcgiSocket="10.3.24.88:8006"/>
+			<server-instance template="AdGateM" Index="3" LogLevel="INFO" FcgiSocket="10.3.24.88:8007"/>
+		</node>
+		<node name="node_ad54">
+			<server-instance template="AdGateN" Index="15" LogLevel="INFO" FcgiSocket="10.3.24.89:8006"/>
+			<server-instance template="AdGateM" Index="4" LogLevel="INFO" FcgiSocket="10.3.24.89:8007"/>
+		</node>
+		<node name="node_ad58">
+			<server-instance template="AdEngineHA" ServerType="U" Index="2" LogLevel="INFO" Mod="2" />
+			<server-instance template="AdGateN" Index="14" LogLevel="INFO" FcgiSocket="10.3.24.111:8006"/>
+		</node>
+		<node name="node_ad59">
+			<server-instance template="AdEngineBHA" Index="3" LogLevel="INFO" Mod="3" />
+			<server-instance template="AdGateN" Index="19" LogLevel="INFO" FcgiSocket="10.3.24.112:8006"/>
+		</node>
+		<node name="node_ad60">
+			<server-instance template="AdEngineHA" ServerType="U" Index="6" LogLevel="INFO" Mod="6" />
+			<server-instance template="AdGateN" Index="18" LogLevel="INFO" FcgiSocket="10.3.24.113:8006"/>
+		</node>
+		<node name="node_ad61">
+		</node>
+		<node name="node_ad62">
+			<server-instance template="FeedEdmSender" Index="1" LogLevel="INFO"  />
+			<server-instance template="FeedEdmSender" Index="0" LogLevel="INFO"  />
+			<server-instance template="FeedEdmCache" Index="0" LogLevel="INFO"  />
+		</node>
+		<node name="node_ad63">
+			<server-instance template="AdEngineHA" ServerType="U" Index="3" LogLevel="INFO" Mod="3"/>
+			<server-instance template="AdEngineHA" ServerType="U" Index="10" LogLevel="INFO" Mod="10"/>
+		</node>
+        	<node name="node_ad64">
+		</node>
+		<node name="node_ad65">
+		</node>	
+		<node name="node_ad66">
+        	</node>
+         
+		<node name="node_ad67">
+		</node>
+		<node name="node_ad16">
+			<server-instance template="AdEngineBHA" Index="9" LogLevel="INFO" Mod="9" />
+			<server-instance template="AdEngineBHA" Index="1" LogLevel="INFO" Mod="1" />
+			<server-instance template="AdEngineBHA" Index="-2" LogLevel="INFO" Mod="-2" />
+		</node>
+		<node name="node_ad68">
+        </node>
+		<node name="node_ad69">
+		</node>
+		<node name="node_ad70">
+		</node>
+		<node name="node_ad72">
+			<server-instance template="AdEngineBHA" Index="8" LogLevel="INFO" Mod="8" />
+			<server-instance template="AdEngineBHA" Index="7" LogLevel="INFO" Mod="7" />
+		    	<server-instance template="AdUserFeatureCache" Index="0" LogLevel="INFO" Mod="0" />
+			<server-instance template="AdEngineBHA" Index="-3" LogLevel="INFO" Mod="-3" />
+		</node>
+		<node name="node_ad74">
+		</node>
+		<node name="node_ad76">
+			<server-instance template="AdEngineBHA" Index="-1" LogLevel="INFO" Mod="-1" />
+                        <server-instance template="AdEngineBHA" Index="-4" LogLevel="INFO" Mod="-4" />
+                        <server-instance template="AdEngineBHA" Index="2" LogLevel="INFO" Mod="2" />
+			<server-instance template="AdEngineBHA" Index="6" LogLevel="INFO" Mod="6" />
+		</node>
+	</application>
+</icegrid>

@@ -1,0 +1,183 @@
+$def with(xml_files)
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>服务部署查询</title>
+<link rel="icon" type="image/gif" href="/static/images/favicon.gif" >
+<link rel="stylesheet" type="text/css" href="/static/css/common.css">
+<link rel="stylesheet" type="text/css" href="/static/css/finder.css">
+
+<script src="/static/js/jquery.min.js"></script>
+<script>
+    var xmlFiles = [$:xml_files];//the file to load
+    var enterNum = 0;
+    var nowFile = '';
+    
+    var Service = function(_service){
+        this.name = _service.attr('template');//服务的名称
+        this.node = _service.parent().attr('name');//该服务所属的node
+        this.property = [_service.attr('ServerType'), _service.attr('Index'),
+                         _service.attr('LogLevel'), _service.attr('Mod'),
+                         _service.attr('FcgiSocket')];//最多五个属性
+        
+    }
+    function parseData(data){
+        var services = {};
+        var nodes = {};
+        $$(data).find('server-instance').each(function(index, element) {
+            var _service = $$(this);
+            var sName = _service.attr('template');
+            var service = new Service(_service);
+            
+            if (!services[sName])
+                services[sName] = new Array();
+            if (!nodes[service.node])
+                nodes[service.node] = new Array();
+                
+            services[sName].push(service);
+            nodes[service.node].push(service);
+        });
+        
+        for (var sName in services){
+            //alert(sName+' : '+services[sName].length)
+            var nodesLen = services[sName].length;
+            var plen = services[sName][0].property.length;
+            var trHtml = '<tr class="searchAns"><td rowspan="' + nodesLen + '">' + sName + '</td>';
+            for(var i = 0; i < nodesLen; i++){
+                trHtml += '<td>' + services[sName][i].node + '</td>';
+                for (var p = 0; p < 5; p++)
+                    trHtml += '<td>' + (services[sName][i].property[p] ? services[sName][i].property[p] : '&nbsp;') + '</td>';
+                trHtml +='</tr>\n';
+                if (i != (nodesLen - 1)) trHtml +='<tr class="searchAns">';
+            }
+            $$('#' + nowFile + '_service').append(trHtml)
+        }
+        
+        for (var node in nodes){
+            //alert(sName+' : '+services[sName].length)
+            var servicesLen = nodes[node].length;
+            var plen = nodes[node][0].property.length;
+            var trHtml = '<tr class="searchAns"><td rowspan="' + servicesLen + '">' + node + '</td>';
+            for(var i = 0; i < servicesLen; i++){
+                trHtml += '<td>' + nodes[node][i].name + '</td>';
+                for (var p = 0; p < plen; p++)
+                    trHtml += '<td>' + (nodes[node][i].property[p] ? nodes[node][i].property[p] : '&nbsp;') + '</td>';
+                trHtml +='</tr>\n';
+                if (i != (nodesLen - 1)) trHtml +='<tr class="searchAns">';
+            }
+            $$('#' + nowFile + '_node').append(trHtml)
+        }
+        
+        loadXMLFiles();
+    }
+    
+    function loadXMLFiles(){
+        if (xmlFiles.length > 0){
+            nowFile = xmlFiles.pop();
+            $$('select[name="fileOpt"]').append('<option>' + nowFile + '</option>');
+            
+            $$('#serviceTemplate').clone(true).attr('id', nowFile + '_service').appendTo('#tables');
+            $$('#nodeTemplate').clone(true).attr('id', nowFile + '_node').appendTo('#tables');
+            
+            $$.get('/static/xml/' + nowFile +'.xml', parseData);
+        }else{
+            changeTable();
+        }
+    }
+    
+    $$(function(){
+        loadXMLFiles();
+        $$('#searcher').keyup(function(e) {
+            var keyWord = $$(this).val() + '';
+            keyWord = keyWord.toLowerCase().split(' ');//取出关键词数组
+            $$('.infoTable:visible').find('tr').not(':first').each(function(index, element) {
+                var $$tr = $$(this);
+                $$tr.removeClass('searchAns').find('.keyWord').each(function(){
+                    $$(this).replaceWith($$(this).text());
+                });
+                if (keyWord == ''){
+                    $$tr.addClass('searchAns');
+                }else{
+                    for (var i = 0; i < keyWord.length; i++){
+                        if ((keyWord[i] != '') && ($$tr.text().toLowerCase().indexOf(keyWord[i]) >= 0)){
+                            $$tr.addClass('searchAns');
+                            var reg=new RegExp('('+keyWord[i].replace(/\./g,'\\.')+')','ig');
+                            $$tr.find('td').each(function(index, element) {
+                                $$(this).html($$(this).text().replace(reg,'<span class="keyWord">$$1</span>'));
+                            });
+                        }
+                    }
+                }
+            });
+            var keyNum = $$('.infoTable:visible').find('.keyWord').length;
+            if (e.keyCode == 13){
+                var $$nowKey = $$('.infoTable:visible').find('.keyWord').removeClass('hlight').eq(enterNum).addClass('hlight');
+                
+                $$('body').scrollTop($$nowKey.offset().top - 60);
+                enterNum = (enterNum + 1) % keyNum;
+            }else{
+                enterNum = 0;
+            }
+        });
+        $$('input[name="view"]').click(changeTable);
+    });
+    function changeTable(){
+        //alert($$(selector).val());
+        var serviceName = $$('select[name="fileOpt"]').val();
+        var view = $$('input[name="view"]:checked').val();
+        //alert(serviceName+'_'+view);
+        $$('#' + serviceName+'_' + view).show().siblings('table').hide();
+        $$('#searcher').trigger('keyup');
+    }
+</script>
+</head>
+
+<body>
+	<div id="blogtitle"> 
+    	服务部署查询
+	</div>
+<div id="container" >
+	<div id="containertop"></div> 
+	<div id="ctrlPanel">
+    	&nbsp;&nbsp;&nbsp;<select name="fileOpt" onChange="changeTable()">
+       	</select>
+        <label><input name="view" type="radio" value="service" checked>按服务显示</label>
+        <label><input name="view" type="radio" value="node" >按节点显示</label>
+        <input id="searcher" type="text" value="">
+    </div>
+    <div id="tables">
+	<table id="serviceTemplate" class="infoTable" border="1" cellpadding="0" cellspacing="0">
+      <tr>
+        <td>serviceName</td>
+        <td>belongNode</td>
+        <td>ServerType</td>
+        <td>Index</td>
+        <td>LogLevel</td>
+        <td>Mod</td>
+        <td>FcgiSocket</td>
+      </tr>
+    </table>
+	<table id="nodeTemplate" class="infoTable" border="1" cellpadding="0" cellspacing="0">
+      <tr>
+        <td>nodeName</td>
+        <td>serviceName</td>
+        <td>ServerType</td>
+        <td>Index</td>
+        <td>LogLevel</td>
+        <td>Mod</td>
+        <td>FcgiSocket</td>
+      </tr>
+    </table>
+    </div>
+    <div id="containerbot"></div> 
+</div>
+
+<div id="footer"> 
+    <p><br>
+	服务器部署查询 is proudly powered by <a href="http://webpy.org/">webpy</a><br /> 
+    <a href = "maito:renren.ad.engine@renren-inc.com">copyright @ renren.ad.engine</a><br /> 
+    </p> 
+</div>
+</body>
+</html>

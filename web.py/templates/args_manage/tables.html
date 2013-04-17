@@ -1,0 +1,230 @@
+$def with (tables, roles)
+<script>
+var cols = null;
+var nTable = null;
+$$(function(){
+	$$('.opTab').click(function(){
+		var $$selTab = $$(this);
+		$$selTab.siblings('.opTab').hide(200);
+		$$.ajax({
+			url : '/argsManage/table/' + $$selTab.attr('tid'),
+			cache : false,
+			type : 'GET',
+			dataType : 'json',
+			error : function(e){
+				alert('查询参数表失败');
+				$$selTab.siblings('.opTab').show(200);
+			},
+			success: function(data, stat){
+				if (data.stat == 1){
+					cols = data.cols;
+					nTable = $$selTab.attr('tid');
+					var $$tab = $$('#tabDetail table');
+					$$tab.find('thead').empty().append('<tr></tr>');
+					$$tab.find('tbody').empty();
+					for (var i in cols){
+						$$tab.find('thead tr').append('<th>' + cols[i] + '</th>');
+					}
+					if (parseInt($$selTab.attr('auth')) > 0)
+						$$tab.find('thead tr').append('<th>操作</th>');
+					for (var i in data.rows){
+						var row = data.rows[i];
+						var trHtml = '<tr>';
+						var pre_args = [];
+						for (var j in cols){
+							trHtml = trHtml + '<td>' + row[cols[j]] + '</td>';
+							pre_args.push(cols[j] + '=' + row[cols[j]]);
+						}
+						if (parseInt($$selTab.attr('auth')) > 0){
+							trHtml = trHtml + '<td><a class="editBtn">修改</a>&nbsp;' +
+									'<a class="deleteBtn">删除</a></td>';
+						}
+						trHrml = trHtml + '</tr>';
+						
+						var $$tr = $$(trHtml);
+						$$tr.attr('preArgs', pre_args.join('&'));
+						$$tr.find('.editBtn').click(changeArgs);
+						$$tr.find('.deleteBtn').click(deleteArgs);
+						
+						$$tab.find('tbody').append($$tr);
+					}
+					$$('#tabDetail').show(200);
+					if (parseInt($$selTab.attr('auth')) > 0){
+						$$('.addBtn').show();
+					}else{
+						$$('.addBtn').hide();
+					}
+				}else{
+					alert('查询参数表失败\n' + data.res);
+					$$selTab.siblings('.opTab').show(200);
+				}
+			}
+		});
+	});
+});
+function hideLayer(layer){
+	$$('#' + layer).hide(200);
+	$$('.opTab').show(200);
+}
+function showAdd(){
+	var inArgs = []
+	for (var i = 0; i < cols.length; i++){
+		inArgs.push([cols[i], '']);
+	}
+	PopUp.showInput('请输入参数', inArgs, function($$dialog){
+		var args = [];
+		for (var i = 0; i < cols.length; i++){
+			args.push(cols[i] + '=' + $$dialog.find('#i_' + i).val());
+		}
+		
+		$$.ajax({
+			url : '/argsManage/addArgs/' + nTable + '/' + args.join('&'),
+			cache : false,
+			type : 'GET',
+			dataType : 'json',
+			error : function(e){
+				alert('添加参数失败');
+			},
+			success: function(data, stat){
+				if (data.stat == 1){
+					alert('添加参数成功')
+					
+					var trHtml = '<tr>';
+					for (var j in cols){
+						trHtml = trHtml + '<td>' + $$dialog.find('#i_' + j).val() + '</td>';
+					}
+					trHtml = trHtml + '<td><a class="editBtn">修改</a>&nbsp;' +
+							'<a class="deleteBtn">删除</a></td>';
+					trHrml = trHtml + '</tr>';
+					
+					var $$tr = $$(trHtml);
+					$$tr.attr('preArgs', args.join('&'));
+					$$tr.find('.editBtn').click(changeArgs);
+					$$tr.find('.deleteBtn').click(deleteArgs);
+					
+					$$('#tabDetail table tbody').append($$tr);
+					
+					PopUp.hide($$dialog);
+					
+				}else{
+					alert('添加参数失败\n' + data.res);
+				}
+			}
+		});
+	});
+}
+function changeArgs(e){
+	var $$editArgs = $$(this).parents('tr');
+	var preArgs = $$editArgs.attr('preArgs');
+	var inArgs = [];
+	var preArgs_ = preArgs.split('&');
+	
+	for (var i in preArgs_){
+		inArgs.push(preArgs_[i].split('='));
+	}
+	PopUp.showInput('请输入参数', inArgs, function($$dialog){
+		var args = [];
+		for (var i = 0; i < preArgs_.length; i++){
+			args.push(preArgs_[i].split('=')[0] + '=' + $$dialog.find('#i_' + i).val());
+		}
+		
+		$$.ajax({
+			url : '/argsManage/changeArgs',
+			cache : false,
+			data : {pArgs : preArgs, nArgs : args.join('&'), tabId : nTable},
+			type : 'POST',
+			dataType : 'json',
+			error : function(e){
+				alert('修改参数失败');
+			},
+			success: function(data, stat){
+				if (data.stat == 1){
+					alert('修改参数成功');
+					$$editArgs.attr('preArgs', args.join('&'));
+					$$editArgs.find('td').each(function(i, elet) {
+                        $$(this).text($$dialog.find('#i_' + i).val());
+                    });
+					
+					PopUp.hide($$dialog);
+				}else{
+					alert('修改参数失败\n' + data.res);
+				}
+			}
+		});
+	});
+}
+function deleteArgs(e){
+	if (confirm('确定删除该参数！')){
+		var $$deleteArgs = $$(this).parents('tr');
+		var preArgs = $$deleteArgs.attr('preArgs');
+		$$.ajax({
+			url : '/argsManage/deleteArgs/' + nTable + '/' + preArgs,
+			cache : false,
+			type : 'GET',
+			dataType : 'json',
+			error : function(e){
+				alert('删除参数失败');
+			},
+			success: function(data, stat){
+				if (data.stat == 1){
+					alert('删除参数成功');
+					$$deleteArgs.remove();
+				}else{
+					alert('删除参数失败\n' + data.res);
+				}
+			}
+		});
+	}
+}
+</script>
+<div id="nav"> 
+	<ul> 
+		<li><a href="/argsManage/index">首页</a></li>
+		$if len(roles) > 0:
+			<li><a href = "/argsManage/args">参数修改</a></li>
+			
+			$for role in roles:
+				$if role['role_id'] == 1:
+					<li><a href = "/argsManage/userMan">用户管理</a></li>
+					<li><a href = "/argsManage/roleMan">角色管理</a></li>
+					<li><a href = "/argsManage/tableMan">参数表管理</a></li>
+					<li><a href = "/argsManage/logs">日志查询</a></li>
+					$break
+                    
+		<li><a href="/argsManage/self_set">个人信息</a></li>
+		<li><a href="/argsManage/logout">注销</a></li>
+	</ul> 
+	<div style="clear:both;"></div> 
+</div> 
+
+<h2>您可以对以下参数表进行操作</h2>
+<table cellpadding="4" cellspacing="0" border="1">
+$if len(tables) == 0:
+    <tr class="alert"><td>您的角色不包含任何可操作的参数表<br />请联系管理员处理</td></tr>
+$else:
+    <thead><tr><th>参数表名称</th><th>参数表描述</th><th>数据源</th><th>操作权限</th></tr></thead>
+   	<tbody>
+    $for table in tables
+        <tr tid="$table.table_id" class="opTab" auth="$table.auth">
+        <td>$table.table_name</td>
+        <td>$table.table_dis</td>
+        <td>$table.db_source</td>
+        $if table.auth == 0:
+            <td>读</td>
+        $else:
+            <td>读写</td>
+        </tr>
+</tbody>
+</table>
+<div id="tabDetail" class="hideLayer">
+    <!--div class="title"></div-->
+    <div>
+    	<span class="btn" onClick="hideLayer('tabDetail')">关闭</span>
+    	<span class="btn" onClick="showAdd()">添加参数</span>
+        <div style="clear:both;"></div>
+    </div>
+    <table cellpadding="4" cellspacing="0" border="1">
+        <thead></thead>
+        <tbody></tbody>
+    </table>
+</div>

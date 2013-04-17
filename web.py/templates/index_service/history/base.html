@@ -1,0 +1,47 @@
+$def with (page)
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript" src="/static/js/jquery.js"></script>
+  <script language="javascript" type="text/javascript" src="/static/js/My97DatePicker/WdatePicker.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/static/css/rong.tang.css"> 
+	<link rel="stylesheet" type="text/css" href="/static/css/common.css"> 
+  <link href="/static/js/My97DatePicker/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+
+
+<div id="wrapper">
+	    <h1>IndexService内存监控历史数据查询</h1> 
+<div id="nav"> 
+  <ul> 
+		<li><a href="/indexServicehistory/adInfo">广告信息</a></li>
+		<li><a href="/indexServicehistory/indexInfo">广告索引信息</a></li>
+		<li><a href="/indexServicehistory/compare">广告组竞价</a></li>
+		<li><a href="/indexServicehistory/closed">已关闭广告</a></li>
+		<li><a href="/indexServicehistory/config">配置信息</a></li>
+          <li style="background-color:#FF0000"><a href="/indexService/adInfo">NOW</a></li>
+	</ul> 
+</div>
+
+    <div id="content">    	
+      <div id="ss_container" >
+      <div id="page">
+
+      $:page
+	    </div>
+	    </div>
+	  </div>
+
+</div>
+
+
+
+</body>
+</html>
+

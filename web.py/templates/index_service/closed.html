@@ -1,0 +1,27 @@
+$def with(res)
+<script>
+$if res['stat'] == 0:
+	alert('$res["res"]');
+</script>
+<h2>已关闭广告</h2><br>
+<div id="closed">
+<table border="0" cellspacing="0" cellpadding="4">
+	<thead>
+        <tr>
+            <th colspan="2" style="text-align:center;">用户关闭的广告</th>
+        </tr>
+        <tr>
+            <th>用户id</th>
+            <th>广告样式id</th>
+        </tr>
+    </thead>
+    <tbody>
+    $for it in res['list']:
+        $if it.find(':') > 0:
+            <tr>
+                <td>$it.split(':')[0]</td>
+                <td>$it.split(':')[1]</td>
+            </tr>
+    </tbody>
+</table>
+</div>

@@ -1,0 +1,31 @@
+$def with(res)
+<script>
+$if res['stat'] == 0:
+        alert('$res["res"]');
+</script>
+
+
+<div id="ss_container" >
+<div id="page">
+
+<h2>frequencyrestric's 缓存数据查看</h2><br>
+<table id="rT0" style="table-layout: fixed;WORD-BREAK: break-all; WORD-WRAP: break-word" border="0" cellspacing="0" cellpadding="4">
+  <thead>
+      <tr>
+        <th>Key</th>
+        <th>Value</th>
+      </tr>
+  </thead>
+  <tbody>
+    $for it in res['list']:
+      $if it.find(':') > 0:
+        <tr>
+          <td>$it.split(':')[0]</td>
+          <td>$it.split(':')[1]</td>
+        </tr>
+      $if it.split(':')[0] == "interface_name_":
+        <tr><td>==================</td><td>==================</td></tr>
+  </tbody>
+</table>
+</div>
+</div>

@@ -1,0 +1,223 @@
+<script type="text/javascript">
+
+function isEmpty(obj) {
+    if (typeof obj == 'undefined' || obj === null || obj === '') return true;
+    if (typeof obj == 'number' && isNaN(obj)) return true;
+    if (obj instanceof Date && isNaN(Number(obj))) return true;
+    return false;
+}
+
+function sendTask()
+{
+    var input_valid = true;
+    var post_data = "";
+
+	var type = $$.trim($$('#type').val());
+	if(isEmpty(type))
+	{
+		alert("type为空");
+        return;
+	}
+	post_data += "type=" + type;
+	
+	var zoneid = $$.trim($$('#zoneid').val());
+	if(isEmpty(zoneid))
+	{
+		alert("zoneid为空");
+        return;
+	}
+	post_data += "&zoneid=" + zoneid;
+
+	var age = $$.trim($$('#age').val());
+	if(isEmpty(age))
+	{
+		alert("age为空");
+        return;
+	}
+	post_data += "&age=" + age;
+
+	var gender = $$.trim($$('#gender').val());
+	if(isEmpty(gender))
+	{
+		alert("gender为空");
+        return;
+	}
+	post_data += "&gender=" + gender;
+
+	var stage= $$.trim($$('#stage').val());
+	if(isEmpty(stage))
+	{
+		alert("stage为空");
+        return;
+	}
+	post_data += "&stage=" + stage;
+
+	var grade = $$.trim($$('#grade').val());
+	if(isEmpty(grade))
+	{
+		alert("grade为空");
+        return;
+	}
+	post_data += "&grade=" + grade;
+
+	var school = $$.trim($$('#school').val());
+    if(isEmpty(school))
+	{
+		alert("school为空");
+        return;
+	}
+	post_data += "&school=" + school;
+
+	var ipArea = $$.trim($$('#ipArea').val());
+	if(isEmpty(ipArea))
+	{
+		alert("ipArea为空");
+        return;
+	}
+	post_data += "&ipArea=" + ipArea;
+
+	var currentArea = $$.trim($$('#currentArea').val());
+	if(isEmpty(currentArea))
+	{
+		alert("currentArea为空");
+        return;
+	}
+	post_data += "&currentArea=" + currentArea;
+
+	var screenSize = $$.trim($$('#screenSize').val());
+	if(isEmpty(screenSize))
+	{
+		alert("screenSize为空");
+        return;
+	}
+	post_data += "&screenSize=" + screenSize;
+
+	var model = $$.trim($$('#model').val());
+	if(isEmpty(model))
+	{
+		alert("model为空");
+        return;
+	}
+	post_data += "&model=" + model;
+
+	var osVersion = $$.trim($$('#osVersion').val());
+	if(isEmpty(osVersion))
+	{
+		alert("osVersion为空");
+        return;
+	}
+	post_data += "&osVersion=" + osVersion;
+
+	var netStatus = $$.trim($$('#netStatus').val());
+	if(isEmpty(netStatus))
+	{
+		alert("netStatus为空");
+        return;
+	}
+	post_data += "&netStatus=" + netStatus;
+
+	var lbsx = $$.trim($$('#lbsx').val());
+	if(isEmpty(lbsx))
+	{
+		alert("lbsx为空");
+        return;
+	}
+	post_data += "&lbsx=" + lbsx;
+
+	var lbsy = $$.trim($$('#lbsy').val());
+	if(isEmpty(lbsy))
+	{
+		alert("lbsy为空");
+        return;
+	}
+	post_data += "&lbsy=" + lbsy;
+
+	var uid = $$.trim($$('#uid').val());
+    if(isEmpty(uid))
+    {
+		alert("uid为空");
+        return;
+    }
+    post_data += "&uid=" + uid;
+
+    //alert(post_data);
+	
+	$$.ajax({
+			type: "POST",
+            url: "/admobMonitor/AdMob",
+            data: post_data,
+			async:false,
+            success: function(msg)
+            {
+				if(msg == 'fail' || !msg)
+				{
+					alert('操作失败');
+					return false;
+				}
+				var json_data = eval( "("+ msg +")" );
+
+				$$('#result_div tbody').empty();
+
+				var adv_vec = eval(json_data)
+
+				var adv_len = adv_vec.length;
+
+				for(var j = 0; j < adv_len; ++j)
+				{
+					var adv = adv_vec[j];						
+					$$tr_node = $$("<tr></tr>");
+
+					$$("<td></td>").append(adv.groupID).appendTo($$tr_node);
+					$$("<td></td>").append(adv.memberID).appendTo($$tr_node);
+					$$("<td></td>").append(adv.campaignID).appendTo($$tr_node);
+					$$("<td></td>").append(adv.bidUnitID).appendTo($$tr_node);
+					$$("<td></td>").append(adv.transType).appendTo($$tr_node);
+					$$("<td></td>").append(adv.memberCategory).appendTo($$tr_node);
+
+					$$tr_node.appendTo("#adv_tbody");
+				}
+
+				$$("#result_div").show();
+				return true;
+
+            },
+			error: function(msg)
+			{
+				alert('内部错误');
+				return false;
+			}
+	});
+}
+</script>
+
+
+
+
+<div id="ss_container" >
+<div id="page">
+  
+  <h2>广告请求测试</h2><br/>
+  <table id="myTable" cellspacing="0">
+  <tr><th>type</th><td><input type="text" id="type" name="type" size="30" value="0" />0:品牌广告,1:自助广告</td></tr> 
+  <tr><th>zoneid</th><td><input type="text" id="zoneid" name="zoneid" size="30" value="100000000103" />100000000103ios顶部，100000000104android顶部，100000000099底部</td></tr>
+  <tr><th>age</th><td><input type="text" id="age" name="gender" size="30" value="25" /></td></tr> 
+  <tr><th>gender</th><td><input type="text" id="gender" name="gender" size="30" value="1" /></td></tr> 
+  <tr><th>stage</th><td><input type="text" id="stage" name="stage" size="30" value="4" /></td></tr> 
+  <tr><th>grade</th><td><input type="text" id="grade" name="grade" size="30" value="45" /></td></tr> 
+  <tr><th>school</th><td><input type="text" id="school" name="school" size="30" value="400000005001" /></td></tr> 
+  <tr><th>ipArea</th><td><input type="text" id="ipArea" name="ipArea" size="30" value="0086110000000000" /></td></tr> 
+  <tr><th>currentArea</th><td><input type="text" id="currentArea" name="currentArea" size="30" value="0086210200000000" /></td></tr> 
+  <tr><th>screenSize</th><td><input type="text" id="screenSize" name="screenSize" size="30" value="320*480" /></td></tr> 
+  <tr><th>model</th><td><input type="text" id="model" name="model" size="30" value="Sony Ericsson MT15i" /></td></tr> 
+  <tr><th>osVersion</th><td><input type="text" id="osVersion" name="osVersion" size="30" value="Android 2.3.4" /></td></tr> 
+  <tr><th>netStatus</th><td><input type="text" id="netStatus" name="netStatus" size="30" value="0102" /></td></tr> 
+  <tr><th>lbsx</th><td><input type="text" id="lbsx" name="lbsx" size="30" value="11.11" /></td></tr> 
+  <tr><th>lbsy</th><td><input type="text" id="lbsy" name="lbsy" size="30" value="11.11" /></td></tr> 
+  <tr><th>uid</th><td><input type="text" id="uid" name="uid" size="30" value="229942474" /></td></tr> 
+  </table>
+  
+  
+  	 <input type="submit" style="vertical-align:middle" value='提交' onclick="sendTask();"/>
+</div>
+</div>
+

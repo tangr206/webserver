@@ -1,0 +1,103 @@
+$def with(res)
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<title>AdUserCacheDebug</title>
+		<link rel="icon" type="image/gif" href="/static/images/favicon.gif" >
+		<link rel="stylesheet" type="text/css" href="/static/css/common.css"> 
+		<link rel="stylesheet" type="text/css" href="/static/css/ad_user_cache.css"> 
+        <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    </head>
+<body>
+
+<script>
+var data = $:res;
+$$(function(){
+	if (data.stat == 1){
+		var $$parTable = $$('#resultTable tbody').empty();
+		for (var i in data.list){
+			var user = data.list[i];
+			var trHtml = '<tr><td>' + user.uid +
+							'</td><td>' + user.age + 
+							'</td><td>' + user.gender + 
+							'</td><td>' + user.stage + 
+							'</td><td>' + user.grade + 
+							'</td><td>' + user.school + 
+							'</td><td>' + user.currentArea + 
+							'</td><td>' + user.homeArea + 
+							'</td><td>' + user.company + 
+							'</td></tr>';
+							
+			$$parTable.append(trHtml);
+		}
+	}else{
+		alert('获取列表失败\n' + data.res);
+	}
+	/*
+	$$.ajax({
+		url : '/adUserCache/list',
+		cache : false,
+		type : 'GET',
+		dataType : 'json',
+		error : function(e){
+			alert('获取列表失败');
+		},
+		success: function(data, stat){
+			if (data.stat == 1){
+				var $$parTable = $$('#resultTable tbody').empty();
+				for (var i in data.list){
+					var user = data.list[i];
+					var trHtml = '<tr><td>' + user.uid +
+									'</td><td>' + user.age + 
+									'</td><td>' + user.gender + 
+									'</td><td>' + user.stage + 
+									'</td><td>' + user.grade + 
+									'</td><td>' + user.school + 
+									'</td><td>' + user.currentArea + 
+									'</td><td>' + user.homeArea + 
+									'</td><td>' + user.company + 
+									'</td></tr>';
+									
+					$$parTable.append(trHtml);
+				}
+			}else{
+				alert('获取列表失败\n' + data.res);
+			}
+		}
+	});
+	*/
+});
+</script>
+<table id="resultTable" border="0" cellspacing="0" cellpadding="4">
+  <thead>
+      <tr>
+        <th>uid</th>
+        <th>age</th>
+        <th>gender</th>
+        <th>stage</th>
+        <th>grade</th>
+        <th>school</th>
+        <th>currentArea</th>
+        <th>homeArea</th>
+        <th>company</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

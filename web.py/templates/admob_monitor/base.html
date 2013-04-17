@@ -1,0 +1,35 @@
+$def with (page)
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript" src="/static/js/jquery.js"></script>
+  <script language="javascript" type="text/javascript" src="/static/js/My97DatePicker/WdatePicker.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/static/css/rong.tang.css"> 
+	<link rel="stylesheet" type="text/css" href="/static/css/common.css"> 
+  <link href="/static/js/My97DatePicker/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+
+</head>
+
+
+<body>
+
+<div id="wrapper">
+
+    <div id="nav"> 
+    	<ul> 
+    		<li><a href="/admobMonitor/AdMobCache" target="_self">缓存</a></li>
+    		<li><a href="/admobMonitor/AdMobIndex" target="_self">索引</a></li>	
+    		<li><a href="/admobMonitor/AdMob" target="_self">广告请求</a></li>	
+    	</ul> 
+    </div>
+
+    <div id="content">    	
+      $:page
+	  </div>
+
+</div>
+
+
+</body>
+</html>

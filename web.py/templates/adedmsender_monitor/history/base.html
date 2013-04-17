@@ -1,0 +1,43 @@
+$def with (page)
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript" src="/static/js/jquery.js"></script>
+  <script language="javascript" type="text/javascript" src="/static/js/My97DatePicker/WdatePicker.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/static/css/rong.tang.css"> 
+	<link rel="stylesheet" type="text/css" href="/static/css/common.css"> 
+  <link href="/static/js/My97DatePicker/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+<div id="wrapper">
+<div id="nav"> 
+	<ul> 
+	  <li><a href="/adedmsendermonitorhistory/adInfo">广告信息</a></li>
+	  <li><a href="/adedmsendermonitorhistory/adConfig">配置信息</a></li>
+          <li><a href="/adedmsendermonitorhistory/zoneIndex">倒排索引</a></li>
+          <li><a href="/adedmsendermonitorhistory/adedmdiscount">打折信息</a></li>
+          <li><a href="/adedmsendermonitorhistory/frequencyrestric">FrequencyRestric</a></li>
+          <li style="background-color:#FF0000" ><a href="/adedmsendermonitor/adInfo">Now</a></li>
+	</ul> 
+	<div style="clear:both;"></div> 
+</div>
+
+    <div id="content">    	
+      <div id="ss_container" >
+      <div id="page">
+
+      $:page
+	    </div>
+	    </div>
+	  </div>
+
+</div>
+
+
+</body>
+</html>

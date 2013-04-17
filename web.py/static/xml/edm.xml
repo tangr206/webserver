@@ -1,0 +1,48 @@
+<icegrid>
+	<application name="Edm">
+                <include file="templates/edm_log.xml" />
+		<include file="templates/edm_log_cache.xml" />
+                <include file="templates/ad_feed_edm.xml" />
+                <include file="templates/ad_edm_utc.xml" />
+		<include file="templates/ad_edm_monitor.xml" />
+                <include file="templates/xiaonei_controller.xml" />
+		<include file="templates/edm_log_left.xml" />
+		<include file="templates/edm_demoloadercache.xml" />
+		<node name="node_edm0">
+			<server-instance template="AdEdmLogUDP" Index="0" LogLevel="INFO" />
+        	</node>
+		<node name="node_edm1">
+                        <!-- AD Controller  -->
+			<server-instance template="Controller" Index="EdmLogCache" Cluster="2" Interval="5" LogLevel="DEBUG" />
+			<server-instance template="Controller" Index="AdLogS" Cluster="1" Interval="5" LogLevel="DEBUG" />
+			<server-instance template="Controller" Index="AdEngineU" Cluster="19" Interval="5" LogLevel="DEBUG" />
+			<server-instance template="Controller" Index="AdEngineB" Cluster="10" Interval="5" LogLevel="DEBUG" />
+			<server-instance template="Controller" Index="AdLog" Cluster="1" Interval="5" LogLevel="DEBUG" />
+			<server-instance template="Controller" Index="AdEdmMonitor" Cluster="1" Interval="5" LogLevel="DEBUG" />
+			<server-instance template="Controller" Index="AdUserFeatureCache" Cluster="1" Interval="5" LogLevel="DEBUG" />
+			<server-instance template="Controller" Index="AdCreativeQuality" Cluster="1" Interval="5" LogLevel="DEBUG" /> 
+			<!-- EDM Controller  -->
+        	        <server-instance template="Controller" Index="AdEdmUserTargetCache" Cluster="1" Interval="5" LogLevel="DEBUG" />
+			<server-instance template="Controller" Index="AdEdmLogLeft" Cluster="1" Interval="5" LogLevel="DEBUG" /> 
+	  	 	<server-instance template="Controller" Index="EdmDemoLoaderCache" Cluster="1" Interval="5" LogLevel="DEBUG" />
+                        <server-instance template="Controller" Index="AdEdmSender" Cluster="2" Interval="5" LogLevel="DEBUG" />
+			<!-- Trigger Controller  -->
+			<server-instance template="Controller" Index="IndexService" Cluster="25" Interval="5" LogLevel="DEBUG" />
+        	</node>
+		<node name="node_edm3">
+			<server-instance template="AdEdmSender" Index="0" Mod="0" LogLevel="INFO" FcgiSocket="10.7.18.59:8008" />
+			<server-instance template="EdmLogCache" Index="0" LogLevel="INFO" Mod="0"/>
+			<server-instance template="AdEdmUserTargetCache" Index="0" LogLevel="INFO" Mod="0"/>
+			<server-instance template="AdEdmMonitor" Index="0" LogLevel="INFO" Mod="0"/>
+		</node>
+  		<node name="node_edm4">
+                        <server-instance template="EdmLogCache" Index="1" LogLevel="INFO" Mod="1"/>
+			<server-instance template="AdEdmLogLeft" Index="0" Mod="0" LogLevel="INFO" />
+			<server-instance template="EdmDemoLoaderCache" Index="0" Mod="0" LogLevel="DEBUG" />
+  	        </node>
+  		<node name="node_edm5">
+                        <server-instance template="AdEdmSender" Index="-1" Mod="-1" LogLevel="INFO" FcgiSocket="10.4.16.110:8009" />
+                        <server-instance template="AdEdmSender" Index="1" Mod="1" LogLevel="INFO" FcgiSocket="10.4.16.110:8008" />
+                </node>
+	</application>
+</icegrid>

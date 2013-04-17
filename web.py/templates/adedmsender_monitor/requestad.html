@@ -1,0 +1,84 @@
+<script type="text/javascript">
+var tabelStyle = '<style type="text/css">'+
+	'table{ margin-bottom:.5em; padding:.2em; border:2px solid #699; border-collapse: collapse; width: 100%;}'+
+	'th{ font-size:0.8em; font-weight:normal; font-style:italic; text-align:left; border:1px dotted #699; background-color:#9cc; color:#000; width:20em; padding:.5em;}'+
+	'td{font-size:0.8em; width:20em; padding:.5em; border:1px solid blue; text-align:center;}'+
+	'.notice{color: red;}'+
+	'</style>';
+
+function isEmpty(obj) {
+    if (typeof obj == 'undefined' || obj === null || obj === '') return true;
+    if (typeof obj == 'number' && isNaN(obj)) return true;
+    if (obj instanceof Date && isNaN(Number(obj))) return true;
+    return false;
+}
+
+function sendTask(){
+        var uid = $$.trim($$('#uid').val());
+        var refer = $$.trim($$('#refer').val());
+        var rotateIndex = $$.trim($$('#rotateIndex').val());
+        $$.ajax({
+                url : '/adengineb/adRequest',
+                cache : false,
+                type : 'POST',
+                data:{uid : uid, refer:refer, rotateIndex:rotateIndex},
+                dataType : 'json',
+                error : function(e){
+                        alert('获取信息失败');
+                },
+                success: function(data, stat){
+                        if (data.stat == 1){
+                                var $$parTable = $$('#rT2 tbody').empty();
+                                var trHtml = '';
+
+                                for (var i in data.list){
+				    if (data.list[i] == '') 
+					continue;
+                                    trHtml = trHtml + '<tr><td>' + data.list[i].split(':')[0] +'</td>'
+					+ '<td>' + data.list[i].split(':')[1] + '</td></tr>';
+				}
+                                $$parTable.append(trHtml);
+                                $$('.resultTable').hide();
+                                $$parTable.parent().show();
+                        }else{
+                                alert('获取信息失败\n' + data.res);
+                        }
+                }
+        });
+}
+</script>
+
+<div id="ss_container" >
+<div id="page">
+
+<table style="margin:0 auto;">
+	<tbody>
+		<tr><th>uid</th><td><input type="text" id="uid" name="uid" size="30" value="229942474" /></td></tr> 
+		<tr><th>refer</th><td><input type="text" id="refer" name="refer" size="30" value="http://www.renren.com/home?refresh_source=3&refresh_idx=0" /></td></tr> 
+		<tr><th>rotate index</th><td><input type="text" id="rotateIndex" name="rotate" size="30" value="2" /></td></tr> 
+	</tbody>
+</table>
+
+
+<div id="view_submit">
+	 <input type="submit" style="vertical-align:middle" value='提交' onclick="sendTask();"/>
+	 <br /><label></label><label></label>
+</div>
+
+<table id="rT2" class="resultTable" border="0" cellspacing="0" cellpadding="4">
+  <thead>
+	<tr>
+	<th>广告位</th>
+	<th>CreativeID</th>
+	</tr>
+  </thead>
+  <tbody>
+  	<td>&nbsp;</td>
+        <td>&nbsp;</td>	
+  </tbody>
+</table>
+
+
+</div>
+</div>
+

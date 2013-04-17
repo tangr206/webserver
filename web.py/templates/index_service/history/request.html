@@ -1,0 +1,207 @@
+﻿<script type="text/javascript">
+var tabelStyle = '<style type="text/css">'+
+	'table{ margin-bottom:.5em; padding:.2em; border:2px solid #699; border-collapse: collapse; width: 100%;}'+
+	'th{ font-size:0.8em; font-weight:normal; font-style:italic; text-align:left; border:1px dotted #699; background-color:#9cc; color:#000; width:20em; padding:.5em;}'+
+	'td{font-size:0.8em; width:20em; padding:.5em; border:1px solid blue; text-align:center;}'+
+	'.notice{color: red;}'+
+	'</style>';
+
+
+
+
+function isEmpty(obj) {
+    if (typeof obj == 'undefined' || obj === null || obj === '') return true;
+    if (typeof obj == 'number' && isNaN(obj)) return true;
+    if (obj instanceof Date && isNaN(Number(obj))) return true;
+    return false;
+}
+
+function sendTask()
+{
+    var input_valid = true;
+    var post_data = "";
+
+	var uid = $$.trim($$('#uid').val());
+	var gender = $$.trim($$('#gender').val());
+	var stage= $$.trim($$('#stage').val());
+	var grade = $$.trim($$('#grade').val());
+	var age = $$.trim($$('#age').val());
+	var school = $$.trim($$('#school').val());
+	var ipArea = $$.trim($$('#ipArea').val());
+	var currentArea = $$.trim($$('#currentArea').val());
+	var zones = $$.trim($$('#zones').val());
+	
+    if(isEmpty(uid))
+    {
+		alert("uid为空");
+    return;
+    }
+    post_data += "uid=" + uid;
+
+    if(isEmpty(age))
+    {
+		alert("age为空");
+    return;
+    }
+    post_data += "&age=" + age;
+
+    if(isEmpty(gender))
+    {
+		alert("gender为空");
+    return;
+    }
+    post_data += "&gender=" + gender;
+
+	if(isEmpty(stage))
+    {
+		alert("stage为空");
+    return;
+    }
+    post_data += "&stage=" + stage;
+
+	if(isEmpty(grade))
+    {
+		alert("grade为空");
+    return;
+    }
+    post_data += "&grade=" + grade;
+
+	if(isEmpty(school))
+    {
+		alert("school为空");
+    return;
+    }
+    post_data += "&school=" + school;
+
+	if(isEmpty(ipArea))
+    {
+		alert("ipArea为空");
+    return;
+    }
+    post_data += "&ipArea=" + ipArea;
+
+	if(isEmpty(currentArea))
+    {
+		alert("currentArea为空");
+    return;
+    }
+    post_data += "&currentArea=" + currentArea;
+
+	if(isEmpty(zones))
+    {
+		alert("zones为空");
+    return;
+    }
+    post_data += "&zones=" + zones;
+
+    //alert(post_data);
+	
+	$$.ajax({
+			type: "POST",
+        url: "/indexService/request",
+        data: post_data,
+		async:false,
+        success: function(msg)
+        {
+				if(msg == 'fail' || !msg)
+				{
+					alert('操作失败');
+					return false;
+				}
+				var json_data = eval( "("+ msg +")" );
+
+				$$('#result_div tbody').empty();
+
+				var adzones = eval(json_data["adzones"]);
+				var adv_vec = eval(json_data["advs"])
+
+				var len = adzones.length;
+				for(var i = 0; i < len; ++i)
+				{
+					var advs = eval(adv_vec[i]);
+					var adv_len = advs.length;
+
+					for(var j = 0; j < adv_len; ++j)
+					{
+						var adv = advs[j];						
+						$$tr_node = $$("<tr></tr>");
+
+						$$("<td></td>").append(adzones[i]).appendTo($$tr_node);
+						$$("<td></td>").append(adv.groupID).appendTo($$tr_node);
+						$$("<td></td>").append(adv.memberID).appendTo($$tr_node);
+						$$("<td></td>").append(adv.campaignID).appendTo($$tr_node);
+						$$("<td></td>").append(adv.creative).appendTo($$tr_node);
+						$$("<td></td>").append(adv.widgetID).appendTo($$tr_node);
+						$$("<td></td>").append(adv.bidUnitID).appendTo($$tr_node);
+						$$("<td></td>").append(adv.transType).appendTo($$tr_node);
+						$$("<td></td>").append(adv.memberCategory).appendTo($$tr_node);
+						$$("<td></td>").append(adv.memberIndustry).appendTo($$tr_node);
+						$$("<td></td>").append(adv.triggerType).appendTo($$tr_node);
+						$$("<td></td>").append(adv.price).appendTo($$tr_node);
+						$$("<td></td>").append(adv.ctr).appendTo($$tr_node);
+						$$("<td></td>").append(j+1).appendTo($$tr_node);
+
+						$$tr_node.appendTo("#adv_tbody");
+					}
+				}
+				var openWindow = window.open("", "searchAns", "width=1390, top=5, left=5,toolbar=no, menubar=no, scrollbars=no, resizable=no, status=no");
+				openWindow.document.write(tabelStyle + '\n' + $$("#result_div").html());
+				//$$("#result_div").show();
+				return true;
+
+        },
+			error: function(msg)
+			{
+				alert('内部错误');
+				return false;
+			}
+	});
+}
+</script>
+
+<table style="margin:0 auto;">
+	<tbody>
+		<tr><th>uid</th><td><input type="text" id="uid" name="uid" size="30" value="229942474" /></td></tr> 
+		<tr><th>gender</th><td><input type="text" id="gender" name="gender" size="30" value="1" /></td></tr> 
+		<tr><th>age</th><td><input type="text" id="age" name="gender" size="30" value="25" /></td></tr> 
+		<tr><th>stage</th><td><input type="text" id="stage" name="stage" size="30" value="4" /></td></tr> 
+		<tr><th>grade</th><td><input type="text" id="grade" name="grade" size="30" value="45" /></td></tr> 
+		<tr><th>school</th><td><input type="text" id="school" name="school" size="30" value="400000005001" /></td></tr> 
+		<tr><th>ipArea</th><td><input type="text" id="ipArea" name="ipArea" size="30" value="0086110000000000" /></td></tr> 
+		<tr><th>currentArea</th><td><input type="text" id="currentArea" name="currentArea" size="30" value="0086210200000000" /></td></tr> 
+		<tr><th>zones</th><td><input type="text" id="zones" name="zones" size="30" value="100000000072," /></td></tr> 
+	</tbody>
+</table>
+
+
+<div id="view_submit">
+	 <input type="submit" style="vertical-align:middle" value='提交' onclick="sendTask();"/>
+	 <br /><label></label><label></label>
+</div>
+
+</div>
+
+<div id="result_div" style="display:none">
+	<table>
+		<thead>
+			<tr>
+				<th>广告位</th>
+				<th>groupID</th>
+				<th>memberID</th>
+				<th>campaignID</th>
+				<th>creativeID</th>
+				<th>widgetID</th>
+				<th>bidUnitID</th>
+				<th>transType</th>
+				<th>memberCategory</th>
+				<th>memberIndustry</th>
+				<th>triggerType</th>
+				<th>price</th>
+				<th>ctr</th>
+				<th>序号</th>
+			</tr>
+		</thead>
+		<tbody id="adv_tbody">
+		</tbody>
+	</table>
+</div>

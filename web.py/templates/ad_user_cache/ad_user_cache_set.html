@@ -1,0 +1,110 @@
+<script>
+function ret(){
+	$$('input').val('');
+}
+function selectUser(){
+	var uid = $$('#uid').val();
+	if (uid != ''){
+		$$.ajax({
+			url : '/adUserCache/get',
+			cache : false,
+			data: {uid : uid},
+			type : 'POST',
+			dataType : 'json',
+			error : function(e){
+			},
+			success: function(data, stat){
+				if (data.stat == 1){
+					$$('input').each(function(index, element) {
+						var $$in = $$(this);
+						$$in.val(data[$$in.attr('id')]);
+					});
+				}
+			}
+		});
+	}
+}
+function subF(){
+	var subData = {};
+	var subAble = true;
+	$$('input').each(function(index, element) {
+		var $$in = $$(this);
+		if ($$in.val() == ''){
+			alert($$in.attr('id') + ' 不可为空');
+			subAble = false;
+		}
+        subData[$$in.attr('id')] = $$in.val();
+    });
+	if (subAble){
+		$$.ajax({
+			url : '/adUserCache/set',
+			cache : false,
+			data: subData,
+			type : 'POST',
+			dataType : 'json',
+			error : function(e){
+				alert('添加用户失败');
+			},
+			success: function(data, stat){
+				if (data.stat == 1){
+					alert('添加用户成功');
+				}else{
+					alert('添加用户失败\n' + data.res);
+				}
+			}
+		});
+	}
+}
+</script>
+<div id="nav"> 
+	<ul> 
+		<li><a href="/adUserCache/set">用户添加</a></li>
+		<li><a href="/adUserCache/reset">用户移除</a></li>
+		<li><a href="#" onclick="showAll()">用户列表</a></li>
+	</ul> 
+	<div style="clear:both;"></div> 
+</div>
+
+<table id="inputTable" border="0" cellspacing="0" cellpadding="4">
+  <tbody>
+      <tr>
+        <td align="right">uid</td>
+        <td><input id="uid" type="text" value="" x-webkit-speech onblur="selectUser()" /></td>
+      </tr>
+      <tr>
+        <td align="right">age</td>
+        <td><input id="age" type="text" value="" x-webkit-speech /></td>
+      </tr>
+      <tr>
+        <td align="right">gender</td>
+        <td><input id="gender" type="text" value="" x-webkit-speech /></td>
+      </tr>
+      <tr>
+        <td align="right">stage</td>
+        <td><input id="stage" type="text" value="" x-webkit-speech /></td>
+      </tr>
+      <tr>
+        <td align="right">grade</td>
+        <td><input id="grade" type="text" value="" x-webkit-speech /></td>
+      </tr>
+      <tr>
+        <td align="right">school</td>
+        <td><input id="school" type="text" value="" x-webkit-speech /></td>
+      </tr>
+      <tr>
+        <td align="right">currentArea</td>
+        <td><input id="currentArea" type="text" value="" x-webkit-speech /></td>
+      </tr>
+      <tr>
+        <td align="right">homeArea</td>
+        <td><input id="homeArea" type="text" value="" x-webkit-speech /></td>
+      </tr>
+      <tr>
+        <td align="right">company</td>
+        <td><input id="company" type="text" value="" x-webkit-speech /></td>
+      </tr>
+  </tbody>
+</table>
+<div id="ctrlB">
+	<span class="btn" onClick="ret()">重置</span><span class="btn" onClick="subF()">确定</span> 
+</div>

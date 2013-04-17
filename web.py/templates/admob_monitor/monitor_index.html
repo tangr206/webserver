@@ -1,0 +1,68 @@
+<script type="text/javascript">
+
+function isEmpty(obj) {
+    if (typeof obj == 'undefined' || obj === null || obj === '') return true;
+    if (typeof obj == 'number' && isNaN(obj)) return true;
+    if (obj instanceof Date && isNaN(Number(obj))) return true;
+    return false;
+}
+
+function sendTask()
+{
+    var type1 = $$.trim($$('#type').val());
+    var zoneid = $$.trim($$('#zoneid').val());    
+    post_data="type="+type1+"&zoneid="+zoneid;
+	$$.ajax({
+  	    type: "POST",
+            url: "/admobMonitor/AdMobIndex",
+            data: post_data,
+	    async:false,
+            success: function(msg)
+            {
+		if(msg == 'fail' || !msg)
+		{
+	 		alert('操作失败');
+			return false;
+		}
+		document.getElementById("result").innerHTML=msg;
+		$$("#result_div").show();
+		return true;
+            },
+		error: function(msg)
+		{
+			alert('内部错误');
+			return false;
+		}
+	});
+}
+</script>
+
+
+<div id="ss_container" >
+<div id="page">
+  <center><h2>索引内容查看</h2></center><br>
+<label>选择查看类型:</label>
+<select id="type">
+<option value="brand">品牌</option>
+<option value="self">自助</option>
+<option value="rotate">轮播</option>
+</select>
+
+<label>广告位:</label>
+<select id="zoneid">
+<option value="100000000104">Android顶部</option>
+<option value="100000000103">Iphone顶部</option>
+<option value="100000000099">底部</option>
+</select>
+
+	 <input type="submit" value='提交' onclick="sendTask();"/>
+
+
+<div id="result_div" style="display:none">
+<p id="result"></p>
+</div>
+
+
+</div>
+</div>
+

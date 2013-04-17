@@ -1,0 +1,241 @@
+$def with(roles, tables, db_sources)
+<script>
+var nTable = null;
+var dbs = ['$:"\', \'".join(db_sources)'];
+function hideLayer(layer){
+	$$('#' + layer).hide(200);
+	$$('.opTab').show(200);
+}
+function bindClick(){
+	$$('.editBtn').unbind('click').click(function(e){
+		var $$opTab = $$(this).parents('.opTab');
+		PopUp.showInput('请输入参数表信息',[['参数表名', $$opTab.find('.table_name').text(), 'text'], ['参数表描述', $$opTab.find('.table_dis').text(), 'text'], ['数据源', dbs, 'select', $$opTab.find('.db_source').text()]],function($$dialog){
+			var table_name = $$dialog.find('#i_0').val();
+			var table_dis = $$dialog.find('#i_1').val();
+			var db_source = $$dialog.find('#i_2').val();
+			$$.ajax({
+				url : '/argsManage/table_set',
+				cache : false,
+				data : {table_id: $$opTab.attr('tid'), table_name: table_name, table_dis: table_dis, db_source: db_source},
+				type : 'POST',
+				dataType : 'json',
+				error : function(e){
+					alert('修改参数表信息失败');
+				},
+				success: function(data, stat){
+					if (data.stat == 1){
+						alert('修改参数表信息成功');
+						$$opTab.find('.table_name').text(table_name);
+						$$opTab.find('.table_dis').text(table_dis);
+						$$opTab.find('.db_source').text(db_source);
+						
+						PopUp.hide($$dialog);
+					}else{
+						alert('修改参数表信息失败\n' + data.res);
+					}
+				}
+			});
+		});
+		_cancelDefault(e);
+		_cancelBubble(e);
+	});
+	$$('.deleteBtn').unbind('click').click(function(e){
+		var $$opTab = $$(this).parents('.opTab');
+		if (confirm('确认从参数平台中删除参数表 ' + $$opTab.find('.table_name').text())){
+			$$.ajax({
+				url : '/argsManage/delete_table',
+				cache : false,
+				data : {table_id : $$opTab.attr('tid')},
+				type : 'POST',
+				dataType : 'json',
+				error : function(e){
+					alert('删除参数表失败');
+				},
+				success: function(data, stat){
+					if (data.stat == 1){
+						alert('删除参数表成功');
+						$$opTab.remove();
+					}else{
+						alert('删除参数表失败\n' + data.res);
+					}
+				}
+			});
+		}
+		_cancelDefault(e);
+		_cancelBubble(e);
+	});
+	$$('.opTab').unbind('click').click(function(e){
+		var $$selTab = $$(this);
+		$$selTab.siblings('.opTab').hide(200);
+		$$.ajax({
+			url : '/argsManage/table_info/' + $$selTab.attr('tid'),
+			cache : false,
+			type : 'GET',
+			dataType : 'json',
+			error : function(e){
+				alert('查询参数表权限信息失败');
+				hideLayer('tableDetail');
+				$$selTab.siblings('.opTab').show(200);
+			},
+			success: function(data, stat){
+				if (data.stat == 1){
+					setTables(data);
+					nTable = $$selTab.attr('tid');
+				}else{
+					alert('查询参数表权限信息失败\n' + data.res);
+					hideLayer('tableDetail');
+					$$selTab.siblings('.opTab').show(200);
+				}
+			}
+		});
+	});
+}
+$$(function(){
+	bindClick();
+});
+function setTables(data){
+	var $$rolesTab = $$('#tableDetail #roles tbody').empty();
+	var $$usersTab = $$('#tableDetail #users tbody').empty();
+	for (var i in data.roles){
+		var trHtml = '<tr rid="' + data.roles[i].role_id + '">';
+		trHtml = trHtml + '<td>' + data.roles[i].role_name + '</td>';
+        trHtml = trHtml + '<td><select>';
+		if ((data.roles[i].auth == undefined) || (data.roles[i].auth == null))
+			trHtml = trHtml + '<option value="-1" selected>无</option>';
+		else
+			trHtml = trHtml + '<option value="-1">无</option>';
+		if (data.roles[i].auth == 0)
+			trHtml = trHtml + '<option value="0" selected>读</option>';
+		else
+			trHtml = trHtml + '<option value="0">读</option>';
+		if (data.roles[i].auth == 1)
+			trHtml = trHtml + '<option value="1" selected>读写</option>';
+		else
+			trHtml = trHtml + '<option value="1">读写</option>';
+			
+        trHtml = trHtml + '</select></td></tr>'
+		
+		$$rolesTab.append(trHtml);
+	}
+	for (var i in data.users)
+		$$usersTab.append('<tr><td>' + data.users[i].user_name + '</td><td>' + data.users[i].name + '</td><td>' + (data.users[i].auth > 0 ? '读写' : '读') + '</td></tr>');
+		
+	$$('#tableDetail').show(200);
+}
+function saveSets(){
+	var roles = [];
+	$$('#tableDetail #roles tbody tr').each(function(){
+		if ($$('select', this).val() > -1)
+			roles.push($$(this).attr('rid') + '=' + $$('select', this).val());
+	});
+	$$.ajax({
+		url : '/argsManage/table_info',
+		cache : false,
+		type : 'POST',
+		data : {table_id : nTable, roles : roles.join('&')},
+		dataType : 'json',
+		error : function(e){
+			alert('修改参数表权限配置失败');
+		},
+		success: function(data, stat){
+			if (data.stat == 1){
+				alert('修改参数表权限配置成功');
+				setTables(data);
+			}else{
+				alert('修改参数表权限配置失败\n' + data.res);
+			}
+		}
+	});
+}
+function addTable(){
+	PopUp.showInput('请输入参数表信息', [['参数表名', '', 'text'], ['参数表描述', '', 'text'], ['数据源', dbs, 'select', null]],function($$dialog){
+		var table_name = $$dialog.find('#i_0').val();
+		var table_dis = $$dialog.find('#i_1').val();
+		var db_source = $$dialog.find('#i_2').val();
+		$$.ajax({
+			url : '/argsManage/add_table',
+			cache : false,
+			data : {table_name: table_name, table_dis: table_dis, db_source: db_source},
+			type : 'POST',
+			dataType : 'json',
+			error : function(e){
+				alert('添加参数表失败');
+			},
+			success: function(data, stat){
+				if (data.stat == 1){
+					alert('添加参数表成功');
+					$$('#tableTab tbody').append('<tr class="opTab" tid="' + data.table_id +
+											'"><td class="table_name">' + table_name +
+											'</td><td class="table_dis">' + table_dis + 
+											'</td><td class="db_source">' + db_source + '</td><td>' +
+											'<a class="editBtn">编辑</a>&nbsp;<a class="deleteBtn">删除</a></td></tr>');
+					bindClick();
+					PopUp.hide($$dialog);
+				}else{
+					alert('添加参数表失败\n' + data.res);
+				}
+			}
+		});
+	});
+}
+</script>
+<div id="nav"> 
+	<ul> 
+		<li><a href="/argsManage/index">首页</a></li>
+		$if len(roles) > 0:
+			<li><a href = "/argsManage/args">参数修改</a></li>
+			
+			$for role in roles:
+				$if role['role_id'] == 1:
+					<li><a href = "/argsManage/userMan">用户管理</a></li>
+					<li><a href = "/argsManage/roleMan">角色管理</a></li>
+					<li><a href = "/argsManage/tableMan">参数表管理</a></li>
+					<li><a href = "/argsManage/logs">日志查询</a></li>
+					$break
+		<li><a href="/argsManage/self_set">个人信息</a></li>
+		<li><a href="/argsManage/logout">注销</a></li>
+	</ul> 
+	<div style="clear:both;"></div> 
+</div> 
+<div>
+	<span class="btn" onClick="addTable()">添加</span>
+	<h2>参数表列表</h2>
+</div>
+<table id="tableTab" border="0" cellspacing="0" cellpadding="4">
+<thead>
+  <tr>
+    <th>参数表名</th>
+    <th>参数表描述</th>
+    <th>数据源</th>
+    <th>操作</th>
+  </tr>
+</thead>
+<tbody>
+$for table in tables:
+	<tr class="opTab" tid="$table.table_id">
+		<td class="table_name">$table.table_name</td>
+		<td class="table_dis">$table.table_dis</td>
+		<td class="db_source">$table.db_source</td>
+		<td><a class="editBtn">编辑</a>&nbsp;<a class="deleteBtn">删除</a></td>
+	</tr>
+</tbody>
+</table>
+<div id="tableDetail" class="hideLayer">
+	<div>
+    	<span class="btn" onClick="hideLayer('tableDetail')">关闭</span>
+    	<span class="btn" onClick="saveSets()">保存</span>
+        <div style="clear:both;"></div>
+    </div>
+    <h2>该参数表的操作权限分配如下</h2>
+<table id="roles" cellpadding="4" cellspacing="0" border="1">
+	<thead><tr><th>角色</th><th>操作权限</th></tr></thead>
+    <tbody>
+    </tbody>
+</table>
+<h2>以下用户具有该表的操作权限</h2>
+<table id="users" cellpadding="4" cellspacing="0" border="1">
+    <thead><tr><th>用户名</th><th>姓名</th><th>操作权限</th></tr></thead>
+   	<tbody>
+	</tbody>
+</table>
+</div>

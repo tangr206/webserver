@@ -1,0 +1,113 @@
+
+<script>
+function show(selector){
+	var opType = $$(selector).val();
+	$$.ajax({
+		url : '/indexService/config',
+		cache : false,
+		type : 'POST',
+		data:{opType : opType},
+		dataType : 'json',
+		error : function(e){
+			alert('获取信息失败');
+		},
+		success: function(data, stat){
+			if (data.stat == 1){
+				var $$parTable = $$('#rT' + opType + ' tbody').empty();
+				for (var i in data.list){
+					var tr = data.list[i];
+					if (tr.indexOf(':') < 0) continue;
+					
+					var trHtml = '<tr>';
+					if (opType == 0){
+						trHtml = trHtml + '<td>' + tr.split(':')[0] +'</td>';
+						tr = tr.split(':')[1]
+						trHtml = trHtml + '<td>' + tr.split(',')[0] +'</td>';
+						trHtml = trHtml + '<td>' + tr.split(',')[1] +'</td>';
+					}else{
+						trHtml = trHtml + '<td>' + tr.split(':')[0] +'</td>';
+						trHtml = trHtml + '<td>' + tr.split(':')[1] +'</td>';
+					}
+					trHtml += '</tr>';
+					$$parTable.append(trHtml);
+				}
+				$$('.resultTable').hide();
+				$$parTable.parent().show();
+			}else{
+				alert('获取信息失败\n' + data.res);
+			}
+		}
+	});
+}
+$$(function(){
+	$$('.ctrlPanel select').trigger('change');
+});
+</script>
+
+<h2>配置信息查看</h2><br>
+<div class="ctrlPanel">
+<select onChange="show(this)">
+<option value="0" selected>广告位上的广告数</option>
+<option value="1">trigger info</option>
+<option value="2">广告位上的游戏数</option>
+<option value="3">广告位上的游戏商数</option>
+</select>
+</div>
+<table id="rT0" class="resultTable" border="0" cellspacing="0" cellpadding="4">
+<thead>
+      <tr>
+        <th>广告位id</th>
+        <th>旧广告数</th>
+        <th>新广告数</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+  </tbody>
+</table>
+<table id="rT1" class="resultTable" border="0" cellspacing="0" cellpadding="4">
+<thead>
+      <tr>
+        <th>未知</th>
+        <th>未知</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+  </tbody>
+</table>
+<table id="rT2" class="resultTable" border="0" cellspacing="0" cellpadding="4">
+<thead>
+      <tr>
+        <th>广告位id</th>
+        <th>游戏数</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+  </tbody>
+</table>
+<table id="rT3" class="resultTable" border="0" cellspacing="0" cellpadding="4">
+<thead>
+      <tr>
+        <th>广告位id</th>
+        <th>游戏商数</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+  </tbody>
+</table>

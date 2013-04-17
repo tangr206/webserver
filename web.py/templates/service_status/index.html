@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<title>Service状态监控1</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://a.xnimg.cn/favicon-rr.ico?ver=3">
+		<link rel="stylesheet" type="text/css" href="/css/monitor.css"> 
+    <script src="/static/js/jquery.min.js"></script>
+		<script src="/static/js/service_status.js"></script>
+    </head>
+
+<body>
+
+<div id="service_status">
+<div id="ctrlPanel">
+    <input id="refreshBtn" type="checkbox" checked onChange="setRefresh()">
+    <label for="refreshBtn">自动刷新频率</label>
+    <select id="refreshTick">
+        <option value="60">1分钟</option>
+        <option value="180" selected="selected">3分钟</option>
+        <option value="300">5分钟</option>
+        <option value="600">10分钟</option>
+    </select>
+    <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    统计周期：
+    <select id="timeRange">
+    	<option value="3600">1小时</option>
+    	<option value="86400" selected>24小时</option>
+    	<option value="604800">7天</option>
+    </select>-->
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input id="compare1Btn" class="compBtn" type="checkbox" onChange="setCompare(1)">
+    <label for="compare1Btn" >同比昨天</label>
+    &nbsp;&nbsp;&nbsp;
+    <input id="compare2Btn" class="compBtn" type="checkbox" onChange="setCompare(2)">
+    <label for="compare2Btn" >同比7天</label>
+    <span class="btn" onClick="findData()">查询</span>
+    <br/>
+    <div id="visableChoose">
+    	<span>选择列：</span>
+    	<input id="node" type="checkbox" checked="checked" class="show_btn">
+        <label for="node">节点</label>
+    	<input id="cpu_rate" type="checkbox" checked="checked" class="show_btn">
+        <label for="cpu_rate">cpu</label>
+    	<input id="memory" type="checkbox" checked="checked" class="show_btn">
+        <label for="memory">内存</label>
+    	<input id="threads" type="checkbox" checked="checked" class="show_btn">
+        <label for="threads">线程数</label>
+    	<input id="des_rate" type="checkbox" checked="checked" class="show_btn">
+        <label for="des_rate">句柄数</label>
+    	<input id="_99" type="checkbox" checked="checked" class="show_btn">
+        <label for="_99">.99</label>
+    	<input id="avg" type="checkbox" checked="checked" class="show_btn">
+        <label for="avg">平均响应时间</label>
+    	<input id="sd" type="checkbox" checked="checked" class="show_btn">
+        <label for="sd">标准差</label>
+    	<input id="req" type="checkbox" checked="checked" class="show_btn">
+        <label for="req">请求数</label>
+    </div>
+    </div>
+<table width="100%" style="overflow-x:hidden" border="1" cellspacing="0" cellpadding="1" id="status">
+  <thead><tr>
+    <th>服务</th>
+    <th s_type="node">节点</th>
+    <th colspan="1" s_type="cpu_rate">cpu(%)</th>
+    <th colspan="1" s_type="memory">内存</th>
+    <th colspan="1" s_type="threads">线程数(个)</th>
+    <th colspan="1" s_type="des_rate">句柄数(个)</th>
+    <th>方法</th>
+    <th colspan="1" s_type="_99">24小时<br />.99(ms)</th>
+    <th colspan="1" s_type="avg">24小时平均<br />响应时间(ms)</th>
+    <th colspan="1" s_type="sd">标准差</th>
+    <th colspan="1" s_type="req">上分钟<br />请求数(次)</th>
+  </tr></thead>
+  <tbody></tbody>
+</table>
+</div>
+
+
+</body>
+</html>

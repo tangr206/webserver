@@ -1,0 +1,39 @@
+$def with(res)
+<script>
+$if res['stat'] == 0:
+        alert('$res["res"]');
+</script>
+<div id="nav"> 
+	<ul> 
+          <li><a href="/adengineb/adInfo">广告信息</a></li>
+          <li><a href="/adengineb/adConfig">配置信息</a></li>
+          <li><a href="/adengineb/zoneIndex">倒排索引</a></li>
+          <li><a href="/adengineb/zoneAd">正选广告</a></li>
+          <li><a href="/adengineb/campaignCompete">竞品计划</a></li>
+          <li><a href="/adengineb/adRequest">请求广告</a></li>
+	</ul> 
+	<div style="clear:both;"></div> 
+</div>
+
+<div id="ss_container" >
+<div id="page">
+
+
+<table id="rT0" style="table-layout: fixed;WORD-BREAK: break-all; WORD-WRAP: break-word" border="0" cellspacing="0" cellpadding="4">
+  <thead>
+      <tr>
+        <th>广告计划</th>
+        <th>竞品计划</th>
+      </tr>
+  </thead>
+  <tbody>
+    $for it in res['list']:
+      $if it.find(':') > 0:
+        <tr>
+          <td width="15%">$it.split(':')[0]</td>
+          <td width="90%">$it.split(':')[1]</td>
+        </tr>
+  </tbody>
+</table>
+</div>
+</div>

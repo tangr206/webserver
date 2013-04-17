@@ -1,0 +1,26 @@
+$def with(res)
+<script>
+$if res['stat'] == 0:
+        alert('$res["res"]');
+</script>
+
+<h2> 竞品计划</h2><br>
+
+<div id="config">
+<table id="rT0" style="table-layout: fixed;WORD-BREAK: break-all; WORD-WRAP: break-word" border="0" cellspacing="0" cellpadding="4">
+  <thead>
+      <tr>
+        <th>广告计划</th>
+        <th>竞品计划</th>
+      </tr>
+  </thead>
+  <tbody>
+    $for it in res['list']:
+      $if it.find(':') > 0:
+        <tr>
+          <td width="15%">$it.split(':')[0]</td>
+          <td width="90%">$it.split(':')[1]</td>
+        </tr>
+  </tbody>
+</table>
+</div>

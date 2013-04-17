@@ -1,0 +1,274 @@
+$def with (server_name, cate, fuck)
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+  <link rel="stylesheet" href="/static/OverView_files/stat.css" type="text/css"></link>
+
+
+  <script type="text/javascript" src="/static/OverView_files/jquery.js"></script>
+  <script src="/static/OverView_files/Highcharts-2.2.5/js/highcharts.js"></script>
+  
+  <script src="/static/OverView_files/Highstock-1.2.2/js/highstock.js"></script>
+  <script src="/static/OverView_files/Highstock-1.2.2/js/modules/exporting.js"></script>
+  <script src="/static/OverView_files/Highstock-1.2.2/js/themes/gray.js"></script>
+  <br/>
+  <br/>
+  <h1><center>服务状态变化趋势</center></h1>
+
+</head>
+
+
+
+<body>
+<div id="content" >
+
+	<div id="right">
+		<fieldset>
+		  <legend>选择查看项</legend>
+
+        <form method="get" id="show_checkbox" style="margin: 10px 10px 10px 10px">
+            $for i in fuck:
+              <input value="1" name="c2" id="$i" type="checkbox" checked onchange="go_change('bb')">
+              <label for="$i">$i</label>
+              <br> 
+        </form>
+		</fieldset>
+           <br>
+
+		<fieldset>
+		  <legend >选择数据源</legend>
+        <div id="navigation-block"> <!--img src="background.jpg" id="hide" /-->
+          <ul id="sliding-navigation">
+            <li class="sliding-element">
+            </li>
+              <li class="sliding-element">
+                <a href="/overview/?serviceName=$server_name&cate=server_ping_info">server_ping_info</a>
+              </li>
+              <li class="sliding-element">
+                <a href="/overview/?serviceName=$server_name&cate=service_status">service_status</a>
+              </li>
+          </ul>
+        </div>
+		</fieldset>
+           <br>
+
+ 		<fieldset>
+		  <legend>选择服务名称</legend>
+
+        <form method="get" id="show_servername" style="margin: 10px 10px 10px 10px">
+           <div class="t1">
+            <br> 
+            <input id="servername" value=$server_name type="text" style="width:100%">
+            <input value="GO" style="float:right" type="button" onclick="go_fun()">
+          </div>
+        </form>
+          <br><br>
+        
+		</fieldset>
+           <br>
+	</div> <!-- righ  -->
+ 
+
+	<div id="left">
+		<div>
+			<fieldset>
+	      <div id="loading"  style="width:100px; height:100px;background:url(/static/OverView_files/loading/loading45.gif) no-repeat; margin: 100px 10px 10px 500px ; " > </div>
+        <legend id="legendid"> --- $cate -----  </legend>
+	      <div id="container1" style="min-width: 400px; height: 500px; background-color:cliver ; margin: 10px 5px 10px 10px ; "></div>
+			</fieldset>
+		</div>
+	</div>
+</div>
+
+</body>
+
+
+
+<script type="text/javascript">
+
+	var chart_all1 = {
+			chart : {
+				renderTo : 'container1',
+				zoomType: 'xy',
+			},
+		  rangeSelector: {
+		     	   buttons: [ {
+		     	       type: 'hour',
+		     	       count: 6,
+		     	       text: '6H'
+			     	 }, {
+		     	       type: 'day',
+		     	       count: 1,
+		     	       text: '1D'
+				     }, {
+		     	       type: 'week',
+		     	       count: 1,
+		     	       text: '1W'
+		     	   }, {
+		     	       type: 'month',
+		     	       count: 1,
+		     	       text: '1M'
+		     	   }, {
+		     	       type: 'all',
+		     	       text: 'All'
+		     	   }],
+		     	   selected: 0
+		   	},
+	    tooltip: {
+      }, 
+			title : {
+				text : '分发,曝光/100,点击量,回复量'
+			},
+			series : []
+		};
+
+var series = [];
+var ya ={ 
+   title: {
+       style: {
+           color: '#4572A7'
+       }
+   },
+   labels: {
+       formatter: function() {
+       //    val = this.value;
+       //    if (val > 1000*1000) {
+       //      return val/1000/1000 + 'M';
+       //    } 
+       //    if (val > 1000) {
+       //      return val/1000 + 'k';
+       //    } 
+       //    return val ;
+       },
+       style: {
+           color: '#4572A7'
+       }
+   }
+		    
+} 
+
+var YA = []
+
+
+
+function test(id) {
+	return document.getElementById(id).checked
+}
+ 
+function go_change(ff) {
+	  chart_all1.series = []
+
+    ff = document.getElementsByName("c2")
+	  for(var i = 0; i < ff.length; ++i) {
+      key = ff[i].id
+		  if (test(key)) chart_all1.series.push(series[i])
+      
+    }
+
+		try {
+		      var chart1 = new Highcharts.StockChart(chart_all1)
+		} catch (e) {
+			alert(e)
+		}
+}
+
+
+
+function get_data(servername) {
+  //alert(servername)
+
+	document.getElementById("loading").style.display="block";
+	document.getElementById("container1").innerHTML =  "";
+
+  $$.ajax({
+    type: 'POST',
+    url: '/overview/getData',
+    async: true,
+    data:"servername="+servername+"&cate=$cate",
+    dataType : "json",
+    //success : function(text){
+    success : function(currentData){
+
+	     //if(!text || text.length <= 0) return;
+	     //currentData = eval('(' + text + ')');
+  
+       ff = document.getElementsByName("c2")
+       for(var i = 0; i < ff.length; ++i) {
+          series.push({name : ff[i].id, data : [], type: 'spline', yAxis: i})
+          YA.push(ya)
+       }
+
+	     var date = new Array(currentData.length);
+       var mtime = 1346428800000 + 8*1000*60*60;
+
+       //alert(currentData.length)
+	     for(var i = 0; i < currentData.length -1 ;  ++i) {
+	     	//index = div(i, 5)
+	     	index = i 
+	     	mtime = currentData[index]["update_time"]*1000 + 8*1000*60*60
+
+         for(var j = 0; j < series.length; ++j) {
+           key = series[j].name
+           series[j].data[index] = [mtime, currentData[index][key] ]
+         }
+	     }
+         
+
+	     //alert(series[0].data)
+	     chart_all1.title.text = servername+'的各项信息'
+	     chart_all1.series = []
+	     chart_all1.yAxis = YA 
+       for(var i = 0; i < ff.length; ++i) {
+         key = ff[i].id
+	       if (test(key)) chart_all1.series.push(series[i])
+       }
+       if(chart_all1.series.length <= 0) {
+        return
+       }
+	     	
+	       var chart1 = new Highcharts.StockChart(chart_all1)
+	      //var chart2 = new Highcharts.StockChart(chart_all2)
+
+	     	document.getElementById("loading").style.display="none";
+
+         //$("#data").append(html);
+    },
+    error : function(){
+      alert('ready 加载出错');
+    }
+  });
+
+}
+
+
+function go_fun() {
+	var servername = document.getElementById("servername").value
+	window.open('/overview/?serviceName=' + servername, "_self");
+
+}
+
+function load_data() {
+	var servername = document.getElementById("servername").value
+  get_data(servername)
+}
+
+//document.ready( get_data($server_name) );
+jQuery(document).ready( load_data() );
+
+</script>
+
+
+
+
+</html>
+
+
+
+
+
+
+

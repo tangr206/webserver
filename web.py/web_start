@@ -1,0 +1,4 @@
+#!/bin/sh
+
+#/data/xce/jian.yang3/soft/python-2.7.3/python mainHandler.py 8082
+/data/xce/jian.yang3/soft/python-2.7.3/python mainHandler.py 8080

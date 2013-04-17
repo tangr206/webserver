@@ -1,0 +1,92 @@
+$def with (adzoneids)
+<script>
+
+$if adzoneids['stat'] == 0:
+  alert('$adzoneids["res"]');
+
+function show(){
+	var adZoneId = $$('#adZoneId').val();
+	var adIndex = $$('#adIndex').val();
+	$$.ajax({
+		url : '/indexService/indexInfo',
+		cache : false,
+		type : 'POST',
+		data:{adZoneId: adZoneId, adIndex: adIndex},
+		dataType : 'json',
+		error : function(e){
+			alert('获取信息失败');
+		},
+		success: function(data, stat){
+			if (data.stat == 1){
+				$$('#resTables').empty();
+				for (var i in data.list)
+					anAdZoneIndex(data.list[i]);
+			}else{
+				alert('获取信息失败\n' + data.res);
+			}
+		}
+	});
+}
+
+function anAdZoneIndex(index){
+	var $$index = $$('<div class="ind"></div>');
+	$$index.append('<div class="adzoneId">' + '广告位id : ' + index.adzoneId + '</div>');
+	for (var it in index){
+		if (it == 'adzoneId')
+			continue;
+		var $$it  = $$('<div class="' + it + '"></div>');
+		var $$tab = $$('<table border="0" cellspacing="0" cellpadding="4">' +
+		'<thead><tr><th colspan="2" style="text-align:center;">' + it + '</th></tr>' +
+		'<tr><th>' + it.substring(0, it.indexOf('Index')) + '</th><th>广告id</th>' +
+		'</tr></thead></table>');
+		
+		for (var j in index[it]){
+			$$tab.append('<tr><td>' + index[it][j].split(':')[0] + '</td><td>' + index[it][j].split(':')[1].replace(/,/g, ', ') + '</td></tr>');
+ 		}
+		$$it.append($$tab);
+		$$index.append($$it);
+	}
+	
+	$$('#resTables').append($$index);	
+}
+$$(function(){
+	//$$('.ctrlPanel .btn').trigger('click');
+	$$('#adZoneId').keyup(function(e){
+		if(!e) e = window.event;//火狐中是 window.event
+		var keyCode = (e.keyCode || e.which);
+		if(keyCode == 13){//如果是回车
+			$$('.ctrlPanel .btn').trigger('click');
+		}
+	});
+});
+</script>
+
+<body onload='getZoneid()'>
+<h2>广告索引信息查看</h2><br>
+
+<div class="ctrlPanel">
+请选择广告位id&nbsp;
+<select id="adZoneId">
+$for it in adzoneids['list']:
+  <option value=$it>$it   $adzoneids['dict'][it]</option>
+</select>
+请选择索引
+<select id="adIndex">
+<option value="0" selected="selected">性别</option>
+<option value="1">人生阶段</option>
+<option value="2">年级</option>
+<option value="3">年龄</option>
+<option value="4">地区</option>
+<option value="5">学校</option>
+<option value="6">学校地区</option>
+<option value="7">公司</option>
+<option value="8">兴趣</option>
+</select>
+&nbsp;&nbsp;
+<span class="btn" onclick="show()">查询</span>
+</div>
+<div id="resTables">
+</div>
+
+</body>
+

@@ -1,0 +1,76 @@
+$def with(allServices, yesterday)
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<title>Service资源监控</title>
+		<link rel="icon" type="image/gif" href="/static/images/favicon.gif" >
+		<link rel="stylesheet" type="text/css" href="/static/css/common.css"> 
+		<link rel="stylesheet" type="text/css" href="/static/css/monitor.css"> 
+        <script src="/static/js/jquery.min.js"></script>
+		<script src="/static/js/flotr2.min.js"></script>
+		<script src="/static/js/My97DatePicker/WdatePicker.js"></script>
+        <!--[if IE]>
+            <script src="/static/js/flotr2.ie.min.js"></script>
+        <![endif]-->
+        <script src="/static/js/service_monitor.js"></script>
+    </head>
+
+
+<body>
+
+
+<div id="blogtitle"> 
+ 
+	<h1>Service资源监控</h1> 
+</div>	
+
+<div id="container" >
+	<div id="containertop"></div> 
+	<div id="page">
+	<div id="ctrlPanel">
+    <div>
+    开始时间：<input id="startTime" class="Wdate" type="text" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="$:yesterday"/>-
+    结束时间：<input id="endTime" class="Wdate" type="text" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="" disabled/>
+    	<input id="refreshBtn" type="checkbox" checked onChange="setRefresh()">
+    	<label for="refreshBtn">刷新频率</label>
+        <select id="refreshTick">
+            <option value="60">1分钟</option>
+            <option value="180" selected="selected">3分钟</option>
+            <option value="300">5分钟</option>
+            <option value="600">10分钟</option>
+        </select>
+    <span class="btn" onClick="findData()">查询</span>
+	</div>
+    <!--select id="viewType">
+    	<option value="method">以method查看</option>
+    	<option value="service">以service查看</option>
+    </select-->
+    <!--select id="methodName" class="hideSel">
+    	<option value="method1">method1</option>
+    	<option value="method2">method2</option>
+    </select-->
+    服务名：
+    <select id="serviceName">
+    $for service in allServices
+    	<option value="$:service['service_name']">$:service['service_name']</option>
+    </select>
+    </div>
+    <div id="views">
+  	</div>
+  	</div>
+
+
+    <div id="containerbot"></div> 
+</div>
+
+<div id="footer"> 
+    <p><br>
+	Service资源监控 is proudly powered by <a href="http://webpy.org/">webpy</a><br /> 
+    <a href = "maito:chenlangjiao@baidu.com">copyright @ renren.ad.engine</a><br /> 
+    </p> 
+</div>
+
+</body>
+</html>

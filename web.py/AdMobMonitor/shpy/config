@@ -1,0 +1,7 @@
+[global]
+pythonpath=/usr/bin/python
+pythonbin=/usr/bin
+ip=10.3.19.14
+port=14880
+user=admob
+password=admob

@@ -1,0 +1,15 @@
+#mainContainer{
+	position:relative;
+	width:800px;
+	padding:15px 25px;
+	height:452px;
+	background:url(/static/images/bg_index_850_482.png) top center repeat-y; 
+	margin:0px auto;
+}
+#menu{
+	position: absolute;
+	width: 0px;
+	top: 280px;
+	right: 120px;
+	text-align:left;
+}

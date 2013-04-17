@@ -1,0 +1,353 @@
+/*  
+Theme Name: Bosco 2.0 Basic
+Theme URI: http://www.solostream.com
+Author: Michael D. Pollock
+Author URI: http://www.solostream.com/
+
+This theme was designed and built by Michael D. Pollock of Solostream Web Studio.
+
+The CSS, XHTML and design is copyright of Solostream Web Studio. Usage is governed by the Bosco 2.0 Basic Edition END-USER LICENSE AGREEMENT AGREEMENT.
+
+*/
+
+
+/* -------------------[ Main Page Elements ]------------------- */
+
+body {
+	font-size: 9pt;
+	font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif;
+	background: #eee;
+	color: #333;
+	text-align: center;
+	margin: 0;
+	padding: 0px;
+	line-height: 150%;
+	}
+/*
+#blogtitle {
+	width: 800px;
+	height: 110px;
+	margin: 0 auto;
+	padding: 0;
+    background-color: #296FA5;
+	}
+*/
+
+#blogtitle {
+	position:relative;
+	width: 800px;
+	height:120px;
+	margin:0 auto;
+	padding:0;
+	text-align:left;
+	cursor:pointer;
+	color:#06C;
+	background:url(/static/images/top_renren_805_115.jpg) top center no-repeat;
+}
+
+
+#containertop {
+	clear: both;
+	width: 850px;
+	height: 20px;
+	background: transparent url(/static/images/bg_container_850_200.gif) top center no-repeat;
+	margin: 0 auto;
+	padding: 0;
+	}
+
+#container {
+	width:100%;
+	background:url(/static/images/bg_container_850_22.gif) top center repeat-y; 
+	margin: 0 auto;
+	padding: 0;
+	}
+
+#page {
+	position:relative;
+    text-align: left;
+    clear: both;
+	width: 770px;
+	background: #fff;
+	margin: 0 auto;
+	padding: 0;
+    
+    min-height:350px;
+    height:auto !important; 
+    height:350px; 
+    overflow:visible;
+}   
+.cenContent{
+	position:relative;
+	text-align:center;
+	
+}
+#containerbot {
+        clear: both;
+        width: 850px;
+        height: 30px;
+        background: url(/static/images/bg_container_850_200.gif) bottom center no-repeat;
+        margin:0px auto;
+        padding: 0;
+        }
+
+#footer {
+        color: #fff;
+        clear: both;
+        width: 850px;
+        margin: 0 auto;
+        padding: 5px 0 10px 0;
+        text-align: center;
+        font-size: 10px;
+        background:url(/static/images/bg_footer_850_160.gif) top center no-repeat;
+        }
+
+/* -------------------[ Headings ]------------------- */
+
+h1, h2, h3,h4,h5 {
+	font-family: arial;
+	font-weight: normal;
+	margin: 0 0 10px 0;
+	padding: 0;
+	letter-spacing: -1px;
+	text-align: left;
+	line-height: 110%;
+	}
+
+h1 {
+	font-size: 2em;
+	padding: 5px 0;
+	margin: 0;
+	}
+
+h2 {
+	font-size: 1.7em;
+	padding: 5px 0;
+	margin: 0;
+	}
+
+h3 {
+	font-size: 1.7em;
+	}
+
+h4,h5 {
+        font-size:1.5em;
+        }
+
+#blogtitle h1 {
+	border: none;
+	font-size: 2.5em;
+	font-family: arial;
+	font-weight: bolder;
+	text-transform: capitalize;
+	letter-spacing: -1px;
+	margin: 0px;
+	padding: 25px 50px 5px 60px;
+	text-align: cent}
+
+/* -------------------[ Links ]------------------- */
+
+a, a:link, a:visited {
+	color: #cc0000;
+	text-decoration: none;
+	}
+	
+#footer a {
+	color: #fff;
+	text-decoration: underline;
+	}
+
+#blogtitle h1 a {
+        color: #fff;
+        }
+        
+
+/* -------------------[ Misc Tags and Classes ]------------------- */
+
+acronym, abbr, span.caps {
+	cursor: help;
+	}
+
+acronym, abbr {
+	border-bottom: 1px dotted #999;
+	}
+
+* html acronym, abbr {
+	border-bottom: 1px dashed #999;
+	}
+
+blockquote {
+	margin: 10px 30px;
+	padding-left: 10px;
+	border-left: 5px solid #ddd;
+        color: #666;
+	}
+
+.center {
+	text-align: center;
+	}
+
+a img, img a {
+	border: none;
+	}
+
+p {
+	margin-top: 0px;
+	margin-bottom: 15px;
+	} 
+
+
+
+.description {
+        color: #fff;
+        text-align: center;
+        padding: 0 50px;
+        }
+
+.date {
+        float: right;
+        text-align: center;
+        font-size: 10px;
+        font-weight: bold; 
+        width: 120px;
+        height: 21px;
+        color: #fff;
+        background: url(/static/images/datebg.gif) top left no-repeat;
+        padding: 4px 0 0 0;
+        margin: 0;
+        }
+
+
+/* -------------------[ Top Navigation Bar ]------------------- */
+
+#blogtitle #nav {
+	position:absolute;
+	bottom:0px;
+	clear: both;
+	height:50px;
+	width: 750px;
+	left:20px;
+	padding: 0;
+	}
+
+#nav {
+	clear: both;
+	width: 770px;
+	margin: 0 auto;
+	padding: 0;
+	}
+
+#nav ul {
+	margin: 0;
+	padding: 0;
+	}
+
+#nav li {
+        float:left;
+        margin:0;
+        padding:0;
+        list-style-type: none;
+        }
+
+#nav #navR li {
+        float:right;
+        margin:0;
+        padding:0;
+        list-style-type: none;
+        }
+
+#nav li a {
+        float:left;
+        background: #eee url(/static/images/bg_button_39_25.gif) top left repeat-x;
+        font-size: 9pt;
+        display: block;
+        border: 1px solid #ddd;
+        padding: 3px 10px;
+        margin: 0 10px 10px 0;
+        color: #111;
+        }
+
+#nav li a:hover {
+        background: #111;
+        color: #fff;
+        }
+
+#nav li ul {
+        float:left;
+        }
+
+
+/* laiwei add*/
+
+input,textarea
+{
+    color:#6D93AB;
+    font:12px/17px "Lucida Grande", Arial, Verdana, Helvetica, sans-serif;
+}
+
+label
+{
+    font-size: 11px;
+    color:#6D93AB;
+    line-height:24px;
+}
+label.err
+{
+    font-weight: bold;
+    color:red;
+}
+label.suc
+{
+    font-weight: bold;
+    color:green;
+}
+div.select_box
+{
+    width:100px;
+    height:24px;
+    color:#6D93AB;
+}
+
+/*  ---------------------- button ------------------- */
+#menu ul {
+    padding: 5px;
+    margin: 10px 0;
+    list-style: none;
+    float: left;
+}
+
+#menu ul li {
+    float: left;
+    display: inline; /*For ignore double margin in IE6*/
+    margin: 0 10px;
+}
+
+#menu ul li a {
+    text-decoration: none;
+    float:left;
+    color: #999;
+    cursor: pointer;
+    font: 900 11px/14px "Arial", Helvetica, sans-serif;
+}
+
+#menu ul li a span {
+    margin: 0 10px 0 -10px;
+    padding: 1px 8px 5px 18px;
+    position: relative; /*To fix IE6 problem (not displaying)*/
+    float:left;
+}
+#menu ul.blue li a.current, ul.blue li a:hover {
+    background: url(/static/images/blue.png) no-repeat top right;
+    color: #0d5f83;
+}
+
+#menu ul.blue li a.current span, ul.blue li a:hover span {
+    background: url(/static/images/blue.png) no-repeat top left;
+}
+
+/* cy'own*/
+#cy
+{
+	font-size:1.7em;
+	padding:5px 0;
+	margin:0;
+}

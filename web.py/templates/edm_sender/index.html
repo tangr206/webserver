@@ -1,0 +1,97 @@
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<title>Edm QA测试界面</title>
+		<link rel="icon" type="image/gif" href="/static/images/favicon.gif" >
+		<link rel="stylesheet" type="text/css" href="/static/css/common.css">
+        <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    </head>
+
+<body>
+<script>
+function resetAll(){
+	$$('#user_list').val('383585437,438680732,229942474,452208903,221416298,221416299');
+	$$('#user_status').val(3);
+	$$('#edmweb').attr("checked", true);
+}
+function send(){
+	if ($$('#user_list').val() == ''){
+		alert('必须输入用户id列表');
+		$$('#user_list').focus();
+		return ;
+	}
+	var user_list = $$('#user_list').val();
+	var user_status = parseInt($$('#user_status').val());
+	var edm_type = 1;
+	if ($$('#edmweb:checked').val() == 'on') {
+		edm_type = 1;
+	}else{
+		edm_type = 2;
+	}
+
+	$$.ajax({
+		url : '/edmTest/set',
+		cache : false,
+		type : 'POST',
+		data:{user_list: user_list, user_status: user_status, edm_type: edm_type},
+		dataType : 'json',
+		error : function(e){
+			alert('设置失败'+e.status);
+		},
+		success: function(data, stat){
+			if (data.stat == 1){
+				alert('设置成功');
+			}else{
+				alert('设置失败\n' + data.res);
+			}
+		}
+	});
+}
+</script>
+
+<div id="blogtitle"> 
+ 
+	<h1>Edm QA测试界面</h1> 
+</div>	
+
+<div id="container" >
+	<div id="containertop"></div> 
+	<div id="page">
+
+    <table border="0" cellspacing="0" cellpadding="4" style="margin:40px auto;">
+      <tr>
+        <td width="80">user_list:</td>
+        <td width="200">
+        <textarea id="user_list" rows="8" style="width:200px; resize:vertical;" title="用逗号分隔用户id">383585437,438680732,229942474,452208903,221416298,221416299</textarea>
+        </td>
+      </tr>
+       <tr>
+        <td>Edm类型</td>
+	<td>
+            <input id="edmweb" name="radiobutton" type="radio" checked >WEB EDM
+            <input id="edm3g" name="radiobutton" type="radio">3G Edm
+        </td>
+      </tr>
+     <tr>
+        <td>user_status:</td>
+        <td>
+        	<span class="btn" onClick="resetAll()">重置</span><span class="btn" onClick="send()">确定</span>
+            <input id="user_status" type="number" value="3" style="width:80px;">
+        </td>
+      </tr>
+    </table>
+  </div>
+    <div id="containerbot"></div> 
+</div>
+
+<div id="footer"> 
+    <p><br>
+	Edm QA测试界面 is proudly powered by <a href="http://webpy.org/">webpy</a><br /> 
+    <a href = "maito:renren.ad.engine@renren-inc.com">copyright @ renren.ad.engine</a><br /> 
+    </p> 
+</div>
+
+</body>
+</html>

@@ -1,0 +1,259 @@
+$def with(my_roles, all_roles)
+<script>
+var nRole = null;
+var mSel = null;
+function hideLayer(layer){
+	$$('#' + layer).hide(200);
+	$$('.opTab').show(200);
+}
+function bindClick(){
+	$$('.editBtn').unbind('click').click(function(e){
+		var $$opTab = $$(this).parents('.opTab');
+		PopUp.showInput('请输入角色名称',[['角色名', $$opTab.find('.role_name').text(), 'text']],function($$dialog){
+			var role_name = $$dialog.find('#i_0').val();
+			$$.ajax({
+				url : '/argsManage/role_set',
+				cache : false,
+				data : {role_id : $$opTab.attr('rid'), role_name : role_name},
+				type : 'POST',
+				dataType : 'json',
+				error : function(e){
+					alert('修改角色名称失败');
+				},
+				success: function(data, stat){
+					if (data.stat == 1){
+						alert('修改角色名称成功');
+						$$opTab.find('.role_name').text(role_name);
+						
+						PopUp.hide($$dialog);
+					}else{
+						alert('修改角色名称失败\n' + data.res);
+					}
+				}
+			});
+		});
+		_cancelDefault(e);
+		_cancelBubble(e);
+	});
+	$$('.deleteBtn').unbind('click').click(function(e){
+		var $$opTab = $$(this).parents('.opTab');
+		if (confirm('确认删除角色 ' + $$opTab.find('.role_name').text())){
+			$$.ajax({
+				url : '/argsManage/delete_role',
+				cache : false,
+				data : {role_id : $$opTab.attr('rid')},
+				type : 'POST',
+				dataType : 'json',
+				error : function(e){
+					alert('删除角色失败');
+				},
+				success: function(data, stat){
+					if (data.stat == 1){
+						alert('删除角色成功');
+						$$opTab.remove();
+					}else{
+						alert('删除角色失败\n' + data.res);
+					}
+				}
+			});
+		}
+		_cancelDefault(e);
+		_cancelBubble(e);
+	});
+	$$('.opTab').unbind('click').click(function(e){
+		var $$selTab = $$(this);
+		$$selTab.siblings('.opTab').hide(200);
+		$$.ajax({
+			url : '/argsManage/role_info/' + $$selTab.attr('rid'),
+			cache : false,
+			type : 'GET',
+			dataType : 'json',
+			error : function(e){
+				alert('查询角色详细信息失败');
+				hideLayer('roleDetail');
+				$$selTab.siblings('.opTab').show(200);
+			},
+			success: function(data, stat){
+				if (data.stat == 1){
+					setTables(data);
+					nRole = $$selTab.attr('rid');
+				}else{
+					alert('查询角色详细信息失败\n' + data.res);
+					hideLayer('roleDetail');
+					$$selTab.siblings('.opTab').show(200);
+				}
+			}
+		});
+	});
+	$$('#roleDetail #role2user .select').unbind('click').click(function(){
+		$$('#roleDetail #role2user .select').removeClass('sel');
+		$$(this).addClass('sel');
+	});
+}
+$$(function(){
+	bindClick();
+});
+function setTables(data){
+	var $$aUserTab = $$('#roleDetail #role2user #allUsers .select').empty();
+	var $$rUserTab = $$('#roleDetail #role2user #roleUsers .select').empty();
+	var $$tablesTab = $$('#roleDetail #tables tbody').empty();
+	for (var i in data.all_users)
+		$$aUserTab.append('<span id="' + data.all_users[i].user_id + '" title="' + data.all_users[i].name + '">' + data.all_users[i].user_name + '</span>');
+	for (var i in data.users)
+		$$rUserTab.append('<span id="' + data.users[i].user_id + '" title="' + data.users[i].name + '">' + data.users[i].user_name + '</span>');
+	for (var i in data.tables){
+		var trHtml = '<tr tid="' + data.tables[i].table_id + '">';
+		trHtml = trHtml + '<td>' + data.tables[i].table_name + '</td><td>' + data.tables[i].table_dis + '</td>';
+        trHtml = trHtml + '<td><select>';
+		if (data.tables[i].auth == undefined)
+			trHtml = trHtml + '<option value="-1" selected>无</option>';
+		else
+			trHtml = trHtml + '<option value="-1">无</option>';
+		if (data.tables[i].auth == 0)
+			trHtml = trHtml + '<option value="0" selected>读</option>';
+		else
+			trHtml = trHtml + '<option value="0">读</option>';
+		if (data.tables[i].auth == 1)
+			trHtml = trHtml + '<option value="1" selected>读写</option>';
+		else
+			trHtml = trHtml + '<option value="1">读写</option>';
+			
+        trHtml = trHtml + '</select></td></tr>'
+		
+		$$tablesTab.append(trHtml);
+	}
+	$$('#roleDetail').show(200);
+	mSel = new MSel($$('#roleDetail #role2user #allUsers .select'), $$('#roleDetail #role2user #roleUsers .select'));
+}
+function saveSets(){
+	var users = [];
+	var tables = [];
+	$$('#roleDetail #role2user #roleUsers .select span').each(function(){
+		users.push($$(this).attr('id'));
+	});
+	$$('#roleDetail #tables tbody tr').each(function(){
+		if ($$('select', this).val() > -1)
+			tables.push($$(this).attr('tid') + '=' + $$('select', this).val());
+	});
+	$$.ajax({
+		url : '/argsManage/role_info',
+		cache : false,
+		type : 'POST',
+		data : {role_id : nRole, users : users.join('&'), tables : tables.join('&')},
+		dataType : 'json',
+		error : function(e){
+			alert('修改角色信息失败');
+		},
+		success: function(data, stat){
+			if (data.stat == 1){
+				alert('修改角色信息成功');
+				setTables(data);
+			}else{
+				alert('修改角色信息失败\n' + data.res);
+			}
+		}
+	});
+}
+function addRole(){
+	PopUp.showInput('请输入角色名称', [['角色名', '', 'text']],function($$dialog){
+		var role_name = $$dialog.find('#i_0').val();
+		$$.ajax({
+			url : '/argsManage/add_role',
+			cache : false,
+			data : {role_name : role_name},
+			type : 'POST',
+			dataType : 'json',
+			error : function(e){
+				alert('添加角色失败');
+			},
+			success: function(data, stat){
+				if (data.stat == 1){
+					alert('添加角色成功');
+					$$('#roleTab tbody').append('<tr class="opTab" rid="' + data.role_id +
+											'"><td class="role_name">'+ role_name +
+											'</td><td class="u_num">0</td><td>' +
+											'<a class="editBtn">编辑</a>&nbsp;<a class="deleteBtn">删除</a></td></tr>');
+					bindClick();
+					PopUp.hide($$dialog);
+				}else{
+					alert('添加角色失败\n' + data.res);
+				}
+			}
+		});
+	});
+}
+</script>
+<div id="nav"> 
+	<ul> 
+		<li><a href="/argsManage/index">首页</a></li>
+		$if len(my_roles) > 0:
+			<li><a href = "/argsManage/args">参数修改</a></li>
+			
+			$for role in my_roles:
+				$if role['role_id'] == 1:
+					<li><a href = "/argsManage/userMan">用户管理</a></li>
+					<li><a href = "/argsManage/roleMan">角色管理</a></li>
+					<li><a href = "/argsManage/tableMan">参数表管理</a></li>
+					<li><a href = "/argsManage/logs">日志查询</a></li>
+					$break
+                    
+		<li><a href="/argsManage/self_set">个人信息</a></li>
+		<li><a href="/argsManage/logout">注销</a></li>
+	</ul> 
+	<div style="clear:both;"></div> 
+</div> 
+<div>
+	<span class="btn" onClick="addRole()">添加</span>
+	<h2>用户列表</h2>
+</div>
+<table id="roleTab" border="0" cellspacing="0" cellpadding="4">
+<thead>
+  <tr>
+    <th>角色名</th>
+    <th>成员数</th>
+    <th>操作</th>
+  </tr>
+</thead>
+<tbody>
+$for role in all_roles:
+	<tr class="opTab" rid="$role.role_id">
+		<td class="role_name">$role.role_name</td>
+		<td class="u_num">$role.u_num</td>
+		<td><a class="editBtn">编辑</a>&nbsp;<a class="deleteBtn">删除</a></td>
+	</tr>
+</tbody>
+</table>
+<div id="roleDetail" class="hideLayer">
+	<div>
+    	<span class="btn" onClick="hideLayer('roleDetail')">关闭</span>
+    	<span class="btn" onClick="saveSets()">保存</span>
+        <div style="clear:both;"></div>
+    </div>
+    
+    <h2>所有用户与该角色关系</h2>
+    <div id="role2user">
+    	<div id="allUsers" class="lFloat">
+        	<div class="select">
+            </div>
+            <span>所有用户</span>
+        </div>
+        <div id="opers" class="lFloat">
+        	<input onClick="mSel.mvAll()" type="button" value=">>|" title="将所有用户添加到角色下"/>
+        	<input onClick="mSel.mvSel()" type="button" value=">>" title="将选中用户添加到角色下"/>
+        	<input onClick="mSel.delSel()" type="button" value="<<" title="将选中用户移出角色"/>
+        	<input onClick="mSel.delAll()" type="button" value="|<<" title="将所有用户移出角色"/>
+        </div>
+        <div id="roleUsers" class="lFloat">
+        	<div class="select">
+            </div>
+            <span>所属用户</span>
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+	<h2>所有参数表与该角色关系</h2>
+    <table id="tables" cellpadding="4" cellspacing="0" border="1">
+        <thead><tr><th>参数表名称</th><th>参数表描述</th><th>操作权限</th></tr></thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>

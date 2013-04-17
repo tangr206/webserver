@@ -1,0 +1,37 @@
+$def with (reg_err)
+<script>
+	var reg_err = '$reg_err';
+	if (reg_err != '')
+		alert('注册失败:' + reg_err);
+</script>
+
+
+<form method="post" action="/argsManage/regin">
+<h2>注册账号</h2>
+<table cellspacing="0" cellpadding="4">
+<tr>
+  <td><label>帐号:</label></td>
+  <td><input type="text" name="username" value=""></td>
+</tr>
+<tr>
+  <td><label>密码:</label></td>
+  <td><input type="password" name="password" value="" /></td>
+</tr>
+<tr>
+  <td><label>重复密码:</label></td>
+  <td><input type="password" name="re_password" value="" /></td>
+</tr>
+<tr>
+  <td><label>姓名:</label></td>
+  <td><input type="text" name="name" value="" /></td>
+</tr>
+<tr>
+  <td><label>邮箱:</label></td>
+  <td><input type="email" name="email" value="" /></td>
+</tr>
+<tr>
+  <td colspan="2" align="center"><a href="/argsManage/login" target="_self"><input type="button" value="go登录" /></a>
+  <input type="submit" value="注册" /></td>
+</tr>
+</table>
+</form>	

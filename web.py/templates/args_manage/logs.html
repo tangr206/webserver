@@ -1,0 +1,40 @@
+$def with (roles, logs)
+<script>
+	
+</script>
+<div id="nav"> 
+	<ul> 
+		<li><a href="/argsManage/index">首页</a></li>
+		$if len(roles) > 0:
+			<li><a href = "/argsManage/args">参数修改</a></li>
+			
+			$for role in roles:
+				$if role['role_id'] == 1:
+					<li><a href = "/argsManage/userMan">用户管理</a></li>
+					<li><a href = "/argsManage/roleMan">角色管理</a></li>
+					<li><a href = "/argsManage/tableMan">参数表管理</a></li>
+					<li><a href = "/argsManage/logs">日志查询</a></li>
+					$break
+                    
+		<li><a href="/argsManage/self_set">个人信息</a></li>
+		<li><a href="/argsManage/logout">注销</a></li>
+	</ul> 
+	<div style="clear:both;"></div> 
+</div> 
+
+
+        <h2>对于各参数表的操作日志如下：</h2>
+<table cellspacing="0" cellpadding="4">
+<thead><tr><th>时间</th><th>操作者</th><th>操作</th><th>参数表</th><th>原参数</th><th>新参数</th></tr></thead>
+<tbody>
+	$for log in logs
+    	<tr lid="$log['log_id']" uid="$log['user_id']" otp="$log['oper_type']" tna="$log['table_name']">
+        <td>$log['time']</td>
+        <td>$log['user_name'] <br/> $log['name']</td>
+        <td>$log['oper']</td>
+        <td>$log['table_name']</td>
+        <td>$:log['before'].replace('&', '<br/>')</td>
+        <td>$:log['after'].replace('&', '<br/>')</td>
+        </tr>
+</tbody>
+</table>

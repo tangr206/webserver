@@ -1,0 +1,190 @@
+$def with(roles, users)
+<script>
+var nUser = null;
+function mailTest(mailAd){return /^([a-zA-Z0-9]+[_|\_|\.|\-]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.|\-]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$$/.test(mailAd);}
+function hideLayer(layer){
+	$$('#' + layer).hide(200);
+	$$('.opTab').show(200);
+}
+$$(function(){
+	$$('.editBtn').click(function(e){
+		var $$opTab = $$(this).parents('.opTab');
+		PopUp.showInput('请输入用户信息',[['姓名', $$opTab.find('.name').text(), 'text'], ['邮箱', $$opTab.find('.email').text(), 'email']],function($$dialog){
+			var name = $$dialog.find('#i_0').val();
+			var email = $$dialog.find('#i_1').val();
+			if (! mailTest(email)){
+				alert('邮箱格式不合法');
+				$$dialog.find('#i_1').focus();
+				return false;
+			}
+			$$.ajax({
+				url : '/argsManage/user_set',
+				cache : false,
+				data : {user_id : $$opTab.attr('uid'), name : name, email : email},
+				type : 'POST',
+				dataType : 'json',
+				error : function(e){
+					alert('修改个人信息失败');
+				},
+				success: function(data, stat){
+					if (data.stat == 1){
+						alert('修改个人信息成功');
+						$$opTab.find('.name').text(name);
+						$$opTab.find('.email').text(email);
+						
+						PopUp.hide($$dialog);
+					}else{
+						alert('修改个人信息失败\n' + data.res);
+					}
+				}
+			});
+		});
+		_cancelDefault(e);
+		_cancelBubble(e);
+	});
+	$$('.deleteBtn').click(function(e){
+		var $$opTab = $$(this).parents('.opTab');
+		if (confirm('确认删除用户 ' + $$opTab.find('.user_name').text())){
+			$$.ajax({
+				url : '/argsManage/delete_user',
+				cache : false,
+				data : {user_id : $$opTab.attr('uid')},
+				type : 'POST',
+				dataType : 'json',
+				error : function(e){
+					alert('删除用户失败');
+				},
+				success: function(data, stat){
+					if (data.stat == 1){
+						alert('删除用户成功');
+						$$opTab.remove();
+					}else{
+						alert('删除用户失败\n' + data.res);
+					}
+				}
+			});
+		}
+		_cancelDefault(e);
+		_cancelBubble(e);
+	});
+	$$('.opTab').click(function(e){
+		var $$selTab = $$(this);
+		$$selTab.siblings('.opTab').hide(200);
+		$$.ajax({
+			url : '/argsManage/user_info/' + $$selTab.attr('uid'),
+			cache : false,
+			type : 'GET',
+			dataType : 'json',
+			error : function(e){
+				alert('查询用户详细信息失败');
+				hideLayer('userDetail');
+				$$selTab.siblings('.opTab').show(200);
+			},
+			success: function(data, stat){
+				if (data.stat == 1){
+					setTables(data);
+					nUser = $$selTab.attr('uid');
+				}else{
+					alert('查询用户详细信息失败\n' + data.res);
+					hideLayer('userDetail');
+					$$selTab.siblings('.opTab').show(200);
+				}
+			}
+		});
+	});
+});
+function setTables(data){
+	var $$rolesTab = $$('#userDetail #roles tbody').empty();
+	var $$tablesTab = $$('#userDetail #tables tbody').empty();
+	for (var i in data.roles)
+		$$rolesTab.append('<tr><td>' + data.roles[i].role_name + '</td><td><input type="checkbox" class="roleChecker" value="' + data.roles[i].role_id + '" checked="checked" /></td></tr>');
+	for (var i in data.other_roles)
+		$$rolesTab.append('<tr><td>' + data.other_roles[i].role_name + '</td><td><input type="checkbox" class="roleChecker" value="' + data.other_roles[i].role_id + '" /></td></tr>');
+	for (var i in data.tables)
+		$$tablesTab.append('<tr><td>' + data.tables[i].table_name + '</td><td>' + data.tables[i].table_dis + '</td><td>' + (data.tables[i].auth > 0 ? '读写' : '读') + '</td></tr>');
+	$$('#userDetail').show(200);
+}
+function saveSets(){
+	var roles = [];
+	$$('input.roleChecker:checked').each(function(){
+		roles.push($$(this).val());
+	});
+	$$.ajax({
+		url : '/argsManage/user_info',
+		cache : false,
+		type : 'POST',
+		data : {user_id : nUser, roles : roles.join('&')},
+		dataType : 'json',
+		error : function(e){
+			alert('修改用户角色失败');
+		},
+		success: function(data, stat){
+			if (data.stat == 1){
+				alert('修改用户角色成功');
+				setTables(data);
+			}else{
+				alert('修改用户角色失败\n' + data.res);
+			}
+		}
+	});
+}
+</script>
+<div id="nav"> 
+	<ul> 
+		<li><a href="/argsManage/index">首页</a></li>
+		$if len(roles) > 0:
+			<li><a href = "/argsManage/args">参数修改</a></li>
+			
+			$for role in roles:
+				$if role['role_id'] == 1:
+					<li><a href = "/argsManage/userMan">用户管理</a></li>
+					<li><a href = "/argsManage/roleMan">角色管理</a></li>
+					<li><a href = "/argsManage/tableMan">参数表管理</a></li>
+					<li><a href = "/argsManage/logs">日志查询</a></li>
+					$break
+                    
+		<li><a href="/argsManage/self_set">个人信息</a></li>
+		<li><a href="/argsManage/logout">注销</a></li>
+	</ul> 
+	<div style="clear:both;"></div> 
+</div> 
+
+<h2>用户列表</h2>
+<table border="0" cellspacing="0" cellpadding="4">
+<thead>
+  <tr>
+    <th>用户名</th>
+    <th>姓名</th>
+    <th>邮箱</th>
+    <th>操作</th>
+  </tr>
+</thead>
+<tbody>
+$for user in users:
+	<tr class="opTab" uid="$user.user_id">
+		<td class="user_name">$user.user_name</td>
+		<td class="name">$user.name</td>
+		<td class="email">$user.email</td>
+		<td><a class="editBtn">编辑</a>&nbsp;<a class="deleteBtn">删除</a></td>
+	</tr>
+</tbody>
+</table>
+<div id="userDetail" class="hideLayer">
+	<div>
+    	<span class="btn" onClick="hideLayer('userDetail')">关闭</span>
+    	<span class="btn" onClick="saveSets()">保存</span>
+        <div style="clear:both;"></div>
+    </div>
+    <h2>该用户的角色信息如下</h2>
+<table id="roles" cellpadding="4" cellspacing="0" border="1">
+	<thead><tr><th>角色</th><th>是否成员</th></tr></thead>
+    <tbody>
+    </tbody>
+</table>
+<h2>该用户拥有如下参数表的访问权限</h2>
+<table id="tables" cellpadding="4" cellspacing="0" border="1">
+    <thead><tr><th>参数表名称</th><th>参数表描述</th><th>操作权限</th></tr></thead>
+   	<tbody>
+	</tbody>
+</table>
+</div>

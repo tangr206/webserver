@@ -1,0 +1,132 @@
+$def with(roles, user)
+
+<script>
+function pwdValidate(pwd){
+	if (! pwd) return false;
+	return ((pwd.length > 5) && (pwd.length < 16));
+}
+function mailTest(mailAd){return /^([a-zA-Z0-9]+[_|\_|\.|\-]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.|\-]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$$/.test(mailAd);}
+$$(function(){
+	$$('.editPwdBtn').click(function(){
+		PopUp.showInput('请输入密码',[['原密码', '', 'password'], ['新密码', '', 'password'], ['重复新密码', '', 'password']],function($$dialog){
+			var prePWD = $$dialog.find('#i_0').val();
+			var newPWD = $$dialog.find('#i_1').val();
+			if (! pwdValidate(prePWD)){
+				alert('原密码必须6-15位');
+				$$dialog.find('#i_0').focus();
+				return false;
+			}
+			if (! pwdValidate(newPWD)){
+				alert('新密码必须6-15位');
+				$$dialog.find('#i_1').focus();
+				return false;
+			}
+			if (! (newPWD == $$dialog.find('#i_2').val())){
+				alert('两次密码输入不一致');
+				$$dialog.find('#i_1').focus();
+				return false;
+			}
+			$$.ajax({
+				url : '/argsManage/pwd_set',
+				cache : false,
+				data : {prePWD : prePWD, newPWD : newPWD},
+				type : 'POST',
+				dataType : 'json',
+				error : function(e){
+					alert('修改密码失败');
+				},
+				success: function(data, stat){
+					if (data.stat == 1){
+						alert('修改密码成功');
+						PopUp.hide($$dialog);
+					}else{
+						alert('修改密码失败\n' + data.res);
+					}
+				}
+			});
+		});
+	});
+	$$('.editProfBtn').click(function(){
+		PopUp.showInput('请输入个人信息',[['姓名', $$('#name').text(), 'text'], ['邮箱', $$('#email').text(), 'email']],function($$dialog){
+			var name = $$dialog.find('#i_0').val();
+			var email = $$dialog.find('#i_1').val();
+			if (! mailTest(email)){
+				alert('邮箱格式不合法');
+				$$dialog.find('#i_1').focus();
+				return false;
+			}
+			$$.ajax({
+				url : '/argsManage/self_set',
+				cache : false,
+				data : {name : name, email : email},
+				type : 'POST',
+				dataType : 'json',
+				error : function(e){
+					alert('修改个人信息失败');
+				},
+				success: function(data, stat){
+					if (data.stat == 1){
+						alert('修改个人信息成功');
+						$$('#name').text(name);
+						$$('#email').text(email);
+						
+						PopUp.hide($$dialog);
+					}else{
+						alert('修改密码失败\n' + data.res);
+					}
+				}
+			});
+		});
+	});
+	
+});
+</script>
+<div id="nav"> 
+	<ul> 
+		<li><a href="/argsManage/index">首页</a></li>
+		$if len(roles) > 0:
+			<li><a href = "/argsManage/args">参数修改</a></li>
+			
+			$for role in roles:
+				$if role['role_id'] == 1:
+					<li><a href = "/argsManage/userMan">用户管理</a></li>
+					<li><a href = "/argsManage/roleMan">角色管理</a></li>
+					<li><a href = "/argsManage/tableMan">参数表管理</a></li>
+					<li><a href = "/argsManage/logs">日志查询</a></li>
+					$break
+                    
+		<li><a href="/argsManage/self_set">个人信息</a></li>
+		<li><a href="/argsManage/logout">注销</a></li>
+	</ul> 
+	<div style="clear:both;"></div> 
+</div> 
+
+<h2>您的个人信息如下</h2>
+<table border="0" cellspacing="0" cellpadding="4">
+    <tr>
+      <td align="right">用户名：</td>
+      <td align="left" id="user_name">$user.user_name</td>
+    </tr>
+    <tr>
+      <td align="right">姓名：</td>
+      <td align="left" class="editAble" id="name">$user.name</td>
+    </tr>
+    <tr>
+      <td align="right">邮箱：</td>
+      <td align="left" class="editAble" id="email">$user.email</td>
+    </tr>
+    <tr>
+      <td align="right">角色：</td>
+      <td align="left">
+		$for role in roles
+			$role.role_name 
+			&nbsp;
+      </td>
+    </tr>
+    <tr>
+      <td align="right"><a class="editPwdBtn">修改密码</a></td>
+      <td align="left">
+          <a class="editProfBtn">修改个人信息</a>
+      </td>
+    </tr>
+  </table>

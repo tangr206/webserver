@@ -1,0 +1,86 @@
+<script>
+function show(){
+	var adZoneId = $$('#adZoneId').val();
+	var adIndex = $$('#adIndex').val();
+	$$.ajax({
+		url : '/adedmsendermonitor/zoneIndex',
+		cache : false,
+		type : 'POST',
+		data:{adZoneId: adZoneId, adIndex: adIndex},
+		dataType : 'json',
+		error : function(e){
+			alert('获取信息失败');
+		},
+		success: function(data, stat){
+			if (data.stat == 1){
+				$$('#resTables').empty();
+				anAdZoneIndex(data.list);
+			}else{
+				alert('获取信息失败\n' + data.res);
+			}
+		}
+	});
+}
+
+function anAdZoneIndex(index){
+	var $$index = $$('<div class="ind"></div>');
+	var $$tab = $$('<table border="0" cellspacing="0" cellpadding="4">' +
+		'<thead><tr><th>属性</th><th>广告组</th></tr></thead></table>');
+		
+	for (var j in index){
+	   $$tab.append('<tr><td>' + index[j].split(':')[0] + '</td><td>' + index[j].split(':')[1] + '</td></tr>');
+	}
+	$$index.append($$tab);
+	
+	$$('#resTables').append($$index);	
+}
+$$(function(){
+	//$$('.ctrlPanel .btn').trigger('click');
+	$$('#adZoneId').keyup(function(e){
+		if(!e) e = window.event;//火狐中是 window.event
+		var keyCode = (e.keyCode || e.which);
+		if(keyCode == 13){//如果是回车
+			$$('.ctrlPanel .btn').trigger('click');
+		}
+	});
+});
+</script>
+
+
+<div id="ss_container" >
+<div id="page">
+
+<h2> 倒排索引 缓存数据查看</h2><br>
+
+
+请选择EdmMemberTyoe&nbsp;
+<select id="adZoneId">
+<option value="1" selected="selected">Brand_ad</option>
+<option value="2" >Self_ad</option>
+<option value="3" >Product_ad</option>
+<option value="4" >Left_ad</option>
+<option value="5" >Brand_3G</option>
+<option value="6" >Self_3G</option>
+<option value="7" >Product_3G</option>
+</select>
+请选择索引
+<select id="adIndex">
+<option value="0" selected="selected">性别 gender_index_</option>
+<option value="1">人生阶段 stage_index_</option>
+<option value="2">年级 grade_index_</option>
+<option value="3">年龄 age_index_</option>
+<option value="4">地区 area_index_</option>
+<option value="5">学校 school_index_</option>
+<option value="6">学校地域 school_area_index_</option>
+<option value="7">公司 company_index_</option>
+<option value="8">兴趣 interest_index_</option>
+<option value="9">平台 platform_index_</option>
+<option value="10">定位 lbs_index_</option>
+</select>
+&nbsp;&nbsp;
+<span class="btn" onclick="show()">查询</span>
+<div id="resTables">
+</div>
+</div>
+</div>
+

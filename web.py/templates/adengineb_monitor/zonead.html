@@ -1,0 +1,80 @@
+
+<script>
+function show(selector){
+	var zoneid = $$(selector).val();
+	$$.ajax({
+		url : '/adengineb/zoneAd',
+		cache : false,
+		type : 'POST',
+		data:{zoneid : zoneid},
+		dataType : 'json',
+		error : function(e){
+			alert('获取信息失败');
+		},
+		success: function(data, stat){
+			if (data.stat == 1){
+				var $$parTable = $$('#rT0 tbody').empty();
+				var trHtml = '';
+				for (var i in data.list){
+				  if ((i != (data.list.length - 1)) && (data.list[i] != ''))
+				    trHtml = trHtml + '<tr><td>' + data.list[i].split(':')[0] + '</td>' 
+					+ '<td>' + data.list[i].split(':')[1] + '</td></tr>';
+				}
+				$$parTable.append(trHtml);
+				$$('.resultTable').hide();
+				$$parTable.parent().show();
+			}else{
+				alert('获取信息失败\n' + data.res);
+			}
+		}
+	});
+}
+$$(function(){
+	$$('.ctrlPanel select').trigger('change');
+});
+</script>
+
+
+<h2>正选广告</h2><br>
+
+<div class="ctrlPanel">
+请选择广告位&nbsp;
+<select onChange="show(this)">
+<option value="100000000001" selected="selected">100000000001</option>
+<option value="100000000060">100000000060</option>
+<option value="100000000061">100000000061</option>
+<option value="100000000063">100000000063</option>
+<option value="100000000065">100000000065</option>
+<option value="100000000068">100000000068</option>
+<option value="100000000069">100000000069</option>
+<option value="100000000070">100000000070</option>
+<option value="100000000071">100000000071</option>
+<option value="100000000072">100000000072</option>
+<option value="100000000073">100000000073</option>
+<option value="100000000074">100000000074</option>
+<option value="100000000075">100000000075</option>
+<option value="100000000076">100000000076</option>
+<option value="100000000077">100000000077</option>
+<option value="100000000078">100000000078</option>
+<option value="100000000091">100000000091</option>
+<option value="100000000093">100000000093</option>
+<option value="100000000100">100000000100</option>
+<option value="100000000101">100000000101</option>
+</select>
+</div>
+<table id="rT0" style="table-layout: fixed;WORD-BREAK: break-all; WORD-WRAP: break-word" 
+	class="resultTable" border="0" cellspacing="0" cellpadding="4">
+<thead>
+      <tr>
+        <th>广告类型</th>
+        <th>具体广告</th>
+      </tr>
+  </thead>
+  <tbody>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+  </tbody>
+</table>
+

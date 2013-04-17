@@ -1,0 +1,30 @@
+.cenContent{
+	font-size:14px;
+}
+table{
+	position:relative;
+	margin:5px auto;
+}
+table a{
+	text-decoration:underline;
+	cursor:pointer;
+}
+.alert{
+	color:#F00;
+}
+.hideLayer{
+	position:relative;
+	margin:0px auto;
+	display:none;
+}
+.opTab{
+	cursor:pointer;
+	color:#000;
+}
+.opTab:hover{
+	color:#00F;
+}
+.title{
+	position:relative;
+	padding:5px 0px;	
+}

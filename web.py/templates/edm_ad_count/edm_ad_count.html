@@ -1,0 +1,133 @@
+$def with(edm_daily)
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Edm广告数据统计</title>
+<link rel="icon" type="image/gif" href="/static/images/favicon.gif" >
+<link rel="stylesheet" type="text/css" href="/static/css/common.css">
+<style>
+#ctrlPanel{
+	position:relative;
+	width:90%;
+	margin:auto;
+	text-align:left;
+	padding-bottom:10px;
+}
+#ctrlPanel ul {
+	margin: 0;
+	padding: 0;
+}
+#ctrlPanel li {
+	float:left;
+	margin:0;
+	padding:0;
+	list-style-type: none;
+}
+#ctrlPanel li a {
+	float:left;
+	background: #eee url(/static/images/bg_button_39_25.gif) top left repeat-x;
+	font-size: 9pt;
+	display: block;
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+	margin: 0 10px 10px 0;
+	text-decoration:none;
+	color: #111;
+	cursor:pointer;
+}
+#ctrlPanel li a:hover {
+	background: #111;
+	color: #fff;
+}
+#result{
+	position:relative;
+	width:780px;
+	min-height:350px;
+	padding:0px 35px;
+	overflow:visible;
+}
+.res{
+	position:relative;
+	width:770px;
+	overflow:visible;
+	text-align:center;
+	background:#FFF;
+	display:none;
+}
+#sinView{
+	position:absolute;
+	top:0px;
+}
+#sinView .closeBtn{
+	position: absolute;
+	top: 8px;
+	right: 65px;
+}
+th{
+	font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+	color: #4f6b72; 
+	background:#CAE8EA;
+}
+</style>
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/My97DatePicker/WdatePicker.js"></script>
+<script src="/static/js/HighChart/highcharts.js"></script>
+<script src="/static/js/HighChart/exporting.js"></script>
+<script>
+	var res = $:edm_daily;
+</script>
+<script src="/static/js/edm.count.js"></script>
+</head>
+
+<body>
+	<div id="blogtitle"> 
+    	Edm广告数据统计
+	</div>
+<div id="container" >
+	<div id="containertop"></div> 
+	<div id="ctrlPanel">
+    	<ul> 
+            <li><a sv="12">广告发送统计</a></li>
+            <li><a sv="4">超预算控制统计</a></li>	
+            <li><a sv="5">广告发送统计(单)</a></li>	
+        </ul> 
+        &nbsp;<label>日期</label><input id="date" name="date" class="Wdate" type="text" onClick="WdatePicker()"/>
+        <input type="button" value="查询" onClick="getData()" />
+        <div style="clear:both;"></div> 
+    </div>
+    <div id="result">
+		<div id="res12" class="res">
+        	
+        </div>
+		<div id="res4" class="res">
+        	
+        </div>
+		<div id="res5" class="res">
+        	<table width="100%" border="1" cellspacing="0" cellpadding="4">
+              <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>单个广告有效可发送</th>
+                    <th>单个广告因超预算控制而未发送</th>
+                    <th>仅有一条广告可发送，但是因超预算控制而未发送</th>
+                  </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+        </div>
+        <div id="sinView" class="res">
+        	
+        </div>
+    </div>
+    <div id="containerbot"></div> 
+</div>
+<div id="footer"> 
+    <p><br>
+	Edm广告数据统计 is proudly powered by <a href="http://webpy.org/">webpy</a><br /> 
+    <a href = "maito:renren.ad.engine@renren-inc.com">copyright @ renren.ad.engine</a><br /> 
+    </p> 
+</div>
+</body>
+</html>

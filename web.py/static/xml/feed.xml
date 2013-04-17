@@ -1,0 +1,724 @@
+<icegrid>
+	<application name="XceFeed">
+                <include file="templates/templates.xml" />
+                <include file="templates/feed_template.xml" />
+                <include file="templates/feedaddispatcher.xml" />
+                <include file="templates/photo_memory.xml" />
+                <include file="templates/xiaonei_controller.xml" />
+                <include file="templates/feed_itemfacade.xml" />
+                <include file="templates/feed_itemcache_byuserid.xml" />
+                <include file="templates/feed_itemcache_byappid.xml" />
+                <include file="templates/feed_itemblockcache.xml" />
+                <include file="templates/feed_itemwrapper.xml" />
+                <include file="templates/feed_socialwikibyuserid.xml" />
+                <include file="templates/feed_socialwikibywikiid.xml" />
+                <include file="templates/feed_timeline.xml" />
+                <include file="templates/feed_guide.xml" />
+	
+		<node name="node_fdb2">
+			<server-instance template="FeedDispatcher2" Index="2" Mod="2" LogLevel="INFO"  />
+			<server-instance template="FeedDispatcher2" Index="3" Mod="3" LogLevel="INFO"  />
+			<server-instance template="FeedDispatcher2" Index="4" Mod="4" LogLevel="INFO"  />
+			<server-instance template="FeedCacheLogic" Index="-1" Mod="-1" LogLevel="INFO"  />
+		</node>
+		<node name="node_fdb3">
+			<server-instance template="FeedDispatcher2" Index="0" Mod="0" LogLevel="INFO"  />
+			<server-instance template="FeedDispatcher2" Index="6" Mod="6" LogLevel="INFO"  />
+			<server-instance template="FeedDispatcher2" Index="7" Mod="7" LogLevel="INFO"  />
+			<server-instance template="FeedCacheLogic" Index="-2" Mod="-2" LogLevel="INFO"  />
+		</node>
+		<node name="node_fdb4">
+			<server-instance template="FeedDispatcher2" Index="1" Mod="1" LogLevel="INFO"  />
+			<server-instance template="FeedDispatcher2" Index="8" Mod="8" LogLevel="INFO"  />
+			<server-instance template="FeedDispatcher2" Index="9" Mod="9" LogLevel="INFO"  />
+			<server-instance template="FeedCacheLogic" Index="-3" Mod="-3" LogLevel="INFO"  />
+		</node>
+		<node name="node_f3">
+			<server-instance template="FeedInteractionN" Index="5" LogLevel="INFO"  />
+			<server-instance template="FeedInteractionN" Index="6" LogLevel="INFO"  />
+			<server-instance template="FeedInteractionN" Index="7" LogLevel="INFO"  />
+			<server-instance template="FeedInteractionN" Index="8" LogLevel="INFO"  />
+			<server-instance template="FeedInteractionN" Index="9" LogLevel="INFO"  />
+			<server-instance template="FeedCacheLogic" Index="-4" Mod="-4" LogLevel="INFO"  />
+		</node>
+		<node name="node_f4">
+		</node>
+		<!--node name="node_f5">
+			<server-instance template="FeedInteraction" LogLevel="INFO"  /> 
+			<server-instance template="FeedInteractionN" Index="0" LogLevel="INFO"  />
+			<server-instance template="FeedInteractionN" Index="1" LogLevel="INFO"  />
+			<server-instance template="FeedInteractionN" Index="2" LogLevel="INFO"  />
+			<server-instance template="FeedInteractionN" Index="3" LogLevel="INFO"  />
+			<server-instance template="FeedInteractionN" Index="4" LogLevel="INFO"  />
+		</node-->
+		<node name="node_f6">
+		</node>
+		<node name="node_f7">
+		</node>
+		<node name="node_f9">
+			<server-instance template="FeedNewsN" Index="5" Mod="5" LogLevel="INFO"  />
+			<server-instance template="FeedSchool" Index="0" LogLevel="DEBUG"  />
+			<server-instance template="FeedSchool" Index="1" LogLevel="DEBUG"  />
+		</node>
+
+
+		<node name="node_f10">
+		</node>
+
+		<node name="node_f11">
+			<server-instance template="FeedFocus" Index="0" LogLevel="INFO"  />
+			<server-instance template="FeedFocus" Index="1" LogLevel="INFO"  />
+			<server-instance template="FeedFocus" Index="3" LogLevel="INFO"  />
+			
+			<server-instance template="FeedNewsN" Index="1" Mod="1" LogLevel="INFO"  />
+			
+		</node>
+		<node name="node_f12">
+			<server-instance template="FeedViewN" Index="10" Mod="10" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="20" Mod="20" LogLevel="INFO"  />
+			<server-instance template="FeedDispatcher2" Index="5" Mod="5" LogLevel="INFO"  />
+			<server-instance template="FeedFocus" Index="2" LogLevel="INFO"  />
+		</node>
+		<node name="node_f13">
+			<server-instance template="FeedItemWrapper" Index="11" Mod="0" LogLevel="DEBUG" />
+			<server-instance template="FeedItemWrapper" Index="12" Mod="0" LogLevel="DEBUG" />
+			<server-instance template="FeedItemWrapper" Index="13" Mod="0" LogLevel="DEBUG" />
+			<server-instance template="FeedItemWrapper" Index="14" Mod="0" LogLevel="DEBUG" />
+
+			<server-instance template="FeedGuide" Index="0" Mod="0" LogLevel="INFO" />
+		</node>
+		<node name="node_f14">
+                        <server-instance template="FeedMini" Index="15" Mod="15" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="3" Mod="3" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="23" Mod="23" LogLevel="INFO"  />
+		</node>
+		<node name="node_fdb13">
+			<server-instance template="FeedNewsN" Index="18" Mod="18" LogLevel="INFO"  />	
+			<server-instance template="FeedMini" Index="50" Mod="50" LogLevel="INFO"  />
+			<server-instance template="FeedUserRecord" Index="0" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="33" Mod="33" LogLevel="INFO"  />
+		</node>
+		<node name="node_f16">
+			<server-instance template="FeedConfig" Index="0" LogLevel="DEBUG"  />
+			<server-instance template="FeedNewsN" Index="12" Mod="12" LogLevel="INFO"  />
+			<server-instance template="PhotoMemoryGate" Index="2" LogLevel="DEBUG" FcgiSocket="10.3.17.135:9000" />
+		</node>
+		<node name="node_f17">
+			<server-instance template="FeedNewsN" Index="10" Mod="10" LogLevel="INFO"  />
+			<server-instance template="FeedMini" Index="4" Mod="4"  LogLevel="INFO"  />
+			<server-instance template="FeedMini" Index="5" Mod="5"  LogLevel="INFO"  />
+		</node>
+		<node name="node_f18">
+			<server-instance template="PhotoMemory" Index="0" LogLevel="DEBUG"  />
+			<server-instance template="PhotoMemory" Index="1" LogLevel="DEBUG"  />
+			<server-instance template="PhotoDataGathering" Index="0" LogLevel="DEBUG"  />
+			<server-instance template="PhotoDataGathering" Index="1" LogLevel="DEBUG"  />
+			
+		</node>
+		<node name="node_f19">
+			<server-instance template="FeedGuide" Index="-1" Mod="-1" LogLevel="INFO" />
+			<server-instance template="FeedDispatchNew" Index="0" Mod="0" LogLevel="INFO"  />
+			<server-instance template="FeedDbWriter" Index="0" Mod="0" LogLevel="DEBUG"  />
+		</node>
+	
+
+		<node name="node_f20">
+			<!--server-instance template="FeedCache" Index="0" LogLevel="INFO"  /-->
+			<!--server-instance template="FeedAssistantN" Index="50" Mod="50" LogLevel="INFO" /-->
+
+		</node>
+	
+		<node name="node_f21">
+			<!--server-instance template="FeedCache" Index="1" LogLevel="INFO"  /-->
+			<server-instance template="FeedCacheHA" Index="1" Mod="1"  LogLevel="INFO" />
+			<server-instance template="FeedCacheN" Index="-2" Mod="1" LogLevel="INFO"  />
+
+		</node>
+	
+		<node name="node_f22">
+
+		</node>
+
+		<node name="node_f23">
+			<!--server-instance template="FeedCache" Index="3" LogLevel="INFO"  /-->
+		</node>
+		<node name="node_f24">
+			<!--server-instance template="FeedCache" Index="4" LogLevel="INFO"  /-->
+
+		</node>
+
+		<node name="node_f25">
+			<server-instance template="FeedCache" Index="5" LogLevel="INFO"  />
+			<server-instance template="FeedCacheN" Index="-6" Mod="5" LogLevel="INFO"  />
+		</node>
+
+		<node name="node_f26">
+		</node>
+
+		<node name="node_f27">
+		</node>
+
+		<node name="node_f28">
+		</node>
+
+		<node name="node_f105">
+			<server-instance template="Controller" Index="FeedMiniR" Cluster="20" Interval="5" LogLevel="DEBUG" />
+			<server-instance template="Controller" Index="FeedAssistantNR" Cluster="10" Interval="5" LogLevel="DEBUG" />
+			<server-instance template="Controller" Index="FeedNaiveBayesR" Cluster="1" Interval="5" LogLevel="DEBUG" />
+			<server-instance template="Controller" Index="FeedNewsR" Cluster="20" Interval="5" LogLevel="DEBUG" />
+			<server-instance template="Controller" Index="FeedFocusInvertR" Cluster="5" Interval="5" LogLevel="DEBUG" />
+			<server-instance template="Controller" Index="FeedSortR" Cluster="2" Interval="5" LogLevel="DEBUG" />
+			<server-instance template="Controller" Index="FeedCacheR" Cluster="10" Interval="5" LogLevel="DEBUG" />
+		</node>
+		<node name="node_f29">
+		</node>
+
+
+
+		<node name="node_mc0">
+		</node>
+		<node name="node_mc1">
+		</node>
+		<node name="node_mc2">
+		</node>
+		<node name="node_mc3">
+			<server-instance template="FeedNewsN" Index="17" Mod="17" LogLevel="INFO"  />
+			<server-instance template="FeedDispatcher2" Index="-1" Mod="-1" LogLevel="INFO"  />
+			<server-instance template="FeedDispatcher2" Index="-2" Mod="-2" LogLevel="INFO"  />
+
+		</node>
+		<node name="node_mc4">
+		</node>
+		<node name="node_mc5">
+		</node>
+		<node name="node_mc6">
+		</node>
+		<node name="node_mc7">
+			<server-instance template="FeedNaiveBayes" Index="0" Mod="0" LogLevel="INFO"  />
+		</node>
+		<node name="node_mc8">
+		</node>
+		<node name="node_mc9">
+		</node>
+
+		<node name="node_f30">
+			<!--server-instance template="FeedNaiveBayes" Index="2" Mod="2" LogLevel="INFO"  /-->
+                </node>
+
+		<node name="node_f31">
+                </node>
+                <node name="node_f122">
+			<server-instance template="FeedViewN" Index="14" Mod="14" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="4" Mod="4" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="13" Mod="13" LogLevel="INFO"  />
+                </node>
+		<node name="node_f123">
+			<server-instance template="FeedViewN" Index="49" Mod="49" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="2" Mod="2" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="9" Mod="9" LogLevel="INFO"  />
+		</node>
+                <node name="node_f33">
+			<server-instance template="FeedViewN" Index="12" Mod="12" LogLevel="INFO"  />
+                        <server-instance template="FeedMini" Index="1" Mod="1" LogLevel="DEBUG"  />
+                        <server-instance template="FeedMini" Index="9" Mod="9" LogLevel="DEBUG"  />
+			<server-instance template="FeedMini" Index="0" Mod="0" LogLevel="DEBUG"  />
+                </node> 
+                <node name="node_f34">
+			<server-instance template="FeedAssistantN" Index="6" Mod="6" LogLevel="INFO" />
+			<server-instance template="FeedAssistantN" Index="1" Mod="1" LogLevel="INFO" />
+                </node>
+                <node name="node_f35">
+                </node>
+
+                <node name="node_f36">
+                </node>
+                <node name="node_f37">
+                </node>
+                <node name="node_f38">
+                </node>
+                <node name="node_f39">
+                </node>
+
+
+
+		<node name="node_f40">
+			<server-instance template="PhotoMemory" Index="2" LogLevel="DEBUG"  />
+			<server-instance template="PhotoMemory" Index="3" LogLevel="DEBUG"  />
+			<server-instance template="PhotoDataGathering" Index="2" LogLevel="DEBUG"  />
+			<server-instance template="PhotoDataGathering" Index="3" LogLevel="DEBUG"  />
+			<server-instance template="PhotoMemoryGate" Index="0" LogLevel="DEBUG" FcgiSocket="10.3.20.207:9000" />
+		</node>
+		<node name="node_f41">
+		      
+		      
+		      		      
+
+		</node>
+
+
+
+
+		<node name="node_f45">
+			<server-instance template="FeedCacheHA" Index="2" Mod="2"  LogLevel="INFO" />
+			<server-instance template="FeedCacheN" Index="-3" Mod="2" LogLevel="INFO"  />
+		</node>
+		<node name="node_f46">
+			<server-instance template="FeedStatLog" Index="0" LogLevel="INFO"  />
+			<server-instance template="FeedMini" Index="16" Mod="16" LogLevel="DEBUG"  />
+			<server-instance template="FeedGroup" Index="4" LogLevel="DEBUG"  />
+			<server-instance template="FeedCache" Index="9" LogLevel="INFO"  />
+			<server-instance template="FeedCacheN" Index="-10" Mod="9" LogLevel="INFO"  />
+			<!--
+			<server-instance template="FeedGroup" Index="0" LogLevel="DEBUG"  />
+			<server-instance template="FeedGroup" Index="1" LogLevel="DEBUG"  />
+			-->
+		</node>
+		<node name="node_f50">
+		      <server-instance template="FeedFocusInvert" Index="0" Mod="0" LogLevel="INFO"  />
+		      <server-instance template="FeedFocusInvert" Index="1" Mod="1" LogLevel="INFO"  />
+		      <server-instance template="FeedFocusInvert" Index="2" Mod="2" LogLevel="INFO"  />
+		      <server-instance template="FeedFocusInvert" Index="3" Mod="3" LogLevel="INFO"  />
+		      <server-instance template="FeedFocusInvert" Index="4" Mod="4" LogLevel="INFO"  />
+		      
+		      <server-instance template="FeedSink" Index="0" LogLevel="INFO"  />
+			
+		      <server-instance template="FeedItemFacade" Index="0" Mod="0" LogLevel="DEBUG" />
+		      <server-instance template="FeedItemFacade" Index="1" Mod="1" LogLevel="DEBUG" />
+		      <server-instance template="FeedItemFacade" Index="2" Mod="2" LogLevel="DEBUG" />
+		      <server-instance template="FeedItemFacade" Index="3" Mod="3" LogLevel="DEBUG" />
+		      <server-instance template="FeedItemFacade" Index="4" Mod="4" LogLevel="DEBUG" />
+		      <server-instance template="FeedItemFacade" Index="5" Mod="5" LogLevel="DEBUG" />
+		      <server-instance template="FeedItemFacade" Index="6" Mod="6" LogLevel="DEBUG" />
+		      <server-instance template="FeedItemFacade" Index="7" Mod="7" LogLevel="DEBUG" />
+		      <server-instance template="FeedItemFacade" Index="8" Mod="8" LogLevel="DEBUG" />
+		      <server-instance template="FeedItemFacade" Index="9" Mod="9" LogLevel="DEBUG" />
+		</node>
+		<node name="node_f51">
+			<server-instance template="FeedItemBlockCache" Index="-7" Mod="-7" LogLevel="DEBUG" />
+			<server-instance template="FeedItemBlockCache" Index="-8" Mod="-8" LogLevel="DEBUG" />
+			<server-instance template="FeedItemBlockCache" Index="-9" Mod="-9" LogLevel="DEBUG" />
+			<server-instance template="FeedItemBlockCache" Index="00" Mod="0" LogLevel="DEBUG" />
+			<server-instance template="FeedItemBlockCache" Index="01" Mod="1" LogLevel="DEBUG" />
+			<server-instance template="FeedItemBlockCache" Index="02" Mod="2" LogLevel="DEBUG" />
+		
+			<server-instance template="FeedItemWrapper" Index="0" Mod="0" LogLevel="DEBUG" />
+		        <server-instance template="FeedSink" Index="2" LogLevel="INFO"  />
+		</node>
+		<node name="node_f52">
+			<server-instance template="FeedViewN" Index="19" Mod="19" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="18" Mod="18" LogLevel="INFO"  />
+		
+			<server-instance template="FeedGroupCount" Index="4" LogLevel="INFO"  />
+			<server-instance template="FeedGroup" Index="9" LogLevel="DEBUG"  />
+			<server-instance template="FeedSink" Index="4" LogLevel="INFO"  />
+		</node>
+		<node name="node_f53">
+			<server-instance template="FeedAssistantN" Index="0" Mod="0" LogLevel="INFO" />
+			<server-instance template="FeedFocus" Index="4" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="42" Mod="42" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="40" Mod="40" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="38" Mod="38" LogLevel="INFO"  />
+	      	</node>
+		<node name="node_f54">
+			<server-instance template="FeedViewN" Index="24" Mod="24" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="22" Mod="22" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="0" Mod="0" LogLevel="INFO"  />
+			<server-instance template="FeedNewsN" Index="3" Mod="3" LogLevel="INFO"  />
+			<server-instance template="FeedGroupCount" Index="1" LogLevel="INFO"  />
+			<server-instance template="FeedGroup" Index="6" LogLevel="DEBUG"  />
+			<server-instance template="FeedSort" Index="0" Mod="0"  LogLevel="INFO" />
+			<server-instance template="FeedSort" Index="-1" Mod="-1" LogLevel="INFO"  />
+		        <server-instance template="FeedSink" Index="1" LogLevel="INFO"  />
+			<server-instance template="FeedCache" Index="7" LogLevel="INFO"  />
+			<server-instance template="FeedCacheN" Index="-8" Mod="7" LogLevel="INFO"  />
+		</node>
+
+		<node name="node_f55">
+			
+
+				                        
+		</node>
+		<node name="node_f56">
+			<server-instance template="FeedNewsN" Index="13" Mod="13" LogLevel="INFO"  />
+			
+			<!--server-instance template="FeedMiniN" Index="2" LogLevel="DEBUG"  />
+                        <server-instance template="FeedMiniN" Index="3" LogLevel="DEBUG"  /-->
+			<server-instance template="FeedMini" Index="2" Mod="2" LogLevel="INFO"  />
+			<server-instance template="FeedMini" Index="3" Mod="3" LogLevel="INFO"  />
+			
+			<server-instance template="FeedViewN" Index="34" Mod="34" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="45" Mod="45" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="48" Mod="48" LogLevel="INFO"  />
+		</node>
+		<node name="node_f57">
+                        <server-instance template="FeedMini" Index="11" Mod="11"  LogLevel="INFO"  />
+			<server-instance template="FeedNewsN" Index="4" Mod="4" LogLevel="INFO"  />
+			<server-instance template="FeedNewsN" Index="19" Mod="19" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="43" Mod="43" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="47" Mod="47" LogLevel="INFO"  />
+		</node>
+
+		<node name="node_f58">
+			<server-instance template="FeedNewsN" Index="6" Mod="6" LogLevel="INFO"  />
+			<server-instance template="FeedNewsN" Index="9" Mod="9" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="32" Mod="32" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="8" Mod="8" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="41" Mod="41" LogLevel="INFO"  />
+		</node>
+
+		<node name="node_f59">
+		</node>
+
+		<node name="node_f61">
+		</node>
+		<node name="node_f62">
+			<server-instance template="FeedMini" Index="6" Mod="6"   LogLevel="INFO"  />
+                        <server-instance template="FeedMini" Index="7" Mod="7"   LogLevel="INFO"  />
+			<server-instance template="FeedMini" Index="12" Mod="12"   LogLevel="INFO"  />
+                        <server-instance template="FeedMini" Index="13" Mod="13"   LogLevel="INFO"  />
+			<server-instance template="PhotoDataGathering" Index="7" LogLevel="DEBUG"  />
+			<server-instance template="PhotoDataGathering" Index="8" LogLevel="DEBUG"  />
+			<server-instance template="PhotoDataGathering" Index="9" LogLevel="DEBUG"  />
+			<server-instance template="FeedGroup" Index="2" LogLevel="DEBUG"  />
+		</node>
+		<node name="node_f63">
+		
+			<server-instance template="FeedNewsN" Index="8" Mod="8" LogLevel="INFO"  />
+			<server-instance template="FeedMini" Index="8" Mod="8" LogLevel="DEBUG"  />
+                </node>
+		<node name="node_f60">
+                        <server-instance template="FeedInterface" Index="0" Mod="0" LogLevel="INFO"  />
+                        <server-instance template="FeedAssistant" Index="0" Mod="0" LogLevel="INFO"  />
+			<server-instance template="FeedAdDispatcher" Index="0" LogLevel="INFO"  />
+			<server-instance template="FeedDispatcher2" Index="-3" Mod="-3" LogLevel="INFO"  />
+			<server-instance template="FeedDispatcher2" Index="-4" Mod="-4" LogLevel="INFO"  />
+			<server-instance template="FeedDispatcher2" Index="-5" Mod="-5" LogLevel="INFO"  />
+		</node>
+		<node name="node_f64">
+                        
+		</node>
+		
+		<node name="node_f65">
+			<server-instance template="FeedGroupCount" Index="0" LogLevel="INFO"  />
+			<server-instance template="FeedGroup" Index="5" LogLevel="DEBUG"  />
+			<server-instance template="FeedGroup" Index="1" LogLevel="DEBUG"  />
+			<server-instance template="FeedGroup" Index="0" LogLevel="DEBUG"  />
+			<server-instance template="FeedMini" Index="18" Mod="18"  LogLevel="DEBUG"  />
+                        <server-instance template="FeedMini" Index="19" Mod="19"  LogLevel="DEBUG"  />
+		</node>
+		<node name="node_f66">
+		</node>
+		<node name="node_f67">
+			
+		</node>
+		<node name="node_f68">
+			<server-instance template="FeedGroupCount" Index="3" LogLevel="INFO"  />
+			<server-instance template="FeedGroup" Index="8" LogLevel="DEBUG"  />
+			<server-instance template="FeedViewN" Index="6" Mod="6" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="26" Mod="26" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="17" Mod="17" LogLevel="INFO"  />
+		        <server-instance template="FeedSink" Index="3" LogLevel="INFO"  />
+		</node>
+		<node name="node_f69">
+		</node>
+		<node name="node_f104">
+			
+			<server-instance template="FeedNewsN" Index="-1" Mod="-1" LogLevel="INFO"  />
+			<server-instance template="FeedNewsN" Index="-2" Mod="-2" LogLevel="INFO"  />
+			<server-instance template="FeedMini" Index="-1" Mod="-1" LogLevel="INFO"  />
+			<server-instance template="FeedMini" Index="-2" Mod="-2" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="-1" Mod="-1" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="-4" Mod="-4" LogLevel="INFO"  />
+		</node>
+		<node name="node_f70">
+
+			
+			
+		</node>
+		<node name="node_f71">
+			<server-instance template="FeedAssistantN" Index="2" Mod="2" LogLevel="INFO" />
+			<server-instance template="FeedAssistantN" Index="5" Mod="5" LogLevel="INFO" />
+			<server-instance template="FeedAssistantN" Index="7" Mod="7" LogLevel="INFO" />
+			
+			<server-instance template="FeedCacheHA" Index="-1" Mod="-1" LogLevel="INFO"  />
+			<server-instance template="FeedNewsN" Index="-3" Mod="-3" LogLevel="INFO"  />
+			<server-instance template="FeedNewsN" Index="-4" Mod="-4" LogLevel="INFO"  />
+			<server-instance template="FeedMini" Index="-3" Mod="-3" LogLevel="INFO"  />
+			<server-instance template="FeedMini" Index="-4" Mod="-4" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="-2" Mod="-2" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="-3" Mod="-3" LogLevel="INFO"  />
+
+		</node>
+		<node name="node_f72">
+			<server-instance template="FeedAssistantN" Index="-1" Mod="-1" LogLevel="INFO" />
+			<server-instance template="FeedAssistantN" Index="-2" Mod="-2" LogLevel="INFO" />
+			<server-instance template="FeedAssistantN" Index="-3" Mod="-3" LogLevel="INFO" />
+			<server-instance template="FeedAssistantN" Index="-4" Mod="-4" LogLevel="INFO" />
+			<server-instance template="FeedAssistantN" Index="-5" Mod="-5" LogLevel="INFO" />
+			
+			<server-instance template="FeedViewN" Index="1" Mod="1" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="11" Mod="11" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="21" Mod="21" LogLevel="INFO"  />
+
+		</node>
+		<node name="node_f73">
+			<server-instance template="FeedNewsN" Index="14" Mod="14" LogLevel="INFO"  />
+			
+			<server-instance template="FeedNewsN" Index="-5" Mod="-5" LogLevel="INFO"  />
+			<server-instance template="FeedMini" Index="-5" Mod="-5" LogLevel="INFO"  />
+			<server-instance template="Controller" Index="FeedViewR" Cluster="50" Interval="5" LogLevel="DEBUG" />
+			<server-instance template="Controller" Index="FeedDispatcherR" Cluster="10" Interval="5" LogLevel="DEBUG" />
+		</node>
+		<node name="node_f74">
+			<server-instance template="PhotoMemory" Index="4" LogLevel="DEBUG"  />
+			<server-instance template="PhotoDataGathering" Index="4" LogLevel="DEBUG"  />
+			<server-instance template="PhotoDataGathering" Index="5" LogLevel="DEBUG"  />
+			<server-instance template="PhotoDataGathering" Index="6" LogLevel="DEBUG"  />
+			<server-instance template="PhotoMemoryGate" Index="1" LogLevel="DEBUG" FcgiSocket="10.3.17.95:9000" />
+		</node>
+		<node name="node_f75">
+			<server-instance template="FeedViewN" Index="37" Mod="37" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="29" Mod="29" LogLevel="INFO"  />
+			<server-instance template="PhotoMemoryGate" Index="3" LogLevel="DEBUG" FcgiSocket="10.3.19.66:9000" />
+		</node>
+		<node name="node_f76">
+			<server-instance template="FeedNaiveBayes" Index="1" Mod="0" LogLevel="INFO"  />
+			<server-instance template="FeedNewsN"     Index="51" Mod="51" LogLevel="INFO" /> 
+		</node>
+
+		<node name="node_f80">
+			<server-instance template="FeedCacheN" Index="6" Mod="6" LogLevel="INFO"  />
+			<server-instance template="FeedCacheLogic" Index="6" Mod="6" LogLevel="INFO"  />
+		</node>
+		<node name="node_f81">
+			<server-instance template="FeedGroup" Index="7" LogLevel="DEBUG"  />
+			<server-instance template="FeedGroup" Index="3" LogLevel="DEBUG"  />	
+			<server-instance template="FeedGroupCount" Index="2" LogLevel="INFO"  />
+			<server-instance template="FeedCacheN" Index="7" Mod="7" LogLevel="INFO"  />
+			<server-instance template="FeedCacheLogic" Index="7" Mod="7" LogLevel="INFO"  />
+		</node>
+		<node name="node_f82">
+			<server-instance template="FeedViewN" Index="31" Mod="31" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="5" Mod="5" LogLevel="INFO"  />
+			<server-instance template="FeedCacheN" Index="3" Mod="3" LogLevel="INFO"  />
+			<server-instance template="FeedCacheLogic" Index="3" Mod="3" LogLevel="INFO"  />
+		</node>
+		<node name="node_f83">
+			<server-instance template="FeedNewsN" Index="11" Mod="11" LogLevel="INFO"  />
+			<server-instance template="FeedCacheN" Index="8" Mod="8" LogLevel="INFO"  />
+			<server-instance template="FeedCacheLogic" Index="8" Mod="8" LogLevel="INFO"  />
+		</node>
+		<node name="node_f84">
+			<server-instance template="FeedCacheN" Index="5" Mod="5" LogLevel="INFO"  />
+			<server-instance template="FeedCacheLogic" Index="5" Mod="5" LogLevel="INFO"  />
+		</node>
+		<node name="node_f85">
+			<server-instance template="FeedNewsN" Index="15" Mod="15" LogLevel="INFO"  />
+		</node>
+		<node name="node_f86">
+			<server-instance template="FeedViewN" Index="27" Mod="27" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="46" Mod="46" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="7" Mod="7" LogLevel="INFO"  />
+		</node>
+		<node name="node_f87">
+		</node>
+		<node name="node_f88">
+			<server-instance template="FeedCacheN" Index="9" Mod="9" LogLevel="INFO"  />
+			<server-instance template="FeedCacheLogic" Index="9" Mod="9" LogLevel="INFO"  />
+		</node>
+		<node name="node_f89">
+			<server-instance template="FeedCache" Index="8" LogLevel="INFO"  />
+			<server-instance template="FeedCacheN" Index="-9" Mod="8" LogLevel="INFO"  />
+		</node>
+			
+		<node name="node_f90">
+			<server-instance template="SocialWikiHotByWikiid" Index="5" Mod="5" LogLevel="INFO" />
+			<server-instance template="SocialWikiHotByWikiid" Index="6" Mod="6" LogLevel="INFO" />
+			<server-instance template="SocialWikiHotByWikiid" Index="7" Mod="7" LogLevel="INFO" />
+			<server-instance template="SocialWikiHotByWikiid" Index="8" Mod="8" LogLevel="INFO" />
+			<server-instance template="SocialWikiHotByWikiid" Index="9" Mod="9" LogLevel="INFO" />
+			<server-instance template="FeedCacheN" Index="1" Mod="1" LogLevel="INFO"  />
+			<server-instance template="FeedCacheLogic" Index="1" Mod="1" LogLevel="INFO"  />
+		</node>
+
+		<node name="node_f91">
+			<server-instance template="SocialWikiHotByWikiid" Index="0" Mod="0" LogLevel="INFO" />
+			<server-instance template="SocialWikiHotByWikiid" Index="1" Mod="1" LogLevel="INFO" />
+			<server-instance template="SocialWikiHotByWikiid" Index="2" Mod="2" LogLevel="INFO" />
+			<server-instance template="SocialWikiHotByWikiid" Index="3" Mod="3" LogLevel="INFO" />
+			<server-instance template="SocialWikiHotByWikiid" Index="4" Mod="4" LogLevel="INFO" />
+			<server-instance template="FeedCacheN" Index="2" Mod="2" LogLevel="INFO"  />
+			<server-instance template="FeedCacheLogic" Index="2" Mod="2" LogLevel="INFO"  />
+		</node>
+
+		<node name="node_f92">
+			<server-instance template="FeedItemBlockCache" Index="-4" Mod="-4" LogLevel="DEBUG" />
+			<server-instance template="FeedItemBlockCache" Index="-5" Mod="-5" LogLevel="DEBUG" />
+			<server-instance template="FeedItemBlockCache" Index="-6" Mod="-6" LogLevel="DEBUG" />
+			<server-instance template="FeedItemBlockCache" Index="05" Mod="5" LogLevel="DEBUG" />
+			<server-instance template="FeedItemBlockCache" Index="06" Mod="6" LogLevel="DEBUG" />
+			<server-instance template="FeedItemBlockCache" Index="07" Mod="7" LogLevel="DEBUG" />
+			<server-instance template="FeedItemBlockCache" Index="08" Mod="8" LogLevel="DEBUG" />
+			<server-instance template="FeedItemBlockCache" Index="09" Mod="9" LogLevel="DEBUG" />
+			<server-instance template="FeedItemCacheByUserid" Index="1" Mod="0" LogLevel="DEBUG"  />
+		</node>
+
+		<node name="node_f93">
+			
+		</node>
+
+		<node name="node_f94">
+			<server-instance template="SocialWikiNewsByWikiid" Index="5" Mod="5" LogLevel="INFO" />
+			<server-instance template="SocialWikiNewsByWikiid" Index="6" Mod="6" LogLevel="INFO" />
+			<server-instance template="SocialWikiNewsByWikiid" Index="7" Mod="7" LogLevel="INFO" />
+			<server-instance template="SocialWikiNewsByWikiid" Index="8" Mod="8" LogLevel="INFO" />
+			<server-instance template="SocialWikiNewsByWikiid" Index="9" Mod="9" LogLevel="INFO" />
+			<server-instance template="FeedCacheN" Index="0" Mod="0" LogLevel="INFO"  />
+			<server-instance template="FeedCacheLogic" Index="0" Mod="0" LogLevel="INFO"  />
+		</node>
+		<node name="node_f95">
+			<server-instance template="SocialWikiByUserid" Index="0" Mod="0" LogLevel="INFO" />
+			<server-instance template="FeedNewsN" Index="7" Mod="7" LogLevel="INFO"  />
+			<server-instance template="FeedNewsN" Index="2" Mod="2" LogLevel="INFO"  />
+			<server-instance template="FeedMini" Index="10" Mod="10"  LogLevel="INFO"  />
+                        <server-instance template="FeedAssistant" Index="-1" Mod="-1" LogLevel="INFO"  />
+		</node>
+		<node name="node_f96">
+			<server-instance template="FeedViewN" Index="35" Mod="35" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="44" Mod="44" LogLevel="INFO"  />
+			<server-instance template="FeedNewsM" Index="50" Mod="50" LogLevel="DEBUG"  />
+		      	<server-instance template="FeedSortN" Index="1" Mod="1"  LogLevel="INFO" />
+			<server-instance template="FeedItemCacheByAppid" Index="1" Mod="0" LogLevel="DEBUG"  />
+		</node>
+		<node name="node_f97">
+			<server-instance template="FeedNewsN" Index="0" Mod="0" LogLevel="INFO"  />
+			<server-instance template="FeedNewsN" Index="16" Mod="16" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="16" Mod="16" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="36" Mod="36" LogLevel="INFO"  />
+			<server-instance template="PhotoMemoryGate" Index="4" LogLevel="DEBUG" FcgiSocket="10.3.25.227:9000" />
+		</node>
+		<node name="node_f98">
+			<server-instance template="SocialWikiNewsByWikiid" Index="0" Mod="0" LogLevel="INFO" />
+			<server-instance template="SocialWikiNewsByWikiid" Index="1" Mod="1" LogLevel="INFO" />
+			<server-instance template="SocialWikiNewsByWikiid" Index="2" Mod="2" LogLevel="INFO" />
+			<server-instance template="SocialWikiNewsByWikiid" Index="3" Mod="3" LogLevel="INFO" />
+			<server-instance template="SocialWikiNewsByWikiid" Index="4" Mod="4" LogLevel="INFO" />
+			
+			<server-instance template="FeedCacheLogic" Index="4" Mod="4" LogLevel="INFO"  />
+			<server-instance template="FeedCacheN" Index="4" Mod="4" LogLevel="INFO"  />
+			
+			<server-instance template="FeedViewN" Index="30" Mod="30" LogLevel="INFO"  />
+		        <server-instance template="FeedViewN" Index="39" Mod="39" LogLevel="INFO"  />
+		</node>
+
+		<node name="node_f111">
+			<server-instance template="FeedItemCacheByAppid" Index="0" Mod="0" LogLevel="DEBUG"  />
+			<server-instance template="FeedItemCacheByUserid" Index="0" Mod="0" LogLevel="DEBUG"  />
+		</node>
+
+		<node name="node_f112">
+			<server-instance template="FeedAssistantN" Index="3" Mod="3" LogLevel="INFO" />
+			<server-instance template="FeedMini" Index="14" Mod="14" LogLevel="DEBUG"  />
+			<server-instance template="FeedMini" Index="17" Mod="17" LogLevel="DEBUG"  />
+			<server-instance template="FeedFocusInvert" Index="5" Mod="5" LogLevel="INFO"  /> <!-->for ha</-->
+		</node>
+
+		<node name="node_f113">
+			<server-instance template="FeedCacheHA" Index="3" Mod="3"  LogLevel="INFO" />
+			<server-instance template="FeedCacheN" Index="-4" Mod="3" LogLevel="INFO"  />
+		</node>
+
+		<node name="node_f117">
+			<server-instance template="FeedCache" Index="6" LogLevel="INFO"  />
+			<server-instance template="FeedCacheN" Index="-7" Mod="6" LogLevel="INFO"  />
+		</node>
+
+		<node name="node_f119">
+			<server-instance template="FeedCacheHA" Index="0" Mod="0"  LogLevel="INFO" />
+			<server-instance template="FeedCacheN" Index="-1" Mod="0" LogLevel="INFO"  />
+		</node>
+
+		<node name="node_f120">
+			<server-instance template="FeedCacheHA" Index="4" Mod="4"  LogLevel="INFO" />
+			<server-instance template="FeedCacheN" Index="-5" Mod="4" LogLevel="INFO"  />
+
+		</node>
+
+		<node name="node_fdb1">
+			<server-instance template="FeedViewN" Index="15" Mod="15" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="25" Mod="25" LogLevel="INFO"  />
+			<server-instance template="FeedViewN" Index="28" Mod="28" LogLevel="INFO"  />
+		</node>
+
+		<node name="node_fdb5">
+			<server-instance template="FeedItemWrapper" Index="1" Mod="0" LogLevel="DEBUG" />
+			<server-instance template="FeedItemWrapper" Index="2" Mod="0" LogLevel="DEBUG" />
+			<server-instance template="FeedItemCacheByUserid" Index="2" Mod="0" LogLevel="DEBUG"  />
+		</node>
+
+		<node name="node_fdb6">
+			<server-instance template="FeedItemWrapper" Index="3" Mod="0" LogLevel="DEBUG" />
+			<server-instance template="FeedItemWrapper" Index="4" Mod="0" LogLevel="DEBUG" />
+			<server-instance template="FeedItemCacheByUserid" Index="3" Mod="0" LogLevel="DEBUG"  />
+		</node>
+
+		<node name="node_fdb7">
+			<server-instance template="FeedItemWrapper" Index="5" Mod="0" LogLevel="DEBUG" />
+			<server-instance template="FeedItemWrapper" Index="6" Mod="0" LogLevel="DEBUG" />
+			<server-instance template="FeedItemCacheByUserid" Index="4" Mod="0" LogLevel="DEBUG"  />
+		</node>
+
+		<node name="node_fdb8">
+			<server-instance template="FeedItemWrapper" Index="7" Mod="0" LogLevel="DEBUG" />
+			<server-instance template="FeedItemWrapper" Index="8" Mod="0" LogLevel="DEBUG" />
+			<server-instance template="FeedItemCacheByUserid" Index="5" Mod="0" LogLevel="DEBUG"  />
+		</node>
+
+		<node name="node_fdb9">
+			<server-instance template="FeedItemWrapper" Index="9" Mod="0" LogLevel="DEBUG" />
+			<server-instance template="FeedItemWrapper" Index="10" Mod="0" LogLevel="DEBUG" />
+			<server-instance template="FeedItemCacheByUserid" Index="6" Mod="0" LogLevel="DEBUG"  />
+		</node>
+		<node name="node_fdb10">
+		</node>
+		<node name="node_fdb11">
+			<server-instance template="FeedItemBlockCache" Index="-1" Mod="-1" LogLevel="DEBUG" />
+			<server-instance template="FeedItemBlockCache" Index="-2" Mod="-2" LogLevel="DEBUG" />
+			<server-instance template="FeedItemBlockCache" Index="-3" Mod="-3" LogLevel="DEBUG" />
+			<server-instance template="FeedItemBlockCache" Index="03" Mod="3" LogLevel="DEBUG" />
+			<server-instance template="FeedItemBlockCache" Index="04" Mod="4" LogLevel="DEBUG" />
+			<server-instance template="FeedItemWrapper" Index="15" Mod="0" LogLevel="DEBUG" />
+			<server-instance template="FeedItemWrapper" Index="16" Mod="0" LogLevel="DEBUG" />
+			<server-instance template="FeedItemWrapper" Index="17" Mod="0" LogLevel="DEBUG" />
+			<server-instance template="FeedItemWrapper" Index="18" Mod="0" LogLevel="DEBUG" />
+			<server-instance template="FeedItemWrapper" Index="19" Mod="0" LogLevel="DEBUG" />
+		</node>
+		<!--node name="node_fdb13">
+			
+		</node-->
+
+
+		<node name="node_f48">
+			<server-instance template="FeedAssistantN" Index="8" Mod="8" LogLevel="INFO" />
+			<server-instance template="FeedAssistantN" Index="9" Mod="9" LogLevel="INFO" />
+			<server-instance template="FeedAssistantN" Index="4" Mod="4" LogLevel="INFO" />
+		</node>
+
+		<node name="node_tm1">
+			<server-instance template="TimeLineFeed" Index="0" Mod="0" LogLevel="DEBUG" />
+			<server-instance template="TimeLineFeed" Index="1" Mod="1" LogLevel="DEBUG" />
+			<server-instance template="TimeLineFeed" Index="2" Mod="2" LogLevel="DEBUG" />
+			<server-instance template="TimeLineFeed" Index="3" Mod="3" LogLevel="DEBUG" />
+			<server-instance template="TimeLineFeed" Index="4" Mod="4" LogLevel="DEBUG" />
+		</node>
+		
+		<node name="node_tm2">
+			<server-instance template="TimeLineFeed" Index="5" Mod="5" LogLevel="DEBUG" />
+			<server-instance template="TimeLineFeed" Index="6" Mod="6" LogLevel="DEBUG" />
+			<server-instance template="TimeLineFeed" Index="7" Mod="7" LogLevel="DEBUG" />
+			<server-instance template="TimeLineFeed" Index="8" Mod="8" LogLevel="DEBUG" />
+			<server-instance template="TimeLineFeed" Index="9" Mod="9" LogLevel="DEBUG" />
+		</node>
+
+        </application>
+</icegrid>

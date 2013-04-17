@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>广告策略综合平台</title>
+
+<link rel="shortcut icon" type="image/x-icon" href="http://a.xnimg.cn/favicon-rr.ico?ver=3">
+<link rel="stylesheet" href="/static/Navigate_files/reset.css" type="text/css" media="screen">
+<link rel="stylesheet" href="/static/Navigate_files/style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="/static/Navigate_files/invalid.css" type="text/css" media="screen">	
+
+<script type="text/javascript" src="/static/Navigate_files/jquery-1.js"></script>
+<script type="text/javascript" src="/static/Navigate_files/simpla.js"></script>
+<script type="text/javascript" src="/static/Navigate_files/facebox.js"></script>
+<script type="text/javascript" src="/static/Navigate_files/jquery.js"></script>
+<script type="text/javascript" src="/static/Navigate_files/jquery_002.js"></script>
+
+<script>
+
+if(!Array.prototype.map)
+Array.prototype.map = function(fn,scope) {
+  var result = [],ri = 0;
+  for (var i = 0,n = this.length; i < n; i++){
+    if(i in this){
+      result[ri++]  = fn.call(scope ,this[i],i,this);
+    }
+  }
+return result;
+};
+
+var getWindowSize = function(){
+  return ["Width", "Height"].map(function(name){
+    return window["inner"+name] ||
+      document.compatMode === "CSS1Compat" && document.documentElement[ "client" + name ] || document.body[ "client" + name ]
+  });
+};
+
+jQuery(document).ready(function(){
+    var size = getWindowSize();
+    jQuery("#main").height(size[1]-35);
+    //jQuery("#tm0").click();
+});
+
+function go(mid,url) {
+    jQuery("#main").attr('src', url);
+    jQuery('.nav-top-item').removeClass("current");
+    jQuery('.nav-subitem').removeClass("current");
+    if(jQuery('#tm'+mid).length > 0)
+        jQuery('#tm'+mid).addClass("current");
+    if(jQuery('#sm'+mid).length >0){
+        jQuery('#sm'+mid).addClass("current");
+        jQuery('#sm'+mid).parent().parent().prev().addClass("current");
+    }
+}
+</script>
+</head>
+
+
+<body class="site-body"><div id="site-body-wrapper"> <!-- Wrapper for the radial gradient background -->
+
+    <div id="sidebar"><div id="sidebar-wrapper"> <!-- Sidebar with logo and menu -->
+
+        <h2 id="sidebar-title">
+          <a href="#">广告策略平台</a>
+        </h2>
+
+        <!-- Logo (221px wide) -->
+        
+
+        <ul id="main-nav">  <!-- Accordion Menu -->
+          <li>
+          <a style="padding-right: 15px;" href="javascript:go(0,'/serviceStatus/')" class="nav-top-item no-submenu current" id="tm0">中心面板</a>       
+          </li>
+
+          <li> 
+          <a style="padding-right: 15px;" href="#" class="nav-top-item" id="tm1">参数平台</a>
+          <ul style="display: block;">
+            <li><a href="javascript:go(13,'argsManage/')" class="nav-subitem" id="sm13">产品策略参数</a></li>
+            <li><a href="javascript:go(14,'argsManage/sys')" class="nav-subitem" id="sm14">系统参数</a></li>
+            <li><a href="javascript:go(15,'http://10.3.19.120:6941/check-plat?view=view6')" class="nav-subitem" id="sm15">系统参数</a></li>
+          </ul>
+          </li>
+
+          <li> 
+          <a style="padding-right: 15px;" href="#" class="nav-top-item" id="tm2">内存监控</a>
+          <ul style="display: none;">
+            <li><a href="javascript:go(24,'admobMonitor/')" class="nav-subitem" id="sm24">AdMob</a></li>
+            <li><a href="javascript:go(23,'adengineb/adInfo')" class="nav-subitem" id="sm23">AdEngineB</a></li>
+            <li><a href="javascript:go(22,'indexService/request')" class="nav-subitem" id="sm22">IndexServer</a></li>
+            <li><a href="javascript:go(21,'adedmsendermonitor/adInfo')" class="nav-subitem" id="sm21">AdEdmSender</a></li>
+            <li><a href="javascript:go(25,'/adUserCache/set')" class="nav-subitem" id="sm25">AdUserCache测试</a></li>
+          </ul>
+          </li>
+
+          <li> 
+          <a style="padding-right: 15px;" href="#" class="nav-top-item" id="tm3">常用工具</a>
+          <ul style="display: block;">
+            <li><a href="javascript:go(34,'http://jira.d.xiaonei.com')" class="nav-subitem" id="sm34">JIRA</a></li>
+            <li><a href="javascript:go(34,'http://wiki.d.xiaonei.com')" class="nav-subitem" id="sm34">WIKI</a></li>
+            <li><a href="javascript:go(31,'http://ntm.d.xiaonei.com/ganglia')" class="nav-subitem" id="sm31">Ganglia</a></li>
+            <li><a href="javascript:go(33,'http://review.jebe.d.xiaonei.com')" class="nav-subitem" id="sm33">Review Board</a></li>
+            <li><a href="javascript:go(32,'/serviceFinder/')" class="nav-subitem" id="sm32">广告服务部署</a></li>
+          </ul>
+          </li>
+
+        </ul> 
+        
+        
+        <!-- End #main-nav -->
+          <a href="#"><img id="logo" src="/static/Navigate_files/renren.jpeg" align="right"></a>
+
+    </div></div> <!-- End #sidebar -->
+
+    <div id="site-main-content"> <!-- Main Content Section with everything -->
+
+
+      <iframe name="main" id="main" src="/serviceStatus/" style="border: 2px none; height: 614px;" allowtransparency="true" frameborder="true" height="auto" scrolling="auto" width="100%">
+      </iframe>
+
+      <div class="clear"></div>
+
+
+
+      <div id="footer">
+        <small> <!-- Remove this notice or replace it with whatever you want -->
+          © Copyright 2013 AdStragy | Powered by <a href="rong.tang@renren-inc.com">tom</a> | <a href="#">Top</a>
+        </small>
+      </div><!-- End #footer -->
+
+    </div> <!-- End #main-content -->
+  </div>
+
+</body>
+</html>

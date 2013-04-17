@@ -1,0 +1,79 @@
+<icegrid>
+	<application name="Trigger">
+		<include file="templates/index_service.xml" />
+		<include file="templates/ad_memc_proxy.xml" />
+		<node name="node_trigger1">
+			<server-instance template="IndexService" Mod="17"  Index="17" LogLevel="INFO" />
+			<server-instance template="AdMemcProxy"   Index="1" LogLevel="INFO" />
+		</node>
+		<node name="node_trigger2">
+			<server-instance template="IndexService" Mod="0"  Index="0" LogLevel="INFO" />
+			<server-instance template="IndexService" Mod="-1" Index="-1" LogLevel="INFO" />
+		</node>
+		<node name="node_trigger3">
+			<server-instance template="IndexService" Mod="3" Index="3" LogLevel="INFO" />
+			<server-instance template="AdMemcProxy"   Index="2" LogLevel="INFO" />
+		</node>
+		<node name="node_trigger4">
+			<server-instance template="IndexService" Mod="4" Index="4" LogLevel="INFO" />
+			<server-instance template="AdMemcProxy"   Index="3" LogLevel="INFO" />
+		</node>
+		<node name="node_trigger6">
+			<server-instance template="IndexService" Mod="6" Index="6" LogLevel="INFO" />
+			<server-instance template="IndexService" Mod="-4"  Index="-4" LogLevel="INFO" />
+		</node>
+		<node name="node_trigger7">
+			<server-instance template="IndexService" Mod="5" Index="5" LogLevel="INFO" />
+			<server-instance template="AdMemcProxy"   Index="0" LogLevel="INFO" />
+		</node>
+		<node name="node_trigger8">
+			<server-instance template="IndexService" Mod="12" Index="12" LogLevel="INFO" />
+			<server-instance template="IndexService" Mod="-3" Index="-3" LogLevel="INFO" />
+		</node>
+		<node name="node_trigger9">
+			<server-instance template="IndexService" Mod="14" Index="14" LogLevel="INFO" />
+			<server-instance template="IndexService" Mod="-2" Index="-2" LogLevel="INFO" />
+		</node>
+		<node name="node_trigger10">
+			<server-instance template="IndexService" Mod="16" Index="16" LogLevel="INFO" />
+		</node>
+		<node name="node_trigger11">
+			<server-instance template="IndexService" Mod="1"  Index="1" LogLevel="INFO" />
+			<server-instance template="IndexService" Mod="7" Index="7" LogLevel="INFO" />
+		</node>
+		<node name="node_trigger12">
+			<server-instance template="IndexService" Mod="11" Index="11" LogLevel="INFO" />
+			<server-instance template="IndexService" Mod="13" Index="13" LogLevel="INFO" />
+		</node>
+		<node name="node_trigger13">
+			<server-instance template="IndexService" Mod="2" Index="2" LogLevel="INFO" />
+			<server-instance template="IndexService" Mod="15" Index="15" LogLevel="INFO" />
+		</node>
+		<node name="node_trigger14">
+			<server-instance template="IndexService" Mod="19" Index="19" LogLevel="INFO" />
+		</node>
+		<node name="node_trigger15">
+			<server-instance template="IndexService" Mod="20" Index="20" LogLevel="INFO" />
+			<server-instance template="IndexService" Mod="21" Index="21" LogLevel="INFO" />
+		</node>
+		<node name="node_trigger16">
+			<server-instance template="IndexService" Mod="9" Index="9" LogLevel="INFO" />
+			<server-instance template="IndexService" Mod="10"  Index="10" LogLevel="INFO" />
+		</node>
+		<node name="node_trigger17">
+			<server-instance template="IndexService" Mod="18" Index="18" LogLevel="INFO" />
+		</node>
+		<node name="node_trigger18">
+			<server-instance template="IndexService" Mod="22" Index="22" LogLevel="INFO" />
+		</node>
+		<node name="node_trigger19">
+			<server-instance template="IndexService" Mod="8"  Index="8" LogLevel="INFO" />
+		</node>
+		<node name="node_trigger20">
+			<server-instance template="IndexService" Mod="23" Index="23" LogLevel="INFO" />
+		</node>
+		<node name="node_trigger21">
+			<server-instance template="IndexService" Mod="24" Index="24" LogLevel="INFO" />
+		</node>
+	</application>
+</icegrid>
