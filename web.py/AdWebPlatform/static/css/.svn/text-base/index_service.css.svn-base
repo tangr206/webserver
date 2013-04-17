@@ -1,0 +1,29 @@
+.ctrlPanel{
+	position:relative;
+	text-align:right;
+	padding:2px 10px;
+}
+.resultTable{
+	position:relative;
+	width:100%;
+	margin:0px;
+	display:none;
+}
+#resTables .ind, #resTables .group{
+	position:relative;
+	text-align:left;
+	width:95%;
+	margin:5px auto;	
+}
+#resTables .ind .adzoneId, #resTables .group .adgroupId{
+	color:#C33;
+}
+#resTables .ind table{
+	position:relative;
+	margin-bottom:10px;
+}
+#resTables .group table,#closed table{
+	position:relative;
+	width:80%;
+	margin:5px auto;
+}

@@ -1,0 +1,55 @@
+
+#role2user{
+	position:relative;
+	width:450px;
+	margin:0 auto;
+}
+.lFloat{
+	position:relative;
+	float:left;
+	height:300px;
+	text-align:center;
+}
+#allUsers, #roleUsers{
+	width:200px;
+}
+.lFloat .select{
+	position:relative;
+	width:180px;
+	height:270px;
+	margin:3px auto;
+	text-align:center;
+	overflow-y:scroll;
+	border:#7F9DB9 1px solid;
+}
+.lFloat .select.sel{
+	border:#B2995B 1px solid;
+	outline:solid 1px #F1CA7F;
+}
+.lFloat .select span{
+	position:relative;
+	display:block;
+	width:150px;
+	padding:2px 4px;
+	margin:1px auto;
+	text-align:left;
+	float:left;
+	border:none;
+	background:#FFF;
+	color:#000;
+	cursor:pointer;
+}
+.lFloat .select span.sel{
+	border:#FFF dashed 1px;
+	background:#03C;
+	color:#FFF;
+	margin:0 auto;
+}
+#opers{
+	width:50px;
+}
+#opers input{
+	position:relative;
+	top:50px;
+	margin:4px auto;
+}

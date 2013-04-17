@@ -1,0 +1,26 @@
+#ctrlPanel{
+	position:relative;
+	width:90%;
+	left:5%;
+	text-align:left;
+	padding-bottom:10px;
+}
+#searcher{
+	position:relative;
+	left:350px;
+}
+.infoTable{
+	position:relative;
+	margin:0 auto;
+	top:5px;
+	width:770px;
+	display:none;
+	border:solid 1px;
+	text-align:center;
+}
+.keyWord{
+	background:#FF9;
+}
+.hlight{
+	background:#F90;
+}

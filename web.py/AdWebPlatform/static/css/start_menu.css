@@ -1,0 +1,80 @@
+.gtn{
+	position:absolute;
+	width:170px;
+}
+.gtn .con{
+	position:relative;
+	width:170px;
+	text-align:right;
+}
+.con .btn{
+	position:relative;
+	display:block;
+	top:0px;
+	left:10px;
+	float:none;
+	margin: 5px 0px;
+	width: 160px;
+	text-align: center;
+	padding:5px 0px;
+	line-height:16px;
+	border:#000000 thin 1px;
+	box-sizing:border-box;
+	box-shadow:none;
+	outline:none;
+	border-bottom:#999999 1px solid;
+	border-top:#ffffff 1px solid;
+	border-radius:8px;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	-khtml-border-radius:8px;
+	font-size:16px;
+	cursor:pointer;
+	background-color:#eeeeee;
+	background-image: linear-gradient(bottom, rgb(222,222,222) 30%, rgb(240,240,240) 82%);
+	background-image: -o-linear-gradient(bottom, rgb(222,222,222) 30%, rgb(240,240,240) 82%);
+	background-image: -moz-linear-gradient(bottom, rgb(222,222,222) 30%, rgb(240,240,240) 82%);
+	background-image: -webkit-linear-gradient(bottom, rgb(222,222,222) 30%, rgb(240,240,240) 82%);
+	background-image: -ms-linear-gradient(bottom, rgb(222,222,222) 30%, rgb(240,240,240) 82%);
+	background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.3, rgb(222,222,222)),color-stop(0.82, rgb(240,240,240)));
+}
+.con .btn:hover{
+	opacity:0.8;
+}
+.ptn{
+	position: absolute;
+	right: -50px;
+	width: 350px;
+	background-color: white;
+	border: #B2995B solid 1px;
+	outline: solid 1px #F1CA7F;
+	padding: 5px;
+}
+.ptn .con{
+	position:relative;
+	width:170px;
+	float:left;
+	margin:1px auto;
+}
+.ptn .toolbar{
+	position:relative;
+	width:100%;
+	margin-top:-5px;
+	margin-left:-5px;
+	padding:0px 5px;
+	line-height:22px;
+	text-indent:1em;
+	font-size:16px;
+	color:#FFF;
+	text-align:left;
+	background-color:#005EA8;
+}
+.ptn .cBtn{
+	position:absolute;
+	top:3px;
+	right:2px;
+	width:16px;
+	height:16px;
+	cursor:pointer;
+	background:url(/static/images/btn_popup_close.png);
+}
